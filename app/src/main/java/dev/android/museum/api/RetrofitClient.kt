@@ -8,16 +8,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitClient {
 
     val baseURL = "http://192.168.1.6:8080/api/"
+//val baseURL = "http://10.0.2.15:8080/api/"
 
-    fun getClient(): MuseumApi {
+    fun getClient(): MuseumApiService {
         return provideMuseumApi()
     }
 
-    private fun provideMuseumApi(): MuseumApi {
-        return provideRetrofit().create(MuseumApi::class.java)
+    private fun provideMuseumApi(): MuseumApiService {
+        return provideRetrofit().create(MuseumApiService::class.java)
     }
 
-    fun provideRetrofit(): Retrofit {
+    private fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(baseURL)
                 .client(provideOkHttpClient())
@@ -25,7 +26,7 @@ class RetrofitClient {
                 .build()
     }
 
-    fun provideOkHttpClient(): OkHttpClient {
+    private fun provideOkHttpClient(): OkHttpClient {
 
         return OkHttpClient.Builder()
                 .addInterceptor { chain ->
@@ -39,7 +40,7 @@ class RetrofitClient {
     }
 
 
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+    private fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
 
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
