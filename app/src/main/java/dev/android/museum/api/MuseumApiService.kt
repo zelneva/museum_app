@@ -1,11 +1,9 @@
 package dev.android.museum.api
 
-import dev.android.museum.MuseumListObject
 import dev.android.museum.model.*
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 interface MuseumApiService {
 
@@ -176,4 +174,71 @@ interface MuseumApiService {
                                @Field("language") language: String,
                                @Field("description") description: String,
                                @Field("author.id") authorId: String): Call<Unit>
+
+
+    /*
+    *  Users
+    */
+
+    @POST("user/register")
+    fun registration(@Field("username") login: String,
+                     @Field("password") password: String,
+                     @Field("name") name: String): Call<Unit>
+
+
+    @POST("user/login")
+    fun login(@Field("username") username: String,
+              @Field("password") password: String): Call<Unit>
+
+
+    @POST("user/logout")
+    fun logout()
+
+
+    @DELETE("user/{id}")
+    fun deleteUser(@Path("id") id: String)
+
+
+    @PUT("user/{id}")
+    fun updateUser(@Path("id") id: String,
+                   @Field("name") name: String,
+                   @Field("username") username: String,
+                   @Field("password") password: String): Call<User>
+
+
+    /*
+     * Favorite
+     */
+
+    @POST("favorite")
+    fun createFavorite(@Field("showpiece") showpieceId: String): Call<Unit>
+
+
+    @DELETE("favorite/{id}")
+    fun deleteFavorite(@Path("id") id: String): Call<Unit>
+
+
+    @GET("favorite")
+    fun getFavorite():Call<List<Favorite>>
+
+    /*
+     * Comment
+     */
+
+    @POST("comment")
+    fun createComment(@Field("showpiece") showpieceId: String,
+                      @Field("text") text: String) : Call<Unit>
+
+
+    @DELETE("comment/{id}")
+    fun deleteComment(@Path("id") id: String): Call<Unit>
+
+
+    @PUT("comment/{id}")
+    fun updateComment(@Path("id") id: String,
+                      @Field("text") text: String): Call<Unit>
+
+
+    @GET("comment")
+    fun getListCommentByShowpiece(@Field("showpiece_id") showpieceId: String): Call<List<Comment>>
 }
