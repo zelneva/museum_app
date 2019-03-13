@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/author_item_image"
+                android:id="@+id/showpiece_item_image"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
                 android:layout_marginTop="0dp"
@@ -29,11 +29,11 @@
                 android:src="@drawable/mona_lisa" />
 
             <TextView
-                android:id="@+id/author_item_name"
+                android:id="@+id/showpiece_item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/museum_image"
+                android:layout_below="@+id/showpiece_image"
                 android:gravity="center_vertical"
                 android:layout_marginHorizontal="6dp"
                 android:text="Мона Лиза"

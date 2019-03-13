@@ -15,7 +15,6 @@ import dev.android.museum.fragment.NullFragment
 
 class AuthorRecyclerViewAdapter(): RecyclerView.Adapter<AuthorRecyclerViewAdapter.ViewHolder>() {
 
-
     var names = arrayListOf<String>()
     var images = arrayListOf<String>()
 
