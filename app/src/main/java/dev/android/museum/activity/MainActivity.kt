@@ -1,5 +1,7 @@
 package dev.android.museum.activity
 
+import android.content.ClipData
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -7,12 +9,13 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
+import android.view.View
 import dev.android.museum.R
 import dev.android.museum.fragment.*
 
 
-class MainActivity : AppCompatActivity(), MainFragment.OnFragmentInteractionListener, MuseumListFragment.OnFragmentInteractionListener, AuthorListFragment
-.OnFragmentInteractionListener, ShowpieceListFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,12 +42,13 @@ class MainActivity : AppCompatActivity(), MainFragment.OnFragmentInteractionList
             }
 
             R.id.navigation_camera -> {
-                openFragment(NullFragment.newInstance())
+                val camera:View  = findViewById(R.id.navigation_camera)
+                openFragment(NullFragment.newInstance(""))
                 return@OnNavigationItemSelectedListener true
             }
 
             R.id.navigation_user -> {
-                openFragment(NullFragment.newInstance())
+                openFragment(NullFragment.newInstance(""))
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -59,15 +63,6 @@ class MainActivity : AppCompatActivity(), MainFragment.OnFragmentInteractionList
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
-    override fun messageFromParentFragment(uri: Uri) {
-        Log.i("TAG", "Main fragment")
-    }
-
-    override fun messageFromChildFragment(uri: Uri) {
-        Log.i("TAG", "Child fragment")
-    }
-
 
 }
 

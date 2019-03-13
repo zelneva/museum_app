@@ -1,17 +1,17 @@
 package dev.android.museum.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import dev.android.museum.R
+import dev.android.museum.activity.MainActivity
+import dev.android.museum.fragment.NullFragment
 
 class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapter.ViewHolder>() {
 
@@ -21,6 +21,7 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
     var images = arrayListOf<String>()
 
     lateinit var context: Context
+
 
     constructor(names: ArrayList<String>, address: ArrayList<String>, status: ArrayList<String>, images: ArrayList<String>, context: Context) : this() {
         this.names = names
@@ -32,7 +33,7 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.museum_list_item_fragment, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.museum_list_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -42,23 +43,24 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Picasso.get()
-                .load(images.get(position))
+                .load(images[position])
                 .into(holder.image)
-
-
-//        Glide.with(context)
-//                .asBitmap()
-//                .load(images.get(position))
-//                .into(holder.image)
 
         holder.name.text = names[position]
         holder.address.text = address[position]
         holder.status.text = status[position]
 
         holder.itemView.setOnClickListener {
-            Toast.makeText(context, "Click on " + names[position], Toast.LENGTH_SHORT )
-        }
 
+            val nullFragment = NullFragment.newInstance(names[position])
+            val activity: MainActivity = context as MainActivity
+
+            val ft = activity.supportFragmentManager.beginTransaction()
+            ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+            ft.replace(R.id.main_container, nullFragment)
+                    .addToBackStack(null)
+                    .commit()
+        }
     }
 
 
@@ -68,5 +70,4 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
         var address: TextView = itemView.findViewById(R.id.museum_address)
         var status: TextView = itemView.findViewById(R.id.museum_status)
     }
-
 }

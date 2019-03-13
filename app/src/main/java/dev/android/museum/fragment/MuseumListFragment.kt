@@ -14,15 +14,13 @@ import dev.android.museum.adapter.MuseumRecyclerViewAdapter
 
 
 class MuseumListFragment : Fragment() {
-    private var mListener: OnFragmentInteractionListener? = null
 
     var names = arrayListOf<String>()
     var address = arrayListOf<String>()
     var status = arrayListOf<String>()
     var images = arrayListOf<String>()
 
-    fun initList() {
-
+    private fun initList() {
         for (i in 0..7) {
             names.add("Национальный музей культуры")
             address.add("Москва ул. Ленина 1")
@@ -31,7 +29,7 @@ class MuseumListFragment : Fragment() {
         }
     }
 
-    fun initRecyclerView(view: View) {
+    private fun initRecyclerView(view: View) {
         val llm = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         val rv = view.findViewById<RecyclerView>(R.id.museum_list_rv)
         rv.layoutManager = llm
@@ -48,25 +46,6 @@ class MuseumListFragment : Fragment() {
         return view
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            mListener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        mListener = null
-    }
-
-
-    interface OnFragmentInteractionListener {
-        //         TODO: Update argument type and name
-        fun messageFromChildFragment(uri: Uri)
-    }
 
     companion object {
         fun newInstance(): MuseumListFragment = MuseumListFragment()

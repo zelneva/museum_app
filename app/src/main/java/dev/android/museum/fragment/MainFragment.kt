@@ -11,7 +11,7 @@ import dev.android.museum.R
 
 
 class MainFragment: Fragment() {
-    private var mListener: OnFragmentInteractionListener? = null
+//    private var mListener: OnFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -28,24 +28,20 @@ class MainFragment: Fragment() {
     }
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            mListener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        mListener = null
-    }
-
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun messageFromParentFragment(uri: Uri)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        if (context is OnFragmentInteractionListener) {
+//            mListener = context
+//        } else {
+//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+//        }
+//    }
+//
+//    override fun onDetach() {
+//        super.onDetach()
+//        mListener = null
+//    }
+//
 
     companion object {
         fun newInstance(): MainFragment = MainFragment()

@@ -12,7 +12,7 @@ import dev.android.museum.R
 
 class ShowpieceListFragment: Fragment() {
 
-    private var mListener: OnFragmentInteractionListener? = null
+//    private var mListener: OnFragmentInteractionListener? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -20,25 +20,25 @@ class ShowpieceListFragment: Fragment() {
         return inflater.inflate(R.layout.showpiece_list_fragment, container, false)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            mListener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        if (context is OnFragmentInteractionListener) {
+//            mListener = context
+//        } else {
+//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+//        }
+//    }
+//
+//    override fun onDetach() {
+//        super.onDetach()
+//        mListener = null
+//    }
 
-    override fun onDetach() {
-        super.onDetach()
-        mListener = null
-    }
 
-
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun messageFromChildFragment(uri: Uri)
-    }
+//    interface OnFragmentInteractionListener {
+//        // TODO: Update argument type and name
+//        fun messageFromChildFragment(uri: Uri)
+//    }
 
     companion object {
         fun newInstance(): ShowpieceListFragment = ShowpieceListFragment()

@@ -6,8 +6,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:background="@color/grey">
 
+
+        <TextView
+            android:id="@+id/textPrivet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Привет"/>
     </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>
