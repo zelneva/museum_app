@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
+import dev.android.museum.fragment.ExhibitionListFragment
 import dev.android.museum.fragment.NullFragment
 
 class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapter.ViewHolder>() {
@@ -52,19 +53,18 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
 
         holder.itemView.setOnClickListener {
 
-            val nullFragment = NullFragment.newInstance(names[position])
             val activity: MainActivity = context as MainActivity
 
             val ft = activity.supportFragmentManager.beginTransaction()
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-            ft.replace(R.id.main_container, nullFragment)
+            ft.replace(R.id.main_container, ExhibitionListFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
         }
     }
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView = itemView.findViewById(R.id.museum_image)
         var name: TextView = itemView.findViewById(R.id.museum_name)
         var address: TextView = itemView.findViewById(R.id.museum_address)

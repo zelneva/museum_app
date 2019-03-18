@@ -55,7 +55,7 @@ class ShowpieceRecyclerViewAdapter(): RecyclerView.Adapter<ShowpieceRecyclerView
 
 
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var image: ImageView = itemView.findViewById(R.id.showpiece_item_image)
         var title: TextView = itemView.findViewById(R.id.showpiece_item_name)
     }

@@ -54,7 +54,7 @@ class AuthorRecyclerViewAdapter(): RecyclerView.Adapter<AuthorRecyclerViewAdapte
     }
 
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var image: ImageView = itemView.findViewById(R.id.author_item_image)
         var name: TextView = itemView.findViewById(R.id.author_item_name)
     }

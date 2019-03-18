@@ -15,7 +15,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:paddingTop="15dp"
             android:text="Музеи"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -55,7 +54,7 @@
         <FrameLayout
             android:id="@+id/showpiece_container"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginBottom="70dp"/>
+            android:layout_height="230dp"
+        />
     </LinearLayout>
 </ScrollView>
