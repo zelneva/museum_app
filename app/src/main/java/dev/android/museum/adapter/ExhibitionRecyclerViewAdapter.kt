@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
-import dev.android.museum.fragment.NullFragment
-import dev.android.museum.fragment.ShowpiecesListFragment
+import dev.android.museum.fragment.ShowpieceImageListFragment
 import java.util.*
 
 class ExhibitionRecyclerViewAdapter() : RecyclerView.Adapter<ExhibitionRecyclerViewAdapter.ViewHolder>() {
@@ -44,7 +43,7 @@ class ExhibitionRecyclerViewAdapter() : RecyclerView.Adapter<ExhibitionRecyclerV
         holder.finishDate.text = finishDates[position]
 
         holder.itemView.setOnClickListener {
-            val showpieceFragment = ShowpiecesListFragment.newInstance()
+            val showpieceFragment = ShowpieceImageListFragment.newInstance()
             val activity: MainActivity = context as MainActivity
 
             val ft = activity.supportFragmentManager.beginTransaction()

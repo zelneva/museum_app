@@ -21,8 +21,6 @@ class ShowpieceDetailFragment : Fragment() {
     lateinit var authorName: TextView
     lateinit var yearCreate: TextView
 
-    lateinit var grid: GridLayout
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

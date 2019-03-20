@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import dev.android.museum.R
 import dev.android.museum.adapter.ShowpieceRecyclerViewAdapter
 
-class ShowpiecesListFragment: Fragment() {
+class ShowpieceImageListFragment: Fragment() {
     var names = arrayListOf<String>()
     var images = arrayListOf<String>()
 
@@ -52,6 +52,6 @@ class ShowpiecesListFragment: Fragment() {
 
 
     companion object {
-        fun newInstance(): ShowpiecesListFragment = ShowpiecesListFragment()
+        fun newInstance(): ShowpieceImageListFragment = ShowpieceImageListFragment()
     }
 }

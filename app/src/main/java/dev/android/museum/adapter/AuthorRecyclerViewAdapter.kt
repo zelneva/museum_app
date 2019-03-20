@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
+import dev.android.museum.fragment.AuthorDetailFragment
 import dev.android.museum.fragment.NullFragment
 
 class AuthorRecyclerViewAdapter(): RecyclerView.Adapter<AuthorRecyclerViewAdapter.ViewHolder>() {
@@ -43,11 +44,12 @@ class AuthorRecyclerViewAdapter(): RecyclerView.Adapter<AuthorRecyclerViewAdapte
         holder.name.text = names[position]
 
         holder.itemView.setOnClickListener {
-            val nullFragment = NullFragment.newInstance( names[position])
+            val fragment = AuthorDetailFragment.newInstance()
             val activity: MainActivity = context as MainActivity
 
             val ft = activity.supportFragmentManager.beginTransaction()
-            ft.replace(R.id.main_container, nullFragment).addToBackStack(null).commit()
+            ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+            ft.replace(R.id.main_container, fragment).addToBackStack(null).commit()
 
         }
     }
