@@ -11,11 +11,9 @@ import dev.android.museum.R
 
 
 class MainFragment: Fragment() {
-//    private var mListener: OnFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -27,21 +25,6 @@ class MainFragment: Fragment() {
         transaction.commit()
     }
 
-
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        if (context is OnFragmentInteractionListener) {
-//            mListener = context
-//        } else {
-//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-//        }
-//    }
-//
-//    override fun onDetach() {
-//        super.onDetach()
-//        mListener = null
-//    }
-//
 
     companion object {
         fun newInstance(): MainFragment = MainFragment()

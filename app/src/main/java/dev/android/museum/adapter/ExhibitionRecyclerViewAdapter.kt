@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import dev.android.museum.R
+import dev.android.museum.activity.MainActivity
+import dev.android.museum.fragment.NullFragment
+import dev.android.museum.fragment.ShowpiecesListFragment
 import java.util.*
 
 class ExhibitionRecyclerViewAdapter() : RecyclerView.Adapter<ExhibitionRecyclerViewAdapter.ViewHolder>() {
@@ -37,8 +40,18 @@ class ExhibitionRecyclerViewAdapter() : RecyclerView.Adapter<ExhibitionRecyclerV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = titles[position]
-        holder.startDate.text = startDates[position].toString()
-        holder.finishDate.text = finishDates[position].toString()
+        holder.startDate.text = startDates[position]
+        holder.finishDate.text = finishDates[position]
+
+        holder.itemView.setOnClickListener {
+            val showpieceFragment = ShowpiecesListFragment.newInstance()
+            val activity: MainActivity = context as MainActivity
+
+            val ft = activity.supportFragmentManager.beginTransaction()
+            ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+            ft.replace(R.id.main_container, showpieceFragment).addToBackStack(null).commit()
+
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

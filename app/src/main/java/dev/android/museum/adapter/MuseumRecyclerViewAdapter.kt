@@ -1,7 +1,6 @@
 package dev.android.museum.adapter
 
 import android.content.Context
-import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import com.squareup.picasso.Picasso
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
 import dev.android.museum.fragment.ExhibitionListFragment
-import dev.android.museum.fragment.NullFragment
 
 class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapter.ViewHolder>() {
 
@@ -34,7 +32,7 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.museum_list_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.museum_list_item_main, parent, false)
         return ViewHolder(view)
     }
 

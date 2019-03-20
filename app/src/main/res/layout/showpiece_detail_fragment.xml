@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/showpiece_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mona_lisa" />
+
+
+        <GridLayout
+            android:id="@+id/grid_button"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/btn_rus"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="70dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="30dp"
+                app:cornerRadius="18dp"
+                android:text="RU"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:backgroundTint="#00000000"
+                app:strokeColor= "@color/colorAccent"
+                android:textColor="@drawable/button_text_color"
+                app:rippleColor="@color/colorAccent"
+                app:strokeWidth="1dp"/>
+
+            <android.support.design.button.MaterialButton
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                app:cornerRadius="18dp"
+                android:id="@+id/btn_eng"
+                android:layout_width="70dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="40dp"
+                android:text="EN"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:backgroundTint="#00000000"
+                app:strokeColor= "@color/colorAccent"
+                android:textColor="@drawable/button_text_color"
+                app:rippleColor="@color/colorAccent"
+                app:strokeWidth="1dp"
+                 />
+
+            <android.support.design.button.MaterialButton
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                app:cornerRadius="18dp"
+                android:id="@+id/btn_ger"
+                android:layout_width="70dp"
+                android:layout_height="45dp"
+                android:text="DE"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                app:backgroundTint="#00000000"
+                app:strokeColor= "@color/colorAccent"
+                android:textColor="@drawable/button_text_color"
+                app:rippleColor="@color/colorAccent"
+                app:strokeWidth="1dp" />
+        </GridLayout>
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/line"
+            android:shrinkColumns="*">
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="?android:colorBackground"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/showpiece_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="Мона Лиза"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="?android:colorBackground"
+                android:baselineAligned="false">
+
+                <TextView
+                    android:id="@+id/showpiece_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Леонардо Да Винчи"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="?android:colorBackground"
+                android:baselineAligned="false">
+
+                <TextView
+                    android:id="@+id/showpiece_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    android:text="1505 год"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="1dp"
+                android:background="?android:colorBackground"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="10dp"
+                        android:text="Описание"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/showpiece_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="10dp"
+                        android:text="Полное название картины итал. Ritratto di Mona Lisa del Giocondo — «Портрет госпожи Лизы Джокондо». По-итальянски ma donna значит «моя госпожа» , в сокращённом варианте это выражение преобразовалось в monna или mona. Вторая часть имени модели, считающаяся фамилией её мужа — del Giocondo, по-итальянски также имеет прямое значение и переводится как «весёлый, играющий» и соответственно la Gioconda — «весёлая, играющая» ."
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView>

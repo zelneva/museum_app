@@ -11,24 +11,27 @@ import com.squareup.picasso.Picasso
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
 import dev.android.museum.fragment.NullFragment
+import dev.android.museum.fragment.ShowpieceDetailFragment
 
 class ShowpieceRecyclerViewAdapter(): RecyclerView.Adapter<ShowpieceRecyclerViewAdapter.ViewHolder>(){
 
     var names = arrayListOf<String>()
     var images = arrayListOf<String>()
+    var path = 0
 
     lateinit var context: Context
 
 
-    constructor(names: ArrayList<String>, images: ArrayList<String>, context: Context) : this() {
+    constructor( path: Int, names: ArrayList<String>, images: ArrayList<String>, context: Context) : this() {
         this.names = names
         this.images = images
         this.context = context
+        this.path = path
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.showpiece_list_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(path, parent, false)
         return ViewHolder(view)
     }
 
@@ -44,15 +47,15 @@ class ShowpieceRecyclerViewAdapter(): RecyclerView.Adapter<ShowpieceRecyclerView
         holder.title.text = names[position]
 
         holder.itemView.setOnClickListener {
-            val nullFragment = NullFragment.newInstance( names[position])
+            val fragment = ShowpieceDetailFragment.newInstance()
             val activity: MainActivity = context as MainActivity
 
             val ft = activity.supportFragmentManager.beginTransaction()
-            ft.replace(R.id.main_container, nullFragment).addToBackStack(null).commit()
+            ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+            ft.replace(R.id.main_container, fragment).addToBackStack(null).commit()
 
         }
     }
-
 
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

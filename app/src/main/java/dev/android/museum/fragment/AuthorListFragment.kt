@@ -1,7 +1,5 @@
 package dev.android.museum.fragment
 
-import android.content.Context
-import android.net.Uri
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -11,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import dev.android.museum.R
 import dev.android.museum.adapter.AuthorRecyclerViewAdapter
-import dev.android.museum.adapter.MuseumRecyclerViewAdapter
 
 
 class AuthorListFragment: Fragment() {
@@ -35,7 +32,7 @@ class AuthorListFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view =  inflater.inflate(R.layout.author_list_fragment, container, false)
+        val view =  inflater.inflate(R.layout.author_list_fragment_main, container, false)
         initList()
         initRecyclerView(view)
         return view
