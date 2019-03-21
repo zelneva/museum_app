@@ -37,16 +37,16 @@ class AuthorDetailFragment: Fragment(){
         btnGerman = view.findViewById(R.id.btn_ger)
         name = view.findViewById(R.id.author_name)
         year = view.findViewById(R.id.author_year)
-        showShowpiece = view.findViewById(R.id.see_more)
+        showShowpiece = view.findViewById(R.id.see_showpiece)
 
-        btnRussian.setOnClickListener(clickListnerLanguage)
-        btnEnglish.setOnClickListener(clickListnerLanguage)
-        btnGerman.setOnClickListener(clickListnerLanguage)
+        btnRussian.setOnClickListener(clickListenerLanguage)
+        btnEnglish.setOnClickListener(clickListenerLanguage)
+        btnGerman.setOnClickListener(clickListenerLanguage)
         showShowpiece.setOnClickListener(clickShowShowpiece)
     }
 
 
-    private val clickListnerLanguage = View.OnClickListener { view ->
+    private val clickListenerLanguage = View.OnClickListener { view ->
         when (view) {
 
             btnRussian -> {
@@ -74,8 +74,6 @@ class AuthorDetailFragment: Fragment(){
         ft.replace(R.id.main_container, showpieceFragment).addToBackStack(null).commit()
 
     }
-
-
 
 
     companion object {

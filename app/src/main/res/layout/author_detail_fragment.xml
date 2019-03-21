@@ -121,7 +121,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/see_more"
+                android:id="@+id/see_showpiece"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"

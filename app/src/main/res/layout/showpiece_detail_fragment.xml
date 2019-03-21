@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <ImageView
             android:id="@+id/showpiece_image"
@@ -33,47 +32,47 @@
                 android:layout_height="45dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginStart="30dp"
-                app:cornerRadius="18dp"
                 android:text="RU"
                 android:textAlignment="center"
+                android:textColor="@drawable/button_text_color"
                 android:textSize="12sp"
                 app:backgroundTint="#00000000"
-                app:strokeColor= "@color/darkGrey"
-                android:textColor="@drawable/button_text_color"
+                app:cornerRadius="18dp"
                 app:rippleColor="@color/colorAccent"
-                app:strokeWidth="1dp"/>
+                app:strokeColor="@color/darkGrey"
+                app:strokeWidth="1dp" />
 
             <android.support.design.button.MaterialButton
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                app:cornerRadius="18dp"
                 android:id="@+id/btn_eng"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="70dp"
                 android:layout_height="45dp"
                 android:layout_marginEnd="40dp"
                 android:text="EN"
                 android:textAlignment="center"
+                android:textColor="@drawable/button_text_color"
                 android:textSize="12sp"
                 app:backgroundTint="#00000000"
-                app:strokeColor= "@color/darkGrey"
-                android:textColor="@drawable/button_text_color"
+                app:cornerRadius="18dp"
                 app:rippleColor="@color/colorAccent"
-                app:strokeWidth="1dp"
-                 />
+                app:strokeColor="@color/darkGrey"
+                app:strokeWidth="1dp" />
 
             <android.support.design.button.MaterialButton
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                app:cornerRadius="18dp"
                 android:id="@+id/btn_ger"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="70dp"
                 android:layout_height="45dp"
                 android:text="DE"
-                android:textSize="12sp"
                 android:textAlignment="center"
-                app:backgroundTint="#00000000"
-                app:strokeColor= "@color/darkGrey"
                 android:textColor="@drawable/button_text_color"
+                android:textSize="12sp"
+                app:backgroundTint="#00000000"
+                app:cornerRadius="18dp"
                 app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/darkGrey"
                 app:strokeWidth="1dp" />
+
         </LinearLayout>
 
 
@@ -90,19 +89,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
-                android:background="?android:colorBackground"
-                android:paddingTop="10dp">
+                android:background="?android:colorBackground">
 
-                <TextView
-                    android:id="@+id/showpiece_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:text="Мона Лиза"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/showpiece_title"
+                        android:layout_width="400dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="Мона Лиза"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ToggleButton
+                        android:id="@+id/button_favorite"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/button_favorite"
+                        android:checked="false"
+                        android:gravity="end|bottom"
+                        android:text=""
+                        android:textOff=""
+                        android:textOn="" />
+                </LinearLayout>
             </TableRow>
 
             <TableRow
@@ -139,9 +156,10 @@
                     android:textSize="15sp" />
             </TableRow>
 
+
             <TableRow
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:background="?android:colorBackground"
                 android:baselineAligned="false">
@@ -158,9 +176,9 @@
                         android:paddingBottom="5dp"
                         android:paddingTop="10dp"
                         android:text="Описание"
-                        android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/showpiece_description"
@@ -170,9 +188,71 @@
                         android:paddingTop="10dp"
                         android:text="Полное название картины итал. Ritratto di Mona Lisa del Giocondo — «Портрет госпожи Лизы Джокондо». По-итальянски ma donna значит «моя госпожа» , в сокращённом варианте это выражение преобразовалось в monna или mona. Вторая часть имени модели, считающаяся фамилией её мужа — del Giocondo, по-итальянски также имеет прямое значение и переводится как «весёлый, играющий» и соответственно la Gioconda — «весёлая, играющая» ."
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:maxLines="5"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/btn_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show more"
+                        android:textColor="@color/colorAccent"
+                        android:clickable="true"/>
+
+                    <TextView
+                        android:id="@+id/btn_less"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Less"
+                        android:clickable="true"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="gone"/>
+                </LinearLayout>
+
+
                 </LinearLayout>
             </TableRow>
+            <TableRow
+                android:id="@+id/see_comment"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="1dp"
+                android:background="?android:colorBackground"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:id="@+id/see_comment_text"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="10dp"
+                        android:text="Посмотреть комментарии"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:layout_gravity="right"
+                        android:gravity="right|center"
+                        android:text=">>" />
+                </LinearLayout>
+            </TableRow>
+
         </TableLayout>
     </LinearLayout>
 
