@@ -32,7 +32,7 @@
                 android:layout_height="45dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginStart="30dp"
-                android:text="RU"
+                android:text="@string/ru_lang"
                 android:textAlignment="center"
                 android:textColor="@drawable/button_text_color"
                 android:textSize="12sp"
@@ -48,7 +48,7 @@
                 android:layout_width="70dp"
                 android:layout_height="45dp"
                 android:layout_marginEnd="40dp"
-                android:text="EN"
+                android:text="@string/en_lang"
                 android:textAlignment="center"
                 android:textColor="@drawable/button_text_color"
                 android:textSize="12sp"
@@ -63,7 +63,7 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="70dp"
                 android:layout_height="45dp"
-                android:text="DE"
+                android:text="@string/ger_lang"
                 android:textAlignment="center"
                 android:textColor="@drawable/button_text_color"
                 android:textSize="12sp"
@@ -123,20 +123,36 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/see_author"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:background="?android:colorBackground"
                 android:baselineAligned="false">
 
-                <TextView
-                    android:id="@+id/showpiece_author"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="10dp"
-                    android:text="Леонардо Да Винчи"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:id="@+id/showpiece_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="10dp"
+                        android:text="Леонардо Да Винчи"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:gravity="right|center"
+                        android:text="@string/show"
+                        android:textColor="@color/black" />
+                </LinearLayout>
             </TableRow>
 
             <TableRow
@@ -170,12 +186,12 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/description"
+                        android:id="@+id/description_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
                         android:paddingTop="10dp"
-                        android:text="Описание"
+                        android:text="@string/description_ru"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -184,45 +200,46 @@
                         android:id="@+id/showpiece_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="5"
                         android:paddingBottom="5dp"
                         android:paddingTop="10dp"
                         android:text="Полное название картины итал. Ritratto di Mona Lisa del Giocondo — «Портрет госпожи Лизы Джокондо». По-итальянски ma donna значит «моя госпожа» , в сокращённом варианте это выражение преобразовалось в monna или mona. Вторая часть имени модели, считающаяся фамилией её мужа — del Giocondo, по-итальянски также имеет прямое значение и переводится как «весёлый, играющий» и соответственно la Gioconda — «весёлая, играющая» ."
                         android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:maxLines="5"/>
+                        android:textSize="15sp" />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingBottom="10dp">
-
-                    <TextView
-                        android:id="@+id/btn_more"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Show more"
-                        android:textColor="@color/colorAccent"
-                        android:clickable="true"/>
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
 
-                    <TextView
-                        android:id="@+id/btn_less"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Less"
-                        android:clickable="true"
-                        android:textColor="@color/colorAccent"
-                        android:visibility="gone"/>
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/btn_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:text="@string/show_more"
+                            android:textColor="@color/colorAccent" />
+
+                        <TextView
+                            android:id="@+id/btn_less"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:text="@string/less"
+                            android:textColor="@color/colorAccent"
+                            android:visibility="gone" />
+                    </LinearLayout>
 
 
                 </LinearLayout>
             </TableRow>
+
             <TableRow
                 android:id="@+id/see_comment"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:background="?android:colorBackground"
                 android:baselineAligned="false">
@@ -239,17 +256,17 @@
                         android:layout_height="40dp"
                         android:paddingBottom="5dp"
                         android:paddingTop="10dp"
-                        android:text="Посмотреть комментарии"
+                        android:text="@string/see_comment_ru"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColor="@color/black"
                         android:layout_gravity="right"
                         android:gravity="right|center"
-                        android:text=">>" />
+                        android:text="@string/show"
+                        android:textColor="@color/black" />
                 </LinearLayout>
             </TableRow>
 

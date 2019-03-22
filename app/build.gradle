@@ -47,7 +47,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
 
-    implementation 'com.borjabravo:readmoretextview:2.1.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
     //tests
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

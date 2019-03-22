@@ -16,16 +16,14 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
 
     var names = arrayListOf<String>()
     var address = arrayListOf<String>()
-    var status = arrayListOf<String>()
     var images = arrayListOf<String>()
 
     lateinit var context: Context
 
 
-    constructor(names: ArrayList<String>, address: ArrayList<String>, status: ArrayList<String>, images: ArrayList<String>, context: Context) : this() {
+    constructor(names: ArrayList<String>, address: ArrayList<String>, images: ArrayList<String>, context: Context) : this() {
         this.names = names
         this.address = address
-        this.status = status
         this.images = images
         this.context = context
     }
@@ -47,7 +45,6 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
 
         holder.name.text = names[position]
         holder.address.text = address[position]
-        holder.status.text = status[position]
 
         holder.itemView.setOnClickListener {
 
@@ -66,6 +63,5 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
         var image: ImageView = itemView.findViewById(R.id.museum_image)
         var name: TextView = itemView.findViewById(R.id.museum_name)
         var address: TextView = itemView.findViewById(R.id.museum_address)
-        var status: TextView = itemView.findViewById(R.id.museum_status)
     }
 }

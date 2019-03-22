@@ -11,6 +11,7 @@ import android.view.animation.ScaleAnimation
 import android.widget.*
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
+import org.w3c.dom.Text
 
 
 class ShowpieceDetailFragment : Fragment() {
@@ -19,12 +20,14 @@ class ShowpieceDetailFragment : Fragment() {
     lateinit var btnEnglish: Button
     lateinit var btnGerman: Button
     lateinit var description: TextView
+    lateinit var titleDescription: TextView
     lateinit var title: TextView
     lateinit var authorName: TextView
     lateinit var yearCreate: TextView
     lateinit var btnFavorite: ToggleButton
     lateinit var seeCommentText: TextView
     lateinit var seeComment: TableRow
+    lateinit var seeAuthor: TableRow
 
     lateinit var seeMore: TextView
     lateinit var seeLess: TextView
@@ -46,11 +49,13 @@ class ShowpieceDetailFragment : Fragment() {
         btnEnglish = view.findViewById(R.id.btn_eng)
         btnGerman = view.findViewById(R.id.btn_ger)
         title = view.findViewById(R.id.showpiece_title)
+        titleDescription = view.findViewById(R.id.description_title)
         authorName = view.findViewById(R.id.showpiece_author)
         yearCreate = view.findViewById(R.id.showpiece_year)
         btnFavorite = view.findViewById(R.id.button_favorite)
         seeCommentText =  view.findViewById(R.id.see_comment_text)
         seeComment = view.findViewById(R.id.see_comment)
+        seeAuthor = view.findViewById(R.id.see_author)
 
         seeMore = view.findViewById(R.id.btn_more)
         seeLess = view.findViewById(R.id.btn_less)
@@ -59,7 +64,6 @@ class ShowpieceDetailFragment : Fragment() {
             seeMore.visibility = View.GONE
             seeLess.visibility = View.VISIBLE
             description.maxLines = Integer.MAX_VALUE
-
         }
 
         seeLess.setOnClickListener {
@@ -68,7 +72,8 @@ class ShowpieceDetailFragment : Fragment() {
             description.maxLines = 5
         }
 
-        seeComment.setOnClickListener(clickComment)
+        seeComment.setOnClickListener(clickListnerComment)
+        seeAuthor.setOnClickListener(clickListenerAuthor)
         btnFavorite.setOnCheckedChangeListener(changeListener)
         btnRussian.setOnClickListener(clickListenerLanguage)
         btnEnglish.setOnClickListener(clickListenerLanguage)
@@ -86,28 +91,42 @@ class ShowpieceDetailFragment : Fragment() {
     }
 
 
+    private val clickListenerAuthor = View.OnClickListener {
+        val fragment = AuthorDetailFragment.newInstance()
+        val activity: MainActivity = context as MainActivity
+        val ft = activity.supportFragmentManager.beginTransaction()
+        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+        ft.replace(R.id.main_container, fragment).addToBackStack(null).commit()
+    }
+
+
     private val clickListenerLanguage = View.OnClickListener { view ->
         when (view) {
 
             btnRussian -> {
                 Toast.makeText(this.context, "РУССКИЙ", Toast.LENGTH_SHORT).show()
                 description.text = "Русский"
+                titleDescription.text = resources.getText(R.string.description_ru)
+                seeCommentText.text = resources.getText(R.string.see_comment_ru)
             }
 
             btnEnglish -> {
                 description.text = "English"
+                titleDescription.text = resources.getText(R.string.description_en)
+                seeCommentText.text = resources.getText(R.string.see_comment_en)
             }
 
             btnGerman -> {
                 description.text = "German"
+                titleDescription.text = resources.getText(R.string.description_ge)
+                seeCommentText.text = resources.getText(R.string.see_comment_ge)
             }
         }
     }
 
-    private val clickComment = View.OnClickListener {
-        val fragment = NullFragment.newInstance("Комментарий")
+    private val clickListnerComment = View.OnClickListener {
+        val fragment = CommentListFragment.newInstance()
         val activity: MainActivity = context as MainActivity
-
         val ft = activity.supportFragmentManager.beginTransaction()
         ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
         ft.replace(R.id.main_container, fragment).addToBackStack(null).commit()

@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical">
 
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="Музеи"
+            android:text="@string/museums"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -23,7 +23,7 @@
         <FrameLayout
             android:id="@+id/museum_container"
             android:layout_width="match_parent"
-            android:layout_height="230dp"/>
+            android:layout_height="220dp"/>
 
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingTop="20dp"
-            android:text="Авторы"
+            android:text="@string/authors"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingTop="20dp"
-            android:text="Произведения"
+            android:text="@string/showpieces"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />

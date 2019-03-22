@@ -15,14 +15,12 @@ class MuseumListFragment : Fragment() {
 
     var names = arrayListOf<String>()
     var address = arrayListOf<String>()
-    var status = arrayListOf<String>()
     var images = arrayListOf<String>()
 
     private fun initList() {
         for (i in 0..7) {
             names.add("Национальный музей культуры")
             address.add("Москва ул. Ленина 1")
-            status.add("Открыт")
             images.add("https://media.timeout.com/images/100892205/image.jpg")
         }
     }
@@ -31,7 +29,7 @@ class MuseumListFragment : Fragment() {
         val llm = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         val rv = view.findViewById<RecyclerView>(R.id.museum_list_rv)
         rv.layoutManager = llm
-        rv.adapter = MuseumRecyclerViewAdapter( names, address, status, images, this.context!!)
+        rv.adapter = MuseumRecyclerViewAdapter( names, address, images, this.context!!)
     }
 
 
