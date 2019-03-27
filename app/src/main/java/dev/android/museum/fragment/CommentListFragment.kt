@@ -1,5 +1,7 @@
 package dev.android.museum.fragment
 
+import android.content.Context
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -14,6 +16,10 @@ import android.widget.TextView
 import android.widget.Toast
 import dev.android.museum.R
 import dev.android.museum.adapter.CommentRecyclerViewAdapter
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.support.v4.content.ContextCompat.getSystemService
+import android.view.inputmethod.InputMethodManager
+
 
 class CommentListFragment : Fragment() {
 
@@ -27,6 +33,8 @@ class CommentListFragment : Fragment() {
     lateinit var editTextComment: TextView
     lateinit var btnSend: ImageButton
     lateinit var sendLayout: LinearLayout
+
+    lateinit var imm: InputMethodManager
 
 
     private fun initList() {
@@ -79,6 +87,7 @@ class CommentListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.comment_list_fragment, container, false)
+        imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         init(view)
         initList()
         initRecyclerView(view)
@@ -99,7 +108,11 @@ class CommentListFragment : Fragment() {
 
     private val clickListenerSend = View.OnClickListener {
         val text = editTextComment.text
+        sendLayout.visibility = View.GONE
+        imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
         Toast.makeText(this.context, text, Toast.LENGTH_SHORT).show()
+        editTextComment.text = null
+        fab.show()
     }
 
 

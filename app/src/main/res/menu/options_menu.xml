@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/change_name_item"
+        android:title="@string/change_name" />
+    <item android:id="@+id/change_password_item"
+        android:title="@string/change_password" />
+    <item android:id="@+id/exit_item"
+        android:title="@string/exit" />
+</menu>

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.navigation_user -> {
-                openFragment(NullFragment.newInstance(""))
+                openFragment(UserFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
         }
