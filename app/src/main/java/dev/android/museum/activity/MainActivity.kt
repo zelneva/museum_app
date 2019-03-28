@@ -1,18 +1,16 @@
 package dev.android.museum.activity
 
-import android.content.ClipData
-import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.Menu
 import android.view.View
+import android.widget.Toast
 import dev.android.museum.R
-import dev.android.museum.fragment.*
+import dev.android.museum.fragment.MainFragment
+import dev.android.museum.fragment.NullFragment
+import dev.android.museum.fragment.UserFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.navigation_camera -> {
-                val camera:View  = findViewById(R.id.navigation_camera)
+                val camera: View = findViewById(R.id.navigation_camera)
                 openFragment(NullFragment.newInstance(""))
                 return@OnNavigationItemSelectedListener true
             }
@@ -64,50 +62,19 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+
+//    var doubleBackToExitPressedOnce = false
+//
+//    override fun onBackPressed() {
+//        if (!doubleBackToExitPressedOnce && supportFragmentManager.backStackEntryCount == 0) {
+//            this.doubleBackToExitPressedOnce = true
+//            Toast.makeText(this, "Please click BACK again to exit.", Toast.LENGTH_SHORT).show()
+//
+//            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+//        } else {
+//            supportFragmentManager.popBackStack();
+//            super.onBackPressed()
+//            return
+//        }
+//    }
 }
-
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-//
-//        val callFriendDetails: Call<ArrayList<Museum>> = App.museumApiService.getAllMuseum()
-//        val progressDialog = ProgressDialog(this, R.style.Base_ThemeOverlay_AppCompat_Dialog)
-//        progressDialog.max = 100
-//        with(progressDialog) {
-//            setMessage("Loading....")
-//            show()
-//        }
-//
-//        callFriendDetails.enqueue(object : Callback<ArrayList<Museum>> {
-//            override fun onFailure(call: Call<ArrayList<Museum>>, t: Throwable) {
-//                progressDialog.dismiss()
-//                call.cancel()
-//            }
-//
-//            override fun onResponse(call: Call<ArrayList<Museum>>, response: Response<ArrayList<Museum>>) {
-//                addDetailsMuseum(response.body()!!)
-//                progressDialog.dismiss()
-//            }
-//        })
-//
-//
-//    }
-//
-//    fun addDetailsMuseum(list: List<Museum>){
-//        val museums = arrayListOf<Museum>()
-//        for (i in 0 until list.size){
-//            museums.add(list[i])
-//        }
-//        initList(museums)
-//    }
-//
-//
-//    fun initList(museums: ArrayList<Museum>){
-//        val rw = this.findViewById<RecyclerView>(R.id.museum_rv)
-//        rw.layoutManager = LinearLayoutManager(this)
-//        rw.adapter = RVAdapter(museums, this)
-//    }
-//}
-//
-//

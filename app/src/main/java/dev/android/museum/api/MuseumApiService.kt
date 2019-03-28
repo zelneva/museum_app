@@ -1,6 +1,7 @@
 package dev.android.museum.api
 
 import dev.android.museum.model.*
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
@@ -12,7 +13,7 @@ interface MuseumApiService {
      */
 
     @GET("museum")
-    fun getAllMuseum(): Call<ArrayList<Museum>>
+    fun getAllMuseum(): Observable<ArrayList<Museum>>
 
 
     @GET("museum")

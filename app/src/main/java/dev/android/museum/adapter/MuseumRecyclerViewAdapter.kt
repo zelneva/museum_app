@@ -11,20 +11,17 @@ import com.squareup.picasso.Picasso
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
 import dev.android.museum.fragment.ExhibitionListFragment
+import dev.android.museum.model.Museum
 
 class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapter.ViewHolder>() {
 
-    var names = arrayListOf<String>()
-    var address = arrayListOf<String>()
-    var images = arrayListOf<String>()
+   private var museums = listOf<Museum>()
 
     lateinit var context: Context
 
 
-    constructor(names: ArrayList<String>, address: ArrayList<String>, images: ArrayList<String>, context: Context) : this() {
-        this.names = names
-        this.address = address
-        this.images = images
+    constructor(museums: List<Museum>, context: Context) : this() {
+        this.museums = museums
         this.context = context
     }
 
@@ -35,16 +32,16 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
     }
 
 
-    override fun getItemCount() = names.size
+    override fun getItemCount() = museums.size
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.get()
-                .load(images[position])
-                .into(holder.image)
+//        Picasso.get()
+//                .load(images[position])
+//                .into(holder.image)
 
-        holder.name.text = names[position]
-        holder.address.text = address[position]
+        holder.name.text = museums[position].name
+        holder.address.text = museums[position].address
 
         holder.itemView.setOnClickListener {
 

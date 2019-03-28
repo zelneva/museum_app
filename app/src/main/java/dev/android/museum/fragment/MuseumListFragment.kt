@@ -7,44 +7,50 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.MuseumRecyclerViewAdapter
+import dev.android.museum.model.Museum
+import dev.android.museum.presenters.MuseumListPresenter
 
 
 class MuseumListFragment : Fragment() {
-
-    var names = arrayListOf<String>()
-    var address = arrayListOf<String>()
-    var images = arrayListOf<String>()
-
-    private fun initList() {
-        for (i in 0..7) {
-            names.add("Национальный музей культуры")
-            address.add("Москва ул. Ленина 1")
-            images.add("https://media.timeout.com/images/100892205/image.jpg")
-        }
-    }
-
-    private fun initRecyclerView(view: View) {
-        val llm = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        val rv = view.findViewById<RecyclerView>(R.id.museum_list_rv)
-        rv.layoutManager = llm
-        rv.adapter = MuseumRecyclerViewAdapter( names, address, images, this.context!!)
-    }
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-
-        val view = inflater.inflate(R.layout.museum_list_fragment_main, container, false)
-        initList()
-        initRecyclerView(view)
-        return view
-    }
 
 
     companion object {
         fun newInstance(): MuseumListFragment = MuseumListFragment()
     }
 
+    private lateinit var presenter: MuseumListPresenter
+    private lateinit var rv: RecyclerView
+    private lateinit var adapter: MuseumRecyclerViewAdapter
+    lateinit var progressBar: ProgressBar
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+
+        val view = inflater.inflate(R.layout.museum_list_fragment_main, container, false)
+        progressBar = view.findViewById(R.id.progress_bar)
+        setupView(view)
+        presenter = MuseumListPresenter(this)
+        presenter.loadMuseumList()
+        return view
+    }
+
+
+    fun displayListMuseum(museumsResponce: ArrayList<Museum>?) {
+        if (museumsResponce != null) {
+            adapter = MuseumRecyclerViewAdapter(museumsResponce, this.context!!)
+            rv.adapter = adapter
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+
+    private fun setupView(view: View) {
+        val llm = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        rv = view.findViewById<RecyclerView>(R.id.museum_list_rv)
+        rv.layoutManager = llm
+    }
 }
