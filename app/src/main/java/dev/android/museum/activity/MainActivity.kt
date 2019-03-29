@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import dev.android.museum.R
 import dev.android.museum.fragment.*
 
 
-class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener {
+class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener,
+        UserFragment.OnFragmentInteractionListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +36,7 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
             }
 
             R.id.navigation_camera -> {
-                val camera: View = findViewById(R.id.navigation_camera)
-                openFragment(NullFragment.newInstance(""))
+                openFragment(NullFragment.newInstance("Здесь будет камера"))
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -60,7 +59,7 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
     }
 
 
-    private fun openFragmentAnimateDownToUp(fragment: Fragment){
+    private fun openFragmentAnimateDownToUp(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down)
         transaction.replace(R.id.main_container, fragment)
@@ -88,6 +87,9 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
         openFragmentAnimateDownToUp(SignUpFragment.newInstance())
     }
 
+    override fun onButtonExit() {
+        openFragment(LoginFragment.newInstance())
+    }
 
 
 //    var doubleBackToExitPressedOnce = false

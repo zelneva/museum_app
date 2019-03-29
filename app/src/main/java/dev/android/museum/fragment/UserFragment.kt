@@ -1,19 +1,24 @@
 package dev.android.museum.fragment
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.Toast
 import dev.android.museum.R
+import dev.android.museum.presenters.UserPresenter
 
 class UserFragment : Fragment() {
 
+    private lateinit var presenter: UserPresenter
+    private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view =  inflater.inflate(R.layout.user_fragment, container, false)
+        val view = inflater.inflate(R.layout.user_fragment, container, false)
+        presenter = UserPresenter()
         setHasOptionsMenu(true)
         return view
     }
@@ -34,22 +39,31 @@ class UserFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when(item.itemId){
-            R.id.change_name_item->{
+        when (item.itemId) {
+            R.id.change_name_item -> {
                 showResetUsernameAlert()
                 Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
                 return true
             }
-            R.id.change_password_item ->{
+            R.id.change_password_item -> {
                 Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
                 showResetPasswordAlert()
                 return true
             }
-            R.id.exit_item ->{
+            R.id.exit_item -> {
                 Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
+                exitFromAccount()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+
+    private fun exitFromAccount() {
+        val exitFlag = presenter.exitFromAccount()
+        if (exitFlag) {
+            listener?.onButtonExit()
         }
     }
 
@@ -67,8 +81,7 @@ class UserFragment : Fragment() {
         val resetPasswordAlert = builder.create()
         resetPasswordAlert.show()
         resetPasswordAlert.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
-            //settingsPresenter.resetPassword(password.editText?.text.toString(), newPassword.editText?.text.toString(), conPassword.editText?.text.toString())
-            resetPassword(password.editText?.text.toString(), newPassword.editText?.text.toString(), conPassword.editText?.text.toString())
+            presenter.resetPassword(password.editText?.text.toString(), newPassword.editText?.text.toString(), conPassword.editText?.text.toString())
         }
     }
 
@@ -76,7 +89,7 @@ class UserFragment : Fragment() {
     private fun showResetUsernameAlert() {
         val builder = AlertDialog.Builder(activity)
         val resetUsernameView = activity!!.layoutInflater.inflate(R.layout.change_name, null)
-        val password = resetUsernameView.findViewById(R.id.new_username) as TextInputLayout
+        val newUsername = resetUsernameView.findViewById(R.id.new_username) as TextInputLayout
         builder.setView(resetUsernameView)
         builder.setTitle("Изменение имени")
                 .setCancelable(false)
@@ -84,14 +97,29 @@ class UserFragment : Fragment() {
                 .setPositiveButton("Ok", null)
         val resetUsernameAlert = builder.create()
         resetUsernameAlert.show()
-        resetUsernameAlert.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener{
-            //settingsPresenter.resetPassword(password.editText?.text.toString(), newPassword.editText?.text.toString(), conPassword.editText?.text.toString())
-//            resetPassword(password.editText?.text.toString(), newPassword.editText?.text.toString(), conPassword.editText?.text.toString())
+        resetUsernameAlert.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
+            presenter.resetName(newUsername.editText?.text.toString())
         }
     }
 
-    fun resetPassword(password: String, newPassword: String, conPassword: String) {
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+
+    interface OnFragmentInteractionListener {
+        fun onButtonExit()
     }
 
 
