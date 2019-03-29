@@ -1,6 +1,7 @@
 package dev.android.museum.model
 
 import com.google.gson.annotations.SerializedName
+import io.reactivex.Observable
 import java.util.*
 
 data class Author(
@@ -8,8 +9,8 @@ data class Author(
         var id: UUID,
 
         @SerializedName("bornAt")
-        var bornAt: Date,
+        var bornAt: Long,
 
         @SerializedName("diedAt")
-        var diedAt: Date? //can be live
+        var diedAt: Long? //can be live
 )

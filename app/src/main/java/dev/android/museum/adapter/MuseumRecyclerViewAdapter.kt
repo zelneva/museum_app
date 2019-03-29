@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
 import dev.android.museum.fragment.ExhibitionListFragment
@@ -15,9 +14,8 @@ import dev.android.museum.model.Museum
 
 class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapter.ViewHolder>() {
 
-   private var museums = listOf<Museum>()
-
-    lateinit var context: Context
+    private var museums = listOf<Museum>()
+    private lateinit var context: Context
 
 
     constructor(museums: List<Museum>, context: Context) : this() {

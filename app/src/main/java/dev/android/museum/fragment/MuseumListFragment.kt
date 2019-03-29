@@ -16,7 +16,6 @@ import dev.android.museum.presenters.MuseumListPresenter
 
 class MuseumListFragment : Fragment() {
 
-
     companion object {
         fun newInstance(): MuseumListFragment = MuseumListFragment()
     }
@@ -50,7 +49,7 @@ class MuseumListFragment : Fragment() {
 
     private fun setupView(view: View) {
         val llm = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        rv = view.findViewById<RecyclerView>(R.id.museum_list_rv)
+        rv = view.findViewById(R.id.museum_list_rv)
         rv.layoutManager = llm
     }
 }

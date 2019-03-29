@@ -5,6 +5,7 @@ import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 interface MuseumApiService {
 
@@ -133,7 +134,7 @@ interface MuseumApiService {
     */
 
     @GET("author")
-    fun getAllAuthor(): Call<List<Author>>
+    fun getAllAuthors(): Observable<ArrayList<Author>>
 
 
     @GET("author/{id}")
@@ -154,8 +155,9 @@ interface MuseumApiService {
                      @Field("diedAt") diedAt: Date?): Call<Unit>
 
 
+
     @GET("locale/author")
-    fun getLocaleDataAuthor(@Field("id") id: String): Call<AuthorLocaleData>
+    fun getLocaleDataAuthor(@Query("id") id: String): Observable<List<AuthorLocaleData>>
 
 
     @POST("locale/author")

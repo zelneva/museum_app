@@ -11,18 +11,17 @@ import com.squareup.picasso.Picasso
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
 import dev.android.museum.fragment.AuthorDetailFragment
-import dev.android.museum.fragment.NullFragment
+import dev.android.museum.model.Author
+import dev.android.museum.model.AuthorLocaleData
 
-class AuthorRecyclerViewAdapter(): RecyclerView.Adapter<AuthorRecyclerViewAdapter.ViewHolder>() {
+class AuthorRecyclerViewAdapter() : RecyclerView.Adapter<AuthorRecyclerViewAdapter.ViewHolder>() {
 
-    var names = arrayListOf<String>()
-    var images = arrayListOf<String>()
+    private var authors = arrayListOf<AuthorLocaleData>()
 
     lateinit var context: Context
 
-    constructor(names: ArrayList<String>, images: ArrayList<String>, context: Context) : this() {
-        this.names = names
-        this.images = images
+    constructor(authors: ArrayList<AuthorLocaleData>, context: Context) : this() {
+        this.authors = authors
         this.context = context
     }
 
@@ -33,15 +32,15 @@ class AuthorRecyclerViewAdapter(): RecyclerView.Adapter<AuthorRecyclerViewAdapte
     }
 
 
-    override fun getItemCount() = names.size
+    override fun getItemCount() = authors.size
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.get()
-                .load(images[position])
-                .into(holder.image)
+//        Picasso.get()
+//                .load(images[position])
+//                .into(holder.image)
 
-        holder.name.text = names[position]
+        holder.name.text = authors[position].name
 
         holder.itemView.setOnClickListener {
             val fragment = AuthorDetailFragment.newInstance()
@@ -55,7 +54,7 @@ class AuthorRecyclerViewAdapter(): RecyclerView.Adapter<AuthorRecyclerViewAdapte
     }
 
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView = itemView.findViewById(R.id.author_item_image)
         var name: TextView = itemView.findViewById(R.id.author_item_name)
     }
