@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.LoginFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center|bottom"
+            android:paddingBottom="30dp"
+            android:text="@string/enter"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/username_login_txt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            android:hint="@string/username"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/password_login_txt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            />
+
+        <Button
+            android:id="@+id/sign_in_login_btn"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/button_shape"
+            android:text="@string/enter"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/sign_up_login_btn"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/sign_up"
+            android:textColor="@color/colorAccent"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>

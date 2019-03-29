@@ -1,19 +1,15 @@
 package dev.android.museum.activity
 
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Toast
 import dev.android.museum.R
-import dev.android.museum.fragment.MainFragment
-import dev.android.museum.fragment.NullFragment
-import dev.android.museum.fragment.UserFragment
+import dev.android.museum.fragment.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +42,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.navigation_user -> {
-                openFragment(UserFragment.newInstance())
+                //если пользователь залоггинен, то UserFragment, иначе LoginFragment
+                openFragment(LoginFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -61,6 +58,36 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+
+    private fun openFragmentAnimateDownToUp(fragment: Fragment){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down)
+        transaction.replace(R.id.main_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+
+    override fun onButtonSignIn() {
+        openFragment(UserFragment.newInstance())
+    }
+
+
+    override fun onButtonSignUp() {
+        openFragment(UserFragment.newInstance())
+    }
+
+
+    override fun onButtonCancel() {
+        openFragmentAnimateDownToUp(LoginFragment.newInstance())
+    }
+
+
+    override fun onButtonSignUpOpenFragment() {
+        openFragmentAnimateDownToUp(SignUpFragment.newInstance())
+    }
+
 
 
 //    var doubleBackToExitPressedOnce = false

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.AuthorRecyclerViewAdapter
 import dev.android.museum.model.AuthorLocaleData
@@ -22,11 +23,13 @@ class AuthorListFragment : Fragment() {
     private lateinit var presenter: AuthorListPresenter
     private lateinit var rv: RecyclerView
     private lateinit var adapter: AuthorRecyclerViewAdapter
+    lateinit var progressBar: ProgressBar
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.author_list_fragment_main, container, false)
+        progressBar = view.findViewById(R.id.progress_bar)
         setupView(view)
         presenter = AuthorListPresenter(this)
         presenter.loadListAuthor()
