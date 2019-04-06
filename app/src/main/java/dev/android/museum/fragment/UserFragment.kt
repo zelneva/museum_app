@@ -17,7 +17,7 @@ class UserFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.user_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_user, container, false)
         presenter = UserPresenter()
         setHasOptionsMenu(true)
         return view
@@ -69,7 +69,7 @@ class UserFragment : Fragment() {
 
     private fun showResetPasswordAlert() {
         val builder = AlertDialog.Builder(activity)
-        val resetPasswordView = activity!!.layoutInflater.inflate(R.layout.change_password, null)
+        val resetPasswordView = activity!!.layoutInflater.inflate(R.layout.dialog_change_password, null)
         val password = resetPasswordView.findViewById(R.id.old_password) as TextInputLayout
         val newPassword = resetPasswordView.findViewById(R.id.new_password) as TextInputLayout
         val conPassword = resetPasswordView.findViewById(R.id.confirm_password) as TextInputLayout
@@ -88,7 +88,7 @@ class UserFragment : Fragment() {
 
     private fun showResetUsernameAlert() {
         val builder = AlertDialog.Builder(activity)
-        val resetUsernameView = activity!!.layoutInflater.inflate(R.layout.change_name, null)
+        val resetUsernameView = activity!!.layoutInflater.inflate(R.layout.dialog_change_name, null)
         val newUsername = resetUsernameView.findViewById(R.id.new_username) as TextInputLayout
         builder.setView(resetUsernameView)
         builder.setTitle("Изменение имени")

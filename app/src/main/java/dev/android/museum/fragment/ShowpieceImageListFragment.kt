@@ -39,12 +39,12 @@ class ShowpieceImageListFragment: Fragment() {
         val rv = view.findViewById<RecyclerView>(R.id.showpiece_list)
         rv.setHasFixedSize(true)
         rv.layoutManager = llm
-        rv.adapter = ShowpieceRecyclerViewAdapter(R.layout.showpiece_list_item, names, images, this.context!!)
+        rv.adapter = ShowpieceRecyclerViewAdapter(R.layout.list_item_showpiece, names, images, this.context!!)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.showpiece_list_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_showpiece_list, container, false)
         initList()
         initRecyclerView(view)
         return view

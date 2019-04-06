@@ -25,7 +25,7 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.museum_list_item_main, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_museum_main, parent, false)
         return ViewHolder(view)
     }
 

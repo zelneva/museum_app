@@ -9,7 +9,7 @@ import dev.android.museum.fragment.*
 
 
 class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener,
-        UserFragment.OnFragmentInteractionListener {
+        UserFragment.OnFragmentInteractionListener, AdminActionFragment.OnFragmentInteractionListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +69,7 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
 
 
     override fun onButtonSignIn() {
-        openFragment(UserFragment.newInstance())
+        openFragment(AdminFragment.newInstance())
     }
 
 

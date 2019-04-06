@@ -41,5 +41,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="admin_action">Панель администратора</string>
+
+    <string-array name="admin_action_title">
+        <item>Управление музеями</item>
+        <item>Управление выставками</item>
+        <item>Управление экспонатами</item>
+    </string-array>
 
 </resources>

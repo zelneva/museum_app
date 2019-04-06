@@ -29,7 +29,7 @@ class ExhibitionRecyclerViewAdapter() : RecyclerView.Adapter<ExhibitionRecyclerV
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.exhibition_list_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_exhibition, parent, false)
         return ViewHolder(view)
     }
 

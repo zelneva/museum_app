@@ -11,7 +11,6 @@ import android.view.animation.ScaleAnimation
 import android.widget.*
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
-import org.w3c.dom.Text
 
 
 class ShowpieceDetailFragment : Fragment() {
@@ -36,7 +35,7 @@ class ShowpieceDetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val view = inflater.inflate(R.layout.showpiece_detail_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_showpiece_detail, container, false)
         init(view)
 
         return view

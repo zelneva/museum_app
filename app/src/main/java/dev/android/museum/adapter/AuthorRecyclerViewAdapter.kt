@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
 import dev.android.museum.fragment.AuthorDetailFragment
-import dev.android.museum.model.Author
 import dev.android.museum.model.AuthorLocaleData
 
 class AuthorRecyclerViewAdapter() : RecyclerView.Adapter<AuthorRecyclerViewAdapter.ViewHolder>() {
@@ -27,7 +25,7 @@ class AuthorRecyclerViewAdapter() : RecyclerView.Adapter<AuthorRecyclerViewAdapt
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.author_list_item_main, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_author_main, parent, false)
         return ViewHolder(view)
     }
 
