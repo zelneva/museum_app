@@ -2,7 +2,7 @@ package dev.android.museum.presenters
 
 import android.util.Log
 import dev.android.museum.App.Companion.museumApiService
-import dev.android.museum.db.UserRepository
+import dev.android.museum.db.UserDb.Companion.addSessionObjectToDB
 import dev.android.museum.fragment.LoginFragment
 import dev.android.museum.model.util.LoginObject
 import dev.android.museum.model.util.SessionObject
@@ -18,7 +18,7 @@ class LoginPresenter(var loginFragment: LoginFragment) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ sessionObj ->
                     isAdmin(sessionObj)
-                    addSessionObjectToDB(sessionObj)
+                    addSessionObjectToDB(sessionObj, loginFragment.context!!)
                     //положить SessionObject в Sqlite и при каждом вход запрашивать актуальные данные
                 }, { t: Throwable? ->
                     run {
@@ -32,11 +32,11 @@ class LoginPresenter(var loginFragment: LoginFragment) {
 
     //если роль пользователя - "admin", то открываем AdminFragment, иначе UserFragment
     fun isAdmin(sessionObject: SessionObject) {
-        museumApiService.isAdmin(sessionObject.userId)
+        museumApiService.getUserInfo(sessionObject.userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ isAdministrator ->
-                    if (isAdministrator) {
+                .subscribe({ user ->
+                    if (user.role == "admin") {
                         loginFragment.openAdminFragment()
                     } else loginFragment.openUserFragment()
                 }, { t: Throwable? ->
@@ -45,18 +45,4 @@ class LoginPresenter(var loginFragment: LoginFragment) {
                     }
                 })
     }
-
-
-    // Положим данные SessionObject о пользователе в sqlite
-    private fun addSessionObjectToDB(sessionObject: SessionObject) {
-        createSessionObject(sessionObject)
-    }
-
-
-    private fun createSessionObject(sessionObject: SessionObject) {
-        val newSessionObject = SessionObject(sessionObject.userId, sessionObject.sessionId)
-        UserRepository(loginFragment.context!!).create(newSessionObject)
-    }
-
-
 }

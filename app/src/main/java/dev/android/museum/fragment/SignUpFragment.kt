@@ -23,6 +23,7 @@ class SignUpFragment : Fragment() {
     private lateinit var presenter: SignUpPresenter
 
     private lateinit var username: EditText
+    private lateinit var name: EditText
     private lateinit var password: EditText
     private lateinit var confirmPassword: EditText
     private lateinit var signUpBtn: Button
@@ -38,13 +39,14 @@ class SignUpFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
         init(view)
-        presenter = SignUpPresenter()
+        presenter = SignUpPresenter(this)
         return view
     }
 
 
     private fun init(view: View) {
         username = view.findViewById(R.id.username_sign_up_txt)
+        name = view.findViewById(R.id.name_sign_up_txt)
         password = view.findViewById(R.id.password_sign_up_txt)
         confirmPassword = view.findViewById(R.id.confirm_password_sign_up_txt)
         signUpBtn = view.findViewById(R.id.sign_up_btn)
@@ -56,19 +58,35 @@ class SignUpFragment : Fragment() {
 
 
     private val clickListenerSignIn = View.OnClickListener {
-        val username = username.text.toString()
-        val password = password.text.toString()
-        val confirmPassword = confirmPassword.text.toString()
+        val usernameText = username.text.toString()
+        val nameText = name.text.toString()
+        val passwordText = password.text.toString()
+        val confirmPasswordText = confirmPassword.text.toString()
 
-        val signUpFlag = presenter.signIn(username, password, confirmPassword)
-        if(signUpFlag){
-            listener?.onButtonSignUp()
-        }
+        presenter.signUp(nameText, usernameText, passwordText, confirmPasswordText)
+    }
+
+
+    fun signUp(){
+        listener?.onButtonSignUp()
     }
 
 
     private val clickListenerCancel = View.OnClickListener {
         listener?.onButtonCancel()
+    }
+
+
+    fun alertSmallUsername(){
+        username.error = "Слишком короткий username"
+    }
+
+    fun alertSmallName(){
+        name.error = "Слишком короткое имя"
+    }
+
+    fun alertSmallPassword(){
+        password.error = "Слишком короткий пароль"
     }
 
 

@@ -37,6 +37,15 @@ class UserFragment : Fragment() {
     }
 
 
+    fun openAlertDialog(alertText: String) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(alertText)
+                .setPositiveButton("OK") { dialog, _ -> dialog!!.cancel() }
+        val alert = builder.create()
+        alert.show()
+    }
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
@@ -81,7 +90,9 @@ class UserFragment : Fragment() {
         val resetPasswordAlert = builder.create()
         resetPasswordAlert.show()
         resetPasswordAlert.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
-            presenter.resetPassword(password.editText?.text.toString(), newPassword.editText?.text.toString(), conPassword.editText?.text.toString())
+            if(presenter.resetPassword(password.editText?.text.toString(), newPassword.editText?.text.toString(), conPassword.editText?.text.toString())){
+                resetPasswordAlert.cancel()
+            }
         }
     }
 
@@ -98,7 +109,9 @@ class UserFragment : Fragment() {
         val resetUsernameAlert = builder.create()
         resetUsernameAlert.show()
         resetUsernameAlert.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
-            presenter.resetName(newUsername.editText?.text.toString())
+            if(presenter.resetName(newUsername.editText?.text.toString())){
+                resetUsernameAlert.cancel()
+            }
         }
     }
 
@@ -108,7 +121,7 @@ class UserFragment : Fragment() {
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnFragmentInteractionListener") as Throwable
         }
     }
 

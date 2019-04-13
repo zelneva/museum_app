@@ -183,10 +183,11 @@ interface MuseumApiService {
     *  Users
     */
 
+    @FormUrlEncoded
     @POST("user/register")
     fun registration(@Field("username") login: String,
                      @Field("password") password: String,
-                     @Field("name") name: String): Call<Unit>
+                     @Field("name") name: String): Observable<SessionObject>
 
 
     @POST("user/login")
@@ -200,7 +201,7 @@ interface MuseumApiService {
     @DELETE("user/{id}")
     fun deleteUser(@Query("sessionId") sessionId: String): Observable<Unit>
 
-
+    @FormUrlEncoded
     @PUT("user/{id}")
     fun updateUser(@Path("id") id: String,
                    @Field("name") name: String,
@@ -210,7 +211,7 @@ interface MuseumApiService {
 
 
     @GET("user/{id}")
-    fun isAdmin(@Path("id") id: String): Observable<Boolean>
+    fun getUserInfo(@Path("id") id: String): Observable<User>
 
 
     /*

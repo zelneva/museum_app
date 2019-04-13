@@ -9,7 +9,6 @@ class UserDbHelper(context: Context) : ManagedSQLiteOpenHelper(context, DATABASE
     companion object {
         private val DATABASE_NAME = "museums"
         private val USER_TABLE_NAME = "user"
-//        private val DATABASE_VERSION = 1
 
         private var instance: UserDbHelper? = null
 
