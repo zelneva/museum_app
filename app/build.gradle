@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+androidExtensions {
+    experimental = true
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -52,12 +56,14 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
+    //anko database
+    implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
+
+    //kotlinx
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     //tests
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-
 }

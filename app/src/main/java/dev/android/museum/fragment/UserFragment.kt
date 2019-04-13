@@ -18,7 +18,7 @@ class UserFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_user, container, false)
-        presenter = UserPresenter()
+        presenter = UserPresenter(this)
         setHasOptionsMenu(true)
         return view
     }
@@ -42,17 +42,19 @@ class UserFragment : Fragment() {
         when (item.itemId) {
             R.id.change_name_item -> {
                 showResetUsernameAlert()
-                Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.change_password_item -> {
-                Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
                 showResetPasswordAlert()
                 return true
             }
+            R.id.delete_account_item->{
+                // Добавить диалог с подтверждением
+                presenter.deleteAccount()
+                return true
+            }
             R.id.exit_item -> {
-                Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
-                exitFromAccount()
+                presenter.exitFromAccount()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -60,19 +62,17 @@ class UserFragment : Fragment() {
     }
 
 
-    private fun exitFromAccount() {
-        val exitFlag = presenter.exitFromAccount()
-        if (exitFlag) {
-            listener?.onButtonExit()
-        }
+    fun exitFromAccount() {
+        listener?.onButtonExit()
     }
+
 
     private fun showResetPasswordAlert() {
         val builder = AlertDialog.Builder(activity)
         val resetPasswordView = activity!!.layoutInflater.inflate(R.layout.dialog_change_password, null)
-        val password = resetPasswordView.findViewById(R.id.old_password) as TextInputLayout
-        val newPassword = resetPasswordView.findViewById(R.id.new_password) as TextInputLayout
-        val conPassword = resetPasswordView.findViewById(R.id.confirm_password) as TextInputLayout
+        val password = resetPasswordView.findViewById<TextInputLayout>(R.id.old_password)
+        val newPassword = resetPasswordView.findViewById<TextInputLayout>(R.id.new_password)
+        val conPassword = resetPasswordView.findViewById<TextInputLayout>(R.id.confirm_password)
         builder.setView(resetPasswordView)
         builder.setTitle("Изменение пароля")
                 .setCancelable(false)
@@ -111,6 +111,7 @@ class UserFragment : Fragment() {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
+
 
     override fun onDetach() {
         super.onDetach()

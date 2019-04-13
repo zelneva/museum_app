@@ -1,11 +1,12 @@
 package dev.android.museum.api
 
 import dev.android.museum.model.*
+import dev.android.museum.model.util.LoginObject
+import dev.android.museum.model.util.SessionObject
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 interface MuseumApiService {
 
@@ -155,7 +156,6 @@ interface MuseumApiService {
                      @Field("diedAt") diedAt: Date?): Call<Unit>
 
 
-
     @GET("locale/author")
     fun getLocaleDataAuthor(@Query("id") id: String): Observable<List<AuthorLocaleData>>
 
@@ -190,23 +190,27 @@ interface MuseumApiService {
 
 
     @POST("user/login")
-    fun login(@Field("username") username: String,
-              @Field("password") password: String): Call<Unit>
+    fun login(@Body loginObject: LoginObject): Observable<SessionObject>
 
-
+    @FormUrlEncoded
     @POST("user/logout")
-    fun logout()
+    fun logout(@Field("sessionId") sessionId: String): Observable<Any>
 
 
     @DELETE("user/{id}")
-    fun deleteUser(@Path("id") id: String)
+    fun deleteUser(@Query("sessionId") sessionId: String): Observable<Unit>
 
 
     @PUT("user/{id}")
     fun updateUser(@Path("id") id: String,
                    @Field("name") name: String,
                    @Field("username") username: String,
-                   @Field("password") password: String): Call<User>
+                   @Field("password") password: String,
+                   @Field("sessionId") sessionId: String): Observable<User>
+
+
+    @GET("user/{id}")
+    fun isAdmin(@Path("id") id: String): Observable<Boolean>
 
 
     /*
@@ -222,7 +226,7 @@ interface MuseumApiService {
 
 
     @GET("favorite")
-    fun getFavorite():Call<List<Favorite>>
+    fun getFavorite(): Call<List<Favorite>>
 
     /*
      * Comment
@@ -230,7 +234,7 @@ interface MuseumApiService {
 
     @POST("comment")
     fun createComment(@Field("showpiece") showpieceId: String,
-                      @Field("text") text: String) : Call<Unit>
+                      @Field("text") text: String): Call<Unit>
 
 
     @DELETE("comment/{id}")

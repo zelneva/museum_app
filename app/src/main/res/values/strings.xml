@@ -30,6 +30,7 @@
     <string name="show_showpieces_ge">Exponate anzeigen</string>
     <string name="change_name">Изменить имя</string>
     <string name="change_password">Изменить пароль</string>
+    <string name="delete_account">Удалить аккаунт</string>
     <string name="exit">Выход</string>
     <string name="changing_password">Изменение пароля</string>
 

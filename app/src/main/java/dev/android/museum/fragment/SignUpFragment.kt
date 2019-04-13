@@ -25,7 +25,6 @@ class SignUpFragment : Fragment() {
     private lateinit var username: EditText
     private lateinit var password: EditText
     private lateinit var confirmPassword: EditText
-    private lateinit var signInBtn: Button
     private lateinit var signUpBtn: Button
     private lateinit var cancelBtn: Button
 
@@ -51,7 +50,7 @@ class SignUpFragment : Fragment() {
         signUpBtn = view.findViewById(R.id.sign_up_btn)
         cancelBtn = view.findViewById(R.id.cancel_sign_up_btn)
 
-        signInBtn.setOnClickListener(clickListenerSignIn)
+        signUpBtn.setOnClickListener(clickListenerSignIn)
         cancelBtn.setOnClickListener(clickListenerCancel)
     }
 

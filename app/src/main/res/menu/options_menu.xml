@@ -4,6 +4,8 @@
         android:title="@string/change_name" />
     <item android:id="@+id/change_password_item"
         android:title="@string/change_password" />
+    <item android:id="@+id/delete_account_item"
+        android:title="@string/delete_account" />
     <item android:id="@+id/exit_item"
         android:title="@string/exit" />
 </menu>

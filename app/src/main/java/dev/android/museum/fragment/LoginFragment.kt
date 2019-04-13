@@ -1,5 +1,6 @@
 package dev.android.museum.fragment
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -23,7 +24,6 @@ class LoginFragment : Fragment() {
     private lateinit var signInBtn: Button
     private lateinit var signUpBtn: Button
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         init(view)
-
+        presenter = LoginPresenter(this)
         return view
     }
 
@@ -52,16 +52,37 @@ class LoginFragment : Fragment() {
     private val clickListenerSignIn = View.OnClickListener {
         val username = username.text.toString()
         val password = password.text.toString()
+        presenter.authorize(username, password)
+    }
 
-        presenter = LoginPresenter(username, password)
-        if(presenter.authorize()){
-            listener?.onButtonSignIn()
+    fun authorize(isExistsUser: Boolean){
+        if (!isExistsUser) {
+            openAlertDialog()
         }
     }
 
 
     private val clickListenerSignUp = View.OnClickListener {
         listener?.onButtonSignUpOpenFragment()
+    }
+
+
+    private fun openAlertDialog() {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Такого пользователя не существует")
+                .setPositiveButton("OK") { dialog, _ -> dialog!!.cancel() }
+        val alert = builder.create()
+        alert.show()
+    }
+
+
+    fun openUserFragment() {
+        listener?.openUserFragment()
+    }
+
+
+    fun openAdminFragment() {
+        listener?.openAdminFragment()
     }
 
 
@@ -81,9 +102,9 @@ class LoginFragment : Fragment() {
 
 
     interface OnFragmentInteractionListener {
-        fun onButtonSignIn()
         fun onButtonSignUpOpenFragment()
-
+        fun openAdminFragment()
+        fun openUserFragment()
     }
 
     companion object {

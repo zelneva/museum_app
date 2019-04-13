@@ -61,15 +61,20 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
 
     private fun openFragmentAnimateDownToUp(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down)
+        transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
         transaction.replace(R.id.main_container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
 
 
-    override fun onButtonSignIn() {
+    override fun openAdminFragment() {
         openFragment(AdminFragment.newInstance())
+    }
+
+
+    override fun openUserFragment() {
+        openFragment(UserFragment.newInstance())
     }
 
 
@@ -91,19 +96,4 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
         openFragment(LoginFragment.newInstance())
     }
 
-
-//    var doubleBackToExitPressedOnce = false
-//
-//    override fun onBackPressed() {
-//        if (!doubleBackToExitPressedOnce && supportFragmentManager.backStackEntryCount == 0) {
-//            this.doubleBackToExitPressedOnce = true
-//            Toast.makeText(this, "Please click BACK again to exit.", Toast.LENGTH_SHORT).show()
-//
-//            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
-//        } else {
-//            supportFragmentManager.popBackStack();
-//            super.onBackPressed()
-//            return
-//        }
-//    }
 }
