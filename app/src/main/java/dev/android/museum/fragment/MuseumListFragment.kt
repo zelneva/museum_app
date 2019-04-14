@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.MuseumRecyclerViewAdapter
+import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.model.Museum
 import dev.android.museum.presenters.MuseumListPresenter
 
@@ -24,6 +25,7 @@ class MuseumListFragment : Fragment() {
     private lateinit var rv: RecyclerView
     private lateinit var adapter: MuseumRecyclerViewAdapter
     lateinit var progressBar: ProgressBar
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +52,7 @@ class MuseumListFragment : Fragment() {
     private fun setupView(view: View) {
         val llm = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         rv = view.findViewById(R.id.museum_list_rv)
+        rv.adapter = SampleRecycler()
         rv.layoutManager = llm
     }
 }

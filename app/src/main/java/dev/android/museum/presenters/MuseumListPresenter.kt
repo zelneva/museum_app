@@ -7,7 +7,6 @@ import dev.android.museum.App.Companion.museumApiService
 import dev.android.museum.fragment.MuseumListFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 class MuseumListPresenter(var museumListFragment: MuseumListFragment) {
 

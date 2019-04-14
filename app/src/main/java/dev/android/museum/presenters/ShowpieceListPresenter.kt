@@ -31,9 +31,9 @@ class ShowpieceListPresenter(val showpieceListFragment: ShowpieceListFragment) {
                 }
                 .subscribe({ showpieceLocaleData ->
                     run {
-                        val n = showpieceLocaleData
                         showpieces.addAll(showpieceLocaleData)
                         showpieceListFragment.progressBar.visibility = View.VISIBLE
+                        showpieceListFragment.displayShowpieces(showpieces)
                     }
                 },
                         { t: Throwable? ->
@@ -43,7 +43,6 @@ class ShowpieceListPresenter(val showpieceListFragment: ShowpieceListFragment) {
                             }
                         },
                         {
-                            showpieceListFragment.displayShowpieces(showpieces)
                             showpieceListFragment.progressBar.visibility = View.GONE
                         })
 

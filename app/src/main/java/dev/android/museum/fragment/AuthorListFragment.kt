@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.AuthorRecyclerViewAdapter
+import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.model.AuthorLocaleData
 import dev.android.museum.presenters.AuthorListPresenter
 
@@ -36,16 +37,19 @@ class AuthorListFragment : Fragment() {
         return view
     }
 
-    fun displayAuthors(authorsResponce: ArrayList<AuthorLocaleData>) {
-        adapter = AuthorRecyclerViewAdapter(authorsResponce, this.context!!)
-        rv.adapter = adapter
+    fun displayAuthors(authorsResponce: ArrayList<AuthorLocaleData>?) {
+        if (authorsResponce != null) {
+            adapter = AuthorRecyclerViewAdapter(authorsResponce, this.context!!)
+            rv.adapter = adapter
+        }
         adapter.notifyDataSetChanged()
     }
 
 
-    private fun setupView(view: View){
+    private fun setupView(view: View) {
         val llm = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         rv = view.findViewById(R.id.author_list_rv)
+        rv.adapter = SampleRecycler()
         rv.layoutManager = llm
     }
 

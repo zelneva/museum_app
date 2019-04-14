@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import dev.android.museum.R
+import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.adapter.ShowpieceRecyclerViewAdapter
 import dev.android.museum.model.ShowpieceLocaleData
 import dev.android.museum.presenters.ShowpieceListPresenter
@@ -43,6 +44,7 @@ class ShowpieceListFragment : Fragment() {
     private fun setupView(view: View){
         val llm = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         rv = view.findViewById(R.id.showpiece_list_rv)
+        rv.adapter = SampleRecycler()
         rv.layoutManager = llm
     }
 

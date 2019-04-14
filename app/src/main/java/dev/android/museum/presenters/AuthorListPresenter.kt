@@ -29,6 +29,7 @@ class AuthorListPresenter(val authorListFragment: AuthorListFragment) {
                     run {
                         authors.addAll(authorLocaleData)
                         authorListFragment.progressBar.visibility = View.VISIBLE
+                        authorListFragment.displayAuthors(authors)
                     }
                 },
                         { t: Throwable? ->
@@ -38,7 +39,6 @@ class AuthorListPresenter(val authorListFragment: AuthorListFragment) {
                             }
                         },
                         {
-                            authorListFragment.displayAuthors(authors)
                             authorListFragment.progressBar.visibility = View.GONE
                         })
 

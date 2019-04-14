@@ -59,6 +59,10 @@ interface MuseumApiService {
     fun getExhibitionById(@Path("id") id: String): Observable<Exhibition>
 
 
+    @GET("exhibition/museum/{museumId}")
+    fun getExhibitionsByMuseumId(@Path("museumId")museumId: String): Observable<ArrayList<Exhibition>>
+
+
     @POST("exhibition")
     @FormUrlEncoded
     fun createExhibition(@Field("name") name: String,
@@ -110,7 +114,7 @@ interface MuseumApiService {
 
 
     @GET("locale/showpiece")
-    fun getLocaleDataShowpieceById(@Query("id") id: String): Observable<List<ShowpieceLocaleData>>
+    fun getLocaleDataShowpieceById(@Query("id") id: String): Observable<ArrayList<ShowpieceLocaleData>>
 
 
     @POST("locale/showpiece")
@@ -158,7 +162,7 @@ interface MuseumApiService {
 
 
     @GET("locale/author")
-    fun getLocaleDataAuthor(@Query("id") id: String): Observable<List<AuthorLocaleData>>
+    fun getLocaleDataAuthor(@Query("id") id: String): Observable<ArrayList<AuthorLocaleData>>
 
 
     @POST("locale/author")

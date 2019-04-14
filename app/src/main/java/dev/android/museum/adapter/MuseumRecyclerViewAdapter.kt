@@ -47,7 +47,7 @@ class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapt
 
             val ft = activity.supportFragmentManager.beginTransaction()
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-            ft.replace(R.id.main_container, ExhibitionListFragment.newInstance())
+            ft.replace(R.id.main_container, ExhibitionListFragment.newInstance(museums[position].id.toString()))
                     .addToBackStack(null)
                     .commit()
         }

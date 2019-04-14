@@ -15,7 +15,6 @@ import dev.android.museum.model.AuthorLocaleData
 class AuthorRecyclerViewAdapter() : RecyclerView.Adapter<AuthorRecyclerViewAdapter.ViewHolder>() {
 
     private var authors = arrayListOf<AuthorLocaleData>()
-
     lateinit var context: Context
 
     constructor(authors: ArrayList<AuthorLocaleData>, context: Context) : this() {
@@ -30,7 +29,9 @@ class AuthorRecyclerViewAdapter() : RecyclerView.Adapter<AuthorRecyclerViewAdapt
     }
 
 
-    override fun getItemCount() = authors.size
+    override fun getItemCount(): Int {
+        if (authors.size == 0) return 1 else return authors.size
+    }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
