@@ -1,5 +1,6 @@
 package dev.android.museum.presenters
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import dev.android.museum.App.Companion.museumApiService
@@ -10,9 +11,10 @@ import java.util.concurrent.TimeUnit
 
 class MuseumListPresenter(var museumListFragment: MuseumListFragment) {
 
+
+    @SuppressLint("CheckResult")
     fun loadMuseumList() {
         museumApiService.getAllMuseum()
-                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ museums ->

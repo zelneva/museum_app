@@ -12,39 +12,36 @@ import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
 import dev.android.museum.fragment.NullFragment
 import dev.android.museum.fragment.ShowpieceDetailFragment
+import dev.android.museum.model.ShowpieceLocaleData
 
 class ShowpieceRecyclerViewAdapter(): RecyclerView.Adapter<ShowpieceRecyclerViewAdapter.ViewHolder>(){
 
-    var names = arrayListOf<String>()
-    var images = arrayListOf<String>()
-    var path = 0
+    private var showpieces = arrayListOf<ShowpieceLocaleData>()
 
     lateinit var context: Context
 
 
-    constructor( path: Int, names: ArrayList<String>, images: ArrayList<String>, context: Context) : this() {
-        this.names = names
-        this.images = images
+    constructor( showpieces: ArrayList<ShowpieceLocaleData>, context: Context) : this() {
+        this.showpieces = showpieces
         this.context = context
-        this.path = path
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(path, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_showpiece_main, parent, false)
         return ViewHolder(view)
     }
 
 
-    override fun getItemCount() = names.size
+    override fun getItemCount() = showpieces.size
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.get()
-                .load(images[position])
-                .into(holder.image)
+//        Picasso.get()
+//                .load(images[position])
+//                .into(holder.image)
 
-        holder.title.text = names[position]
+        holder.title.text = showpieces[position].name
 
         holder.itemView.setOnClickListener {
             val fragment = ShowpieceDetailFragment.newInstance()

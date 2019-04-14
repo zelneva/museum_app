@@ -7,6 +7,7 @@ import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 interface MuseumApiService {
 
@@ -19,11 +20,11 @@ interface MuseumApiService {
 
 
     @GET("museum")
-    fun getMuseumByName(@Query("name") name: String): Call<Museum>
+    fun getMuseumByName(@Query("name") name: String): Observable<Museum>
 
 
     @GET("museum/{id}")
-    fun getMuseumById(@Path("id") id: String): Call<Museum>
+    fun getMuseumById(@Path("id") id: String): Observable<Museum>
 
 
     @POST("museum")
@@ -31,11 +32,11 @@ interface MuseumApiService {
     fun createMuseum(@Field("name") name: String,
                      @Field("address") address: String,
                      @Field("lat") lat: Float,
-                     @Field("lng") lng: Float): Call<Unit> //???
+                     @Field("lng") lng: Float): Observable<Unit>
 
 
     @DELETE("museum/{id}")
-    fun deleteMuseumById(@Path("id") id: String): Call<Unit>
+    fun deleteMuseumById(@Path("id") id: String): Observable<Unit>
 
 
     @PUT("museum/{id}")
@@ -43,7 +44,7 @@ interface MuseumApiService {
                      @Query("name") name: String?,
                      @Query("address") address: String?,
                      @Query("lat") lat: Float?,
-                     @Query("lng") lng: Float?): Call<Unit>
+                     @Query("lng") lng: Float?): Observable<Unit>
 
 
     /*
@@ -51,11 +52,11 @@ interface MuseumApiService {
      */
 
     @GET("exhibition")
-    fun getAllExhibition(): Call<List<Exhibition>>
+    fun getAllExhibition(): Observable<List<Exhibition>>
 
 
     @GET("exhibition/{id}")
-    fun getExhibitionById(@Path("id") id: String): Call<Exhibition>
+    fun getExhibitionById(@Path("id") id: String): Observable<Exhibition>
 
 
     @POST("exhibition")
@@ -63,11 +64,11 @@ interface MuseumApiService {
     fun createExhibition(@Field("name") name: String,
                          @Field("startsAt") startsAt: Date,
                          @Field("endsAt") endsAt: Date,
-                         @Field("museum.id") museumId: String): Call<Unit>
+                         @Field("museum.id") museumId: String): Observable<Unit>
 
 
     @DELETE("exhibition/{id}")
-    fun deleteExhibitionById(@Path("id") id: String): Call<Unit>
+    fun deleteExhibitionById(@Path("id") id: String): Observable<Unit>
 
 
     @PUT("exhibition/{id}")
@@ -75,7 +76,7 @@ interface MuseumApiService {
                          @Query("name") name: String?,
                          @Query("startsAt") startsAt: Date?,
                          @Query("endsAt") endsAt: Date?,
-                         @Query("museum.id") museumId: String?): Call<Unit>
+                         @Query("museum.id") museumId: String?): Observable<Unit>
 
 
     /*
@@ -83,11 +84,11 @@ interface MuseumApiService {
     */
 
     @GET("showpiece")
-    fun getAllShowpiece(): Call<List<Showpiece>>
+    fun getAllShowpiece(): Observable<ArrayList<Showpiece>>
 
 
     @GET("showpiece/{id}")
-    fun getShowpieceById(@Path("id") id: String): Call<Showpiece>
+    fun getShowpieceById(@Path("id") id: String): Observable<Showpiece>
 
 
     @POST("showpiece")
@@ -96,7 +97,7 @@ interface MuseumApiService {
                         @Field("author.id") authorId: String,
                         @Field("date") date: String,
                         @Field("genre") genre: String,
-                        @Field("srcPhoto") srcPhoto: String): Call<Unit>
+                        @Field("srcPhoto") srcPhoto: String): Observable<Unit>
 
 
     @PUT("showpiece/{id}")
@@ -105,22 +106,22 @@ interface MuseumApiService {
                         @Field("author.id") authorId: String,
                         @Field("date") date: String,
                         @Field("genre") genre: String,
-                        @Field("srcPhoto") srcPhoto: String): Call<Unit>
+                        @Field("srcPhoto") srcPhoto: String): Observable<Unit>
 
 
     @GET("locale/showpiece")
-    fun getLocaleDataShowpieceById(@Field("id") id: String): Call<ShowpieceLocaleData>
+    fun getLocaleDataShowpieceById(@Query("id") id: String): Observable<List<ShowpieceLocaleData>>
 
 
     @POST("locale/showpiece")
     fun createLocaleDataShowpiece(@Field("showpiece.id") showpieceId: String,
                                   @Field("language") language: String,
                                   @Field("name") name: String,
-                                  @Field("description") description: String): Call<Unit>
+                                  @Field("description") description: String): Observable<Unit>
 
 
     @DELETE("locale/showpiece/{id}")
-    fun deleteLocaleDataShowpiece(@Path("id") id: String): Call<Unit>
+    fun deleteLocaleDataShowpiece(@Path("id") id: String): Observable<Unit>
 
 
     @PUT("locale/showpiece/{id}")
@@ -128,7 +129,7 @@ interface MuseumApiService {
                                   @Field("showpiece.id") showpieceId: String,
                                   @Field("language") language: String,
                                   @Field("name") name: String,
-                                  @Field("description") description: String): Call<Unit>
+                                  @Field("description") description: String): Observable<Unit>
 
     /*
     *  Author
@@ -139,21 +140,21 @@ interface MuseumApiService {
 
 
     @GET("author/{id}")
-    fun getAuthorById(@Path("id") id: String): Call<Author>
+    fun getAuthorById(@Path("id") id: String): Observable<Author>
 
 
     @POST("author")
     fun createAuthor(@Field("bornAt") bornAt: Date,
-                     @Field("diedAt") diedAt: Date?): Call<Unit>
+                     @Field("diedAt") diedAt: Date?): Observable<Unit>
 
 
     @DELETE("author/{id}")
-    fun deleteAuthor(@Path("id") id: String): Call<Unit>
+    fun deleteAuthor(@Path("id") id: String): Observable<Unit>
 
 
     @PUT("author/{id}")
     fun updateAuthor(@Field("bornAt") bornAt: Date,
-                     @Field("diedAt") diedAt: Date?): Call<Unit>
+                     @Field("diedAt") diedAt: Date?): Observable<Unit>
 
 
     @GET("locale/author")
@@ -164,11 +165,11 @@ interface MuseumApiService {
     fun createLocaleDataAuthor(@Field("name") name: String,
                                @Field("language") language: String,
                                @Field("description") description: String,
-                               @Field("author.id") authorId: String): Call<Unit>
+                               @Field("author.id") authorId: String): Observable<Unit>
 
 
     @DELETE("locale/author/{id}")
-    fun deleteLocaleDataAuthor(@Path("id") id: String): Call<Unit>
+    fun deleteLocaleDataAuthor(@Path("id") id: String): Observable<Unit>
 
 
     @PUT("locale/author/{id}")
@@ -176,7 +177,7 @@ interface MuseumApiService {
                                @Field("name") name: String,
                                @Field("language") language: String,
                                @Field("description") description: String,
-                               @Field("author.id") authorId: String): Call<Unit>
+                               @Field("author.id") authorId: String): Observable<Unit>
 
 
     /*
@@ -219,15 +220,15 @@ interface MuseumApiService {
      */
 
     @POST("favorite")
-    fun createFavorite(@Field("showpiece") showpieceId: String): Call<Unit>
+    fun createFavorite(@Field("showpiece") showpieceId: String): Observable<Unit>
 
 
     @DELETE("favorite/{id}")
-    fun deleteFavorite(@Path("id") id: String): Call<Unit>
+    fun deleteFavorite(@Path("id") id: String): Observable<Unit>
 
 
     @GET("favorite")
-    fun getFavorite(): Call<List<Favorite>>
+    fun getFavorite(): Observable<List<Favorite>>
 
     /*
      * Comment
@@ -235,18 +236,18 @@ interface MuseumApiService {
 
     @POST("comment")
     fun createComment(@Field("showpiece") showpieceId: String,
-                      @Field("text") text: String): Call<Unit>
+                      @Field("text") text: String): Observable<Unit>
 
 
     @DELETE("comment/{id}")
-    fun deleteComment(@Path("id") id: String): Call<Unit>
+    fun deleteComment(@Path("id") id: String): Observable<Unit>
 
 
     @PUT("comment/{id}")
     fun updateComment(@Path("id") id: String,
-                      @Field("text") text: String): Call<Unit>
+                      @Field("text") text: String): Observable<Unit>
 
 
     @GET("comment")
-    fun getListCommentByShowpiece(@Field("showpiece_id") showpieceId: String): Call<List<Comment>>
+    fun getListCommentByShowpiece(@Field("showpiece_id") showpieceId: String): Observable<List<Comment>>
 }

@@ -35,7 +35,7 @@ class FavoriteFragment : Fragment() {
         val llm = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         val rv = view.findViewById<RecyclerView>(R.id.showpiece_list_rv)
         rv.layoutManager = llm
-        rv.adapter = ShowpieceRecyclerViewAdapter(R.layout.list_item_showpiece_main, names, images, this.context!!)
+//        rv.adapter = ShowpieceRecyclerViewAdapter(R.layout.list_item_showpiece_main, names, images, this.context!!)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

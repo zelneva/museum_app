@@ -1,5 +1,6 @@
 package dev.android.museum.presenters
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import dev.android.museum.App.Companion.museumApiService
@@ -9,8 +10,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class AuthorListPresenter(var authorListFragment: AuthorListFragment) {
+class AuthorListPresenter(val authorListFragment: AuthorListFragment) {
 
+    @SuppressLint("CheckResult")
     fun loadListAuthor() {
         val authors = arrayListOf<AuthorLocaleData>()
 
@@ -19,7 +21,8 @@ class AuthorListPresenter(var authorListFragment: AuthorListFragment) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { authorList -> Observable.fromIterable(authorList) }
                 .flatMap { author ->
-                    museumApiService.getLocaleDataAuthor(author.id.toString()).subscribeOn(Schedulers.io())
+                    museumApiService.getLocaleDataAuthor(author.id.toString())
+                            .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                 }
                 .subscribe({ authorLocaleData ->

@@ -15,7 +15,7 @@ data class Showpiece(
         var author: Author,
 
         @SerializedName("date")
-        var date: Date,
+        var date: Long,
 
         @SerializedName("genre")
         var genre: String,

@@ -12,10 +12,10 @@ data class Exhibition (
         var name: String,
 
         @SerializedName("startsAt")
-        var startsAt: Date,
+        var startsAt: Long,
 
         @SerializedName("endsAt")
-        var endsAt: Date,
+        var endsAt: Long,
 
         @SerializedName("museum")
         var museum: Museum
