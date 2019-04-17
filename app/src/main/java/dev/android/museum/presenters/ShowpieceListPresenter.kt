@@ -21,10 +21,8 @@ class ShowpieceListPresenter(val showpieceListFragment: ShowpieceListFragment) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { showpieceList ->
-                    var l = showpieceList
                     Observable.fromIterable(showpieceList) }
                 .flatMap { showpiece ->
-                    val a = showpiece
                     museumApiService.getLocaleDataShowpieceById(showpiece.id)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())

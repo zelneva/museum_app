@@ -113,6 +113,10 @@ interface MuseumApiService {
                         @Field("srcPhoto") srcPhoto: String): Observable<Unit>
 
 
+    @GET("showpiece/exhibition/{exhibitionId}")
+    fun getListShowpieceByExhibitionId(@Path("exhibitionId") exhibitionId: String): Observable<List<Showpiece>>
+
+
     @GET("locale/showpiece")
     fun getLocaleDataShowpieceById(@Query("id") id: String): Observable<ArrayList<ShowpieceLocaleData>>
 

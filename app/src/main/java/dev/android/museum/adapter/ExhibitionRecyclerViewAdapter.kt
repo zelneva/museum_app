@@ -42,7 +42,7 @@ class ExhibitionRecyclerViewAdapter() : RecyclerView.Adapter<ExhibitionRecyclerV
         holder.finishDate.text = exhibitions[position].endsAt.toString()
 
         holder.itemView.setOnClickListener {
-            val showpieceFragment = ShowpieceImageListFragment.newInstance()
+            val showpieceFragment = ShowpieceImageListFragment.newInstance(exhibitions[position].id)
             val activity: MainActivity = context as MainActivity
 
             val ft = activity.supportFragmentManager.beginTransaction()

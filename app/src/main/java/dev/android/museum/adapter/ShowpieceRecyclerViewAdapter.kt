@@ -10,7 +10,6 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
-import dev.android.museum.fragment.NullFragment
 import dev.android.museum.fragment.ShowpieceDetailFragment
 import dev.android.museum.model.ShowpieceLocaleData
 

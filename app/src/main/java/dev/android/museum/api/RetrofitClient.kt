@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitClient {
 
-    val baseURL = "http://192.168.88.249:8080/api/"
+    val baseURL = "http://192.168.88.238:8080/api/"
 //val baseURL = "http://10.0.2.15:8080/api/"
 
     fun getClient(): MuseumApiService {

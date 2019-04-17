@@ -91,12 +91,12 @@ class AuthorDetailFragment: Fragment(){
 
 
     private val clickShowShowpiece = View.OnClickListener {
-        val showpieceFragment = ShowpieceImageListFragment.newInstance()
-        val activity: MainActivity = context as MainActivity
-
-        val ft = activity.supportFragmentManager.beginTransaction()
-        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-        ft.replace(R.id.main_container, showpieceFragment).addToBackStack(null).commit()
+//        val showpieceFragment = ShowpieceImageListFragment.newInstance()
+//        val activity: MainActivity = context as MainActivity
+//
+//        val ft = activity.supportFragmentManager.beginTransaction()
+//        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+//        ft.replace(R.id.main_container, showpieceFragment).addToBackStack(null).commit()
 
     }
 
