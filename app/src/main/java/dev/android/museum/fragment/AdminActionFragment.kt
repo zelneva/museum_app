@@ -67,7 +67,6 @@ class AdminActionFragment : Fragment() {
 
 
     interface OnFragmentInteractionListener {
-//        fun onFragmentInteraction(uri: Uri)
     }
 
 }

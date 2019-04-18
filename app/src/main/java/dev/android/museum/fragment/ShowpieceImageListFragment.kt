@@ -5,7 +5,6 @@ package dev.android.museum.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,10 +16,11 @@ import dev.android.museum.adapter.ShowpieceRecyclerViewAdapter
 import dev.android.museum.model.ShowpieceLocaleData
 import dev.android.museum.presenters.ShowpieceImageListPresent
 
-class ShowpieceImageListFragment: Fragment() {
+class ShowpieceImageListFragment : Fragment() {
 
     companion object {
         val EXHIBITION_ID = "exhibitionId"
+        val AUTHOR_ID = "authorId"
 
         fun newInstance(exhibitionId: String): ShowpieceImageListFragment {
             val fragment = ShowpieceImageListFragment()
@@ -30,7 +30,14 @@ class ShowpieceImageListFragment: Fragment() {
             return fragment
         }
 
-        //для автора создать отдельную функцию
+
+        fun newInstanceForAuthor(authorId: String): ShowpieceImageListFragment {
+            val fragment = ShowpieceImageListFragment()
+            val bundle = Bundle()
+            bundle.putString(AUTHOR_ID, authorId)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
 
@@ -38,13 +45,18 @@ class ShowpieceImageListFragment: Fragment() {
     private lateinit var rv: RecyclerView
     private lateinit var adapter: ShowpieceRecyclerViewAdapter
     lateinit var progressBar: ProgressBar
-    private lateinit var exhibitionId: String
+    private var exhibitionId: String? = null
+    private var authorId: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if( arguments != null){
-            exhibitionId = arguments!!.get(EXHIBITION_ID).toString()
+        if (arguments != null) {
+            if (arguments!!.get(EXHIBITION_ID) != null) {
+                exhibitionId = arguments!!.get(EXHIBITION_ID).toString()
+            } else if (arguments!!.get(AUTHOR_ID) != null) {
+                authorId = arguments!!.get(AUTHOR_ID).toString()
+            }
         }
     }
 
@@ -55,7 +67,12 @@ class ShowpieceImageListFragment: Fragment() {
         progressBar = view.findViewById(R.id.progress_bar)
         setupView(view)
         presenter = ShowpieceImageListPresent(this)
-        presenter.loadListShowpieceImage(exhibitionId)
+        if (exhibitionId != null) {
+            presenter.loadListShowpieceImage(exhibitionId!!)
+        } else if (authorId != null) {
+            presenter.loadListShowpieceImageForAuthor(authorId!!)
+        }
+
         return view
     }
 

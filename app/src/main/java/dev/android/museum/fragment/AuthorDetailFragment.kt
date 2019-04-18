@@ -1,27 +1,58 @@
 package dev.android.museum.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.TableRow
+import android.widget.TextView
 import dev.android.museum.R
-import dev.android.museum.activity.MainActivity
+import dev.android.museum.model.Author
+import dev.android.museum.model.AuthorLocaleData
+import dev.android.museum.presenters.AuthorDetailPresenter
 
-class AuthorDetailFragment: Fragment(){
+class AuthorDetailFragment : Fragment() {
 
-    lateinit var btnRussian: Button
-    lateinit var btnEnglish: Button
-    lateinit var btnGerman: Button
-    lateinit var description: TextView
-    lateinit var titleDescription: TextView
-    lateinit var titleShowShowpieces: TextView
-    lateinit var name: TextView
-    lateinit var year: TextView
-    lateinit var showShowpiece: TableRow
-    lateinit var btnMore: TextView
-    lateinit var btnLess: TextView
+
+    companion object {
+
+        val AUTHOR_ID = "authorId"
+
+        fun newInstance(authorId: String): AuthorDetailFragment {
+            val fragment = AuthorDetailFragment()
+            val bundle = Bundle()
+            bundle.putString(AUTHOR_ID, authorId)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+    private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var btnRussian: Button
+    private lateinit var btnEnglish: Button
+    private lateinit var btnGerman: Button
+    private lateinit var description: TextView
+    private lateinit var titleDescription: TextView
+    private lateinit var titleShowShowpieces: TextView
+    private lateinit var name: TextView
+    private lateinit var year: TextView
+    private lateinit var showShowpiece: TableRow
+    private lateinit var btnMore: TextView
+    private lateinit var btnLess: TextView
+    private lateinit var presenter: AuthorDetailPresenter
+    private lateinit var authorId: String
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (arguments != null) {
+            authorId = arguments!!.get(AUTHOR_ID) as String
+        }
+    }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +60,9 @@ class AuthorDetailFragment: Fragment(){
 
         val view = inflater.inflate(R.layout.fragment_author_detail, container, false)
         init(view)
-
+        presenter = AuthorDetailPresenter(this)
+        presenter.loadInfoAuthorDetail(authorId)
+        presenter.loadAuthorDate(authorId)
         return view
     }
 
@@ -66,23 +99,19 @@ class AuthorDetailFragment: Fragment(){
     }
 
 
-    private val clickListenerLanguage = View.OnClickListener { view ->
-        when (view) {
-
-            btnRussian -> {
-                description.text = "Русский"
+    fun displayAuthorDetailInfo(authorLocaleDataResponse: AuthorLocaleData) {
+        description.text = authorLocaleDataResponse.description
+        name.text = authorLocaleDataResponse.name
+        when (authorLocaleDataResponse.language) {
+            "ru" -> {
                 titleDescription.text = resources.getText(R.string.description_ru)
                 titleShowShowpieces.text = resources.getText(R.string.show_showpieces_ru)
             }
-
-            btnEnglish -> {
-                description.text = "English"
+            "en" -> {
                 titleDescription.text = resources.getText(R.string.description_en)
                 titleShowShowpieces.text = resources.getText(R.string.show_showpieces_en)
             }
-
-            btnGerman -> {
-                description.text = "German"
+            "ge" -> {
                 titleDescription.text = resources.getText(R.string.description_ge)
                 titleShowShowpieces.text = resources.getText(R.string.show_showpieces_ge)
             }
@@ -90,18 +119,43 @@ class AuthorDetailFragment: Fragment(){
     }
 
 
-    private val clickShowShowpiece = View.OnClickListener {
-//        val showpieceFragment = ShowpieceImageListFragment.newInstance()
-//        val activity: MainActivity = context as MainActivity
-//
-//        val ft = activity.supportFragmentManager.beginTransaction()
-//        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-//        ft.replace(R.id.main_container, showpieceFragment).addToBackStack(null).commit()
-
+    fun displayDate(authorResponse: Author) {
+        if (authorResponse.diedAt.toString() != "") {
+            year.text = "${authorResponse.bornAt} - ${authorResponse.diedAt}"
+        } else {
+            year.text = authorResponse.bornAt.toString()
+        }
     }
 
 
-    companion object {
-        fun newInstance(): AuthorDetailFragment = AuthorDetailFragment()
+    private val clickListenerLanguage = View.OnClickListener { view ->
+        when (view) {
+            btnRussian -> presenter.loadInfoAuthorDetail(authorId, "ru")
+            btnEnglish -> presenter.loadInfoAuthorDetail(authorId, "en")
+            btnGerman -> presenter.loadInfoAuthorDetail(authorId, "ge")
+        }
+    }
+
+
+    private val clickShowShowpiece = View.OnClickListener {
+        listener!!.openListShowpieceByAuthor(authorId)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is AdminActionFragment.OnFragmentInteractionListener) {
+            listener = context as OnFragmentInteractionListener
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    interface OnFragmentInteractionListener {
+        fun openListShowpieceByAuthor(authorId: String)
     }
 }

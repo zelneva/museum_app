@@ -117,6 +117,10 @@ interface MuseumApiService {
     fun getListShowpieceByExhibitionId(@Path("exhibitionId") exhibitionId: String): Observable<List<Showpiece>>
 
 
+    @GET("showpiece/author/{authorId}")
+    fun getListShowpieceByAuthorId(@Path("authorId") authorId: String): Observable<List<Showpiece>>
+
+
     @GET("locale/showpiece")
     fun getLocaleDataShowpieceById(@Query("id") id: String): Observable<ArrayList<ShowpieceLocaleData>>
 

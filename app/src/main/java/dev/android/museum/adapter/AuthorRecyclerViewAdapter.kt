@@ -42,7 +42,7 @@ class AuthorRecyclerViewAdapter() : RecyclerView.Adapter<AuthorRecyclerViewAdapt
         holder.name.text = authors[position].name
 
         holder.itemView.setOnClickListener {
-            val fragment = AuthorDetailFragment.newInstance()
+            val fragment = AuthorDetailFragment.newInstance(authors[position].author.id.toString())
             val activity: MainActivity = context as MainActivity
 
             val ft = activity.supportFragmentManager.beginTransaction()

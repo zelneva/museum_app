@@ -17,10 +17,9 @@ class MuseumListPresenter(var museumListFragment: MuseumListFragment) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ museums ->
-                    run {
                         museumListFragment.progressBar.visibility = View.VISIBLE
                         museumListFragment.displayListMuseum(museums)
-                    }
+
                 },
                         { t: Throwable? ->
                             run {

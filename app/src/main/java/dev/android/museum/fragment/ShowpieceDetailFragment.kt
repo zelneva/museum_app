@@ -31,6 +31,8 @@ class ShowpieceDetailFragment : Fragment() {
     lateinit var seeMore: TextView
     lateinit var seeLess: TextView
 
+    lateinit var authorId: String
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -91,11 +93,11 @@ class ShowpieceDetailFragment : Fragment() {
 
 
     private val clickListenerAuthor = View.OnClickListener {
-        val fragment = AuthorDetailFragment.newInstance()
-        val activity: MainActivity = context as MainActivity
-        val ft = activity.supportFragmentManager.beginTransaction()
-        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-        ft.replace(R.id.main_container, fragment).addToBackStack(null).commit()
+//        val fragment = AuthorDetailFragment.newInstance()
+//        val activity: MainActivity = context as MainActivity
+//        val ft = activity.supportFragmentManager.beginTransaction()
+//        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+//        ft.replace(R.id.main_container, fragment).addToBackStack(null).commit()
     }
 
 
