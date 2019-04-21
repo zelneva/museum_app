@@ -9,12 +9,15 @@ class UserDb {
     companion object {
 
         // загрузка данных из sqlite
-        fun loadSessionObject(context: Context): SessionObject {
-            val list =  UserRepository(context).findAll()
-            for( i in list){
-                Log.d("SESSION",i.userId + " " + i.sessionId)
+        fun loadSessionObject(context: Context): SessionObject? {
+            val list: ArrayList<SessionObject?> =  UserRepository(context).findAll()
+            if(list.size != 0){
+                for( i in list){
+                    Log.d("SESSION",i?.userId + " " + i?.sessionId)
+                }
+                return list.last()
             }
-            return list.last()
+            else return null
         }
 
         //удаление данных из sqlite

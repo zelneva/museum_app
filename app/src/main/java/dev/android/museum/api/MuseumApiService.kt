@@ -231,35 +231,42 @@ interface MuseumApiService {
      * Favorite
      */
 
+    @FormUrlEncoded
     @POST("favorite")
-    fun createFavorite(@Field("showpiece") showpieceId: String): Observable<Unit>
+    fun createFavorite(@Field("showpiece") showpieceId: String,
+                       @Field("session") sessionId: String): Observable<Unit>
 
 
     @DELETE("favorite/{id}")
-    fun deleteFavorite(@Path("id") id: String): Observable<Unit>
+    fun deleteFavorite(@Path("id") id: String,
+                       @Query("session") sessionId: String): Observable<Unit>
 
 
     @GET("favorite")
-    fun getFavorite(): Observable<List<Favorite>>
+    fun getFavorite(@Field("session") sessionId: String): Observable<List<Favorite>>
 
     /*
      * Comment
      */
 
+    @FormUrlEncoded
     @POST("comment")
     fun createComment(@Field("showpiece") showpieceId: String,
-                      @Field("text") text: String): Observable<Unit>
+                      @Field("text") text: String,
+                      @Field("session") sessionId: String): Observable<Unit>
 
 
     @DELETE("comment/{id}")
-    fun deleteComment(@Path("id") id: String): Observable<Unit>
+    fun deleteComment(@Path("id") id: String,
+                      @Query("session") sessionId: String): Observable<Unit>
 
 
     @PUT("comment/{id}")
     fun updateComment(@Path("id") id: String,
-                      @Field("text") text: String): Observable<Unit>
+                      @Field("text") text: String,
+                      @Field("session") sessionId: String): Observable<Unit>
 
 
     @GET("comment")
-    fun getListCommentByShowpiece(@Field("showpiece_id") showpieceId: String): Observable<List<Comment>>
+    fun getListCommentByShowpiece(@Query("showpieceId") showpieceId: String): Observable<ArrayList<Comment>>
 }

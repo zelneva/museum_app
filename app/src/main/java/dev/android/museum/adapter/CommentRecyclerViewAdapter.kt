@@ -1,5 +1,6 @@
 package dev.android.museum.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,24 +10,18 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import dev.android.museum.R
+import dev.android.museum.model.Comment
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CommentRecyclerViewAdapter(): RecyclerView.Adapter<CommentRecyclerViewAdapter.ViewHolder>() {
 
-    var images = arrayListOf<String>()
-    var names = arrayListOf<String>()
-    var dates = arrayListOf<String>()
-    var texts = arrayListOf<String>()
+    private lateinit var context: Context
+    private var comments = arrayListOf<Comment>()
 
-
-    lateinit var context: Context
-
-
-    constructor(images: ArrayList<String>, names: ArrayList<String>, dates: ArrayList<String>, texts: ArrayList<String>, context: Context) : this() {
-        this.images = images
-        this.names = names
-        this.dates = dates
-        this.texts = texts
+    constructor(comment: ArrayList<Comment>, context: Context) : this() {
+        this.comments = comment
         this.context = context
     }
 
@@ -37,17 +32,19 @@ class CommentRecyclerViewAdapter(): RecyclerView.Adapter<CommentRecyclerViewAdap
     }
 
 
-    override fun getItemCount() = names.size
+    override fun getItemCount() = comments.size
 
 
+    @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.get()
-                .load(images[position])
-                .into(holder.userPhoto)
+//        Picasso.get()
+//                .load(comments[position].user.srcPhoto)
+//                .into(holder.userPhoto)
 
-        holder.userName.text = names[position]
-        holder.commentText.text = texts[position]
-        holder.dateCreatedComment.text = dates[position]
+        holder.userName.text = comments[position].user.name
+        holder.commentText.text = comments[position].text
+        val date = SimpleDateFormat("dd/MM/yyyy").format(Date(comments[position].date))
+        holder.dateCreatedComment.text = date.toString()
 
         holder.itemView.setOnClickListener {
         }

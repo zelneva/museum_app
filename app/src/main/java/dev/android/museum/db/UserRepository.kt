@@ -11,16 +11,18 @@ class UserRepository(val context: Context) {
         val USER_TABLE_NAME = "user"
     }
 
-    fun findAll() : ArrayList<SessionObject> = context.database.use {
-        val objects = ArrayList<SessionObject>()
+    fun findAll(): ArrayList<SessionObject?> = context.database.use {
+        val objects = ArrayList<SessionObject?>()
 
         select(USER_TABLE_NAME, "id", "user_id", "session_id")
-                .parseList(object: MapRowParser<List<SessionObject>> {
-                    override fun parseRow(columns: Map<String, Any?>): List<SessionObject> {
-                        val userId = columns.getValue("user_id")
-                        val sessionId = columns.getValue("session_id")
-                        val sessionObject = SessionObject(userId.toString(), sessionId.toString())
-                        objects.add(sessionObject)
+                .parseList(object : MapRowParser<List<SessionObject?>> {
+                    override fun parseRow(columns: Map<String, Any?>): List<SessionObject?> {
+                        val userId: String? = columns.getValue("user_id").toString()
+                        val sessionId: String? = columns.getValue("session_id").toString()
+                        if (userId != null && sessionId != null) {
+                            val sessionObject = SessionObject(userId, sessionId)
+                            objects.add(sessionObject)
+                        }
                         return objects
                     }
                 })
@@ -36,7 +38,7 @@ class UserRepository(val context: Context) {
 
 
     fun update(sessionObject: SessionObject) = context.database.use {
-         update(USER_TABLE_NAME,
+        update(USER_TABLE_NAME,
                 "user_id" to sessionObject.userId,
                 "session_id" to sessionObject.sessionId)
                 .exec()
@@ -47,7 +49,7 @@ class UserRepository(val context: Context) {
         delete(USER_TABLE_NAME, "session_id = {session_id}", "session_id" to sessionObject.sessionId)
     }
 
-    fun deleteAll() = context.database.use{
+    fun deleteAll() = context.database.use {
         delete(USER_TABLE_NAME)
     }
 

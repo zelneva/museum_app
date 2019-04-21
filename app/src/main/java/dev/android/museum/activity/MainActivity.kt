@@ -9,7 +9,8 @@ import dev.android.museum.fragment.*
 
 
 class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener,
-        UserFragment.OnFragmentInteractionListener, AdminActionFragment.OnFragmentInteractionListener, AuthorDetailFragment.OnFragmentInteractionListener {
+        UserFragment.OnFragmentInteractionListener, AdminActionFragment.OnFragmentInteractionListener, AuthorDetailFragment.OnFragmentInteractionListener,
+        ShowpieceDetailFragment.OnFragmentInteractionListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,6 +99,14 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
 
     override fun openListShowpieceByAuthor(authorId: String) {
         openFragment(ShowpieceImageListFragment.newInstanceForAuthor(authorId))
+    }
+
+    override fun openAuthorDetailFragment(authorId: String) {
+        openFragment(AuthorDetailFragment.newInstance(authorId))
+    }
+
+    override fun openListFragment(showpieceId: String) {
+        openFragment(CommentListFragment.newInstance(showpieceId)) //!! add showpieceId to newInstance
     }
 
 }

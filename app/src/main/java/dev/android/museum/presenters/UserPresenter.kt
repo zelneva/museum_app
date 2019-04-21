@@ -13,8 +13,8 @@ import io.reactivex.schedulers.Schedulers
 class UserPresenter(var userFragment: UserFragment) {
 
     private val sessionObject = loadSessionObject(userFragment.context!!)
-    private val sessionId = sessionObject.sessionId
-    private val userId = sessionObject.userId
+    private val sessionId = sessionObject?.sessionId!!
+    private val userId = sessionObject?.userId!!
 
     @SuppressLint("CheckResult")
     fun exitFromAccount(): Boolean {

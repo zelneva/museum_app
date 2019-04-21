@@ -14,51 +14,86 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import dev.android.museum.R
-import dev.android.museum.adapter.CommentRecyclerViewAdapter
 import android.view.inputmethod.InputMethodManager
+import dev.android.museum.adapter.CommentRecyclerViewAdapter
+import dev.android.museum.adapter.SampleRecycler
+import dev.android.museum.model.Comment
+import dev.android.museum.presenters.CommentPresenter
 
 
 class CommentListFragment : Fragment() {
 
-    var images = arrayListOf<String>()
-    var names = arrayListOf<String>()
-    var dates = arrayListOf<String>()
-    var texts = arrayListOf<String>()
+    companion object {
+        val SHOWPIECE_ID = "showpieceId"
 
-    lateinit var fab: FloatingActionButton
-    lateinit var recyclerView: RecyclerView
-    lateinit var editTextComment: TextView
-    lateinit var btnSend: ImageButton
-    lateinit var sendLayout: LinearLayout
-
-    lateinit var imm: InputMethodManager
-
-
-    private fun initList() {
-        for (i in 0..7) {
-            when (i) {
-                0, 2, 4, 6 -> {
-                    images.add("https://img.rl0.ru/f3f70ad4661bcac56b285cb86efdea1e/c615x400/news.rambler.ru/img/2018/05/23142637.159422.8999.jpg")
-                    names.add("Гарольд Иванов")
-                    dates.add("04.12.2019")
-                    texts.add("If you use an image loading library like Picasso or Glide, you need to disable their fade animations to avoid messed up images. ")
-                }
-                1, 3, 5 -> {
-                    images.add("https://cs1.livemaster.ru/storage/b9/a3/31934458e92da63b5ab4cbe1b13v--kartiny-i-panno-korgi.jpg")
-                    names.add("Корги Пикассо")
-                    dates.add("14.02.2019")
-                    texts.add("Using a TransitionDrawable with CircleImageView doesn't work properly and leads to messed up images.")
-                }
-            }
+        fun newInstance(showpieceId: String): CommentListFragment {
+            val fragment = CommentListFragment()
+            val bundle = Bundle()
+            bundle.putString(SHOWPIECE_ID, showpieceId)
+            fragment.arguments = bundle
+            return fragment
         }
     }
 
-    private fun initRecyclerView(view: View) {
-        val llm = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
-        recyclerView = view.findViewById<RecyclerView>(R.id.comment_list_rv)
-        recyclerView.layoutManager = llm
-        recyclerView.adapter = CommentRecyclerViewAdapter(images, names, dates, texts, this.context!!)
+    private lateinit var fab: FloatingActionButton
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var editTextComment: TextView
+    private lateinit var btnSend: ImageButton
+    private lateinit var sendLayout: LinearLayout
+    private lateinit var imm: InputMethodManager
 
+    private lateinit var showpieceId: String
+
+    private lateinit var presenter: CommentPresenter
+    private lateinit var adapter: CommentRecyclerViewAdapter
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (arguments != null && arguments!!.get(SHOWPIECE_ID) != null) {
+            showpieceId = arguments!!.get(ShowpieceDetailFragment.SHOWPIECE_ID) as String
+        }
+    }
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_comment_list, container, false)
+        imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        init(view)
+        presenter = CommentPresenter(this)
+        presenter.loadCommentList(showpieceId)
+        rvAnimateFab()
+        return view
+    }
+
+
+    private fun init(view: View) {
+        fab = view.findViewById(R.id.fab)
+        sendLayout = view.findViewById(R.id.send)
+        editTextComment = view.findViewById(R.id.edit_text_comment)
+        btnSend = view.findViewById(R.id.btn_send)
+
+        fab.setOnClickListener (clickListenerSendLayoutVisible)
+        btnSend.setOnClickListener(clickListenerSend)
+
+        val llm = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+        recyclerView = view.findViewById(R.id.comment_list_rv)
+        recyclerView.layoutManager = llm
+        recyclerView.adapter = SampleRecycler()
+    }
+
+
+    fun displayCommentList(commentResponse: ArrayList<Comment>?){
+        if(commentResponse != null && commentResponse.size != 0){
+            adapter = CommentRecyclerViewAdapter(commentResponse, context!!)
+            recyclerView.adapter = adapter
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+
+    private fun rvAnimateFab() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -81,35 +116,22 @@ class CommentListFragment : Fragment() {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_comment_list, container, false)
-        imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        init(view)
-        initList()
-        initRecyclerView(view)
-        return view
-    }
-
-
-    private fun init(view: View) {
-        fab = view.findViewById(R.id.fab)
-        sendLayout = view.findViewById(R.id.send)
-        editTextComment = view.findViewById(R.id.edit_text_comment)
-        btnSend = view.findViewById(R.id.btn_send)
-
-        fab.setOnClickListener (clickListenerSendLayoutVisible)
-        btnSend.setOnClickListener(clickListenerSend)
-    }
-
-
     private val clickListenerSend = View.OnClickListener {
         val text = editTextComment.text
         sendLayout.visibility = View.GONE
         imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
-        Toast.makeText(this.context, text, Toast.LENGTH_SHORT).show()
+        presenter.createComment(showpieceId, text.toString())
         editTextComment.text = null
         fab.show()
+    }
+
+    fun updateList(){
+        presenter.loadCommentList(showpieceId)
+    }
+
+
+    fun alertNullUser(){
+        Toast.makeText(this.context, "Войдите, чтобы написать комментарий", Toast.LENGTH_SHORT).show()
     }
 
 
@@ -124,8 +146,6 @@ class CommentListFragment : Fragment() {
     }
 
 
-    companion object {
-        fun newInstance(): CommentListFragment = CommentListFragment()
-    }
+
 
 }

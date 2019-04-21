@@ -6,7 +6,6 @@ import dev.android.museum.fragment.AuthorDetailFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlin.concurrent.fixedRateTimer
 
 class AuthorDetailPresenter(val fragment: AuthorDetailFragment) {
 
@@ -22,10 +21,11 @@ class AuthorDetailPresenter(val fragment: AuthorDetailFragment) {
 
 
     @SuppressLint("CheckResult")
-    fun loadAuthorDate(authorId: String){
+    fun loadAuthorConstantData(authorId: String){
         museumApiService.getAuthorById(authorId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { author -> fragment.displayDate(author) }
+                .subscribe {fragment.displayDate(it) }
     }
+
 }

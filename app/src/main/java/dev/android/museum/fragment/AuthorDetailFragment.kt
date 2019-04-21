@@ -62,7 +62,7 @@ class AuthorDetailFragment : Fragment() {
         init(view)
         presenter = AuthorDetailPresenter(this)
         presenter.loadInfoAuthorDetail(authorId)
-        presenter.loadAuthorDate(authorId)
+        presenter.loadAuthorConstantData(authorId)
         return view
     }
 
@@ -143,8 +143,8 @@ class AuthorDetailFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is AdminActionFragment.OnFragmentInteractionListener) {
-            listener = context as OnFragmentInteractionListener
+        if (context is OnFragmentInteractionListener) {
+            listener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }

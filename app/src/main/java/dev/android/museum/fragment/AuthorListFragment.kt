@@ -38,7 +38,7 @@ class AuthorListFragment : Fragment() {
     }
 
     fun displayAuthors(authorsResponce: ArrayList<AuthorLocaleData>?) {
-        if (authorsResponce != null) {
+        if (authorsResponce != null && authorsResponce.size != 0) {
             adapter = AuthorRecyclerViewAdapter(authorsResponce, this.context!!)
             rv.adapter = adapter
         }

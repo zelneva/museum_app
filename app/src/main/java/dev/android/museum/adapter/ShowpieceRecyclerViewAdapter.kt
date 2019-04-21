@@ -43,7 +43,7 @@ class ShowpieceRecyclerViewAdapter(): RecyclerView.Adapter<ShowpieceRecyclerView
         holder.title.text = showpieces[position].name
 
         holder.itemView.setOnClickListener {
-            val fragment = ShowpieceDetailFragment.newInstance()
+            val fragment = ShowpieceDetailFragment.newInstance(showpieces[position].showpiece.id.toString())
             val activity: MainActivity = context as MainActivity
 
             val ft = activity.supportFragmentManager.beginTransaction()
