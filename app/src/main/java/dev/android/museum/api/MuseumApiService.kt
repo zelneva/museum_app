@@ -4,10 +4,8 @@ import dev.android.museum.model.*
 import dev.android.museum.model.util.LoginObject
 import dev.android.museum.model.util.SessionObject
 import io.reactivex.Observable
-import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 interface MuseumApiService {
 
@@ -27,24 +25,23 @@ interface MuseumApiService {
     fun getMuseumById(@Path("id") id: String): Observable<Museum>
 
 
-    @POST("museum")
     @FormUrlEncoded
+    @POST("museum")
     fun createMuseum(@Field("name") name: String,
                      @Field("address") address: String,
-                     @Field("lat") lat: Float,
-                     @Field("lng") lng: Float): Observable<Unit>
+                     @Field("session") session: String): Observable<Unit>
 
 
     @DELETE("museum/{id}")
-    fun deleteMuseumById(@Path("id") id: String): Observable<Unit>
+    fun deleteMuseumById(@Path("id") id: String,
+                         @Query("session") session: String): Observable<Unit>
 
-
+    @FormUrlEncoded
     @PUT("museum/{id}")
     fun updateMuseum(@Path("id") id: String,
-                     @Query("name") name: String?,
-                     @Query("address") address: String?,
-                     @Query("lat") lat: Float?,
-                     @Query("lng") lng: Float?): Observable<Unit>
+                     @Field("name") name: String,
+                     @Field("address") address: String,
+                     @Field("session") session: String): Observable<Unit>
 
 
     /*
@@ -60,7 +57,7 @@ interface MuseumApiService {
 
 
     @GET("exhibition/museum/{museumId}")
-    fun getExhibitionsByMuseumId(@Path("museumId")museumId: String): Observable<ArrayList<Exhibition>>
+    fun getExhibitionsByMuseumId(@Path("museumId") museumId: String): Observable<ArrayList<Exhibition>>
 
 
     @POST("exhibition")

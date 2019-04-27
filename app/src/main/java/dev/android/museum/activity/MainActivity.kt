@@ -4,14 +4,20 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import dev.android.museum.App.Companion.sessionObject
 import dev.android.museum.R
 import dev.android.museum.fragment.*
+import dev.android.museum.fragment.account.*
+import dev.android.museum.fragment.administrate.MuseumAdminDetailFragment
+import dev.android.museum.fragment.administrate.MuseumAdminListFragment
+import dev.android.museum.presenters.MainPresenter
 
 
-class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener,
+class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener,
         UserFragment.OnFragmentInteractionListener, AdminActionFragment.OnFragmentInteractionListener, AuthorDetailFragment.OnFragmentInteractionListener,
-        ShowpieceDetailFragment.OnFragmentInteractionListener {
+        ShowpieceDetailFragment.OnFragmentInteractionListener, MuseumAdminDetailFragment.OnFragmentInteractionListener {
 
+    private lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +29,7 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
             openFragment(MainFragment.newInstance())
         }
 
+        presenter = MainPresenter(this)
         bottomNavigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
     }
@@ -42,8 +49,15 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
             }
 
             R.id.navigation_user -> {
-                //если пользователь залоггинен, то UserFragment, иначе LoginFragment
-                openFragment(LoginFragment.newInstance())
+                if (sessionObject == null && sessionObject?.sessionId == null) {
+                    openFragment(LoginFragment.newInstance())
+                } else {
+                    if (presenter.isAdmin(sessionObject!!)) {
+                        openFragment(AdminFragment.newInstance(sessionObject?.userId!!))
+                    } else {
+                        openFragment(UserFragment.newInstance(sessionObject?.userId!!))
+                    }
+                }
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -70,17 +84,17 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
 
 
     override fun openAdminFragment() {
-        openFragment(AdminFragment.newInstance())
+        openFragment(AdminFragment.newInstance(sessionObject?.userId!!))
     }
 
 
     override fun openUserFragment() {
-        openFragment(UserFragment.newInstance())
+        openFragment(UserFragment.newInstance(sessionObject?.userId!!))
     }
 
 
     override fun onButtonSignUp() {
-        openFragment(UserFragment.newInstance())
+        openFragment(UserFragment.newInstance(sessionObject?.userId!!))
     }
 
 
@@ -93,20 +107,33 @@ class MainActivity() : AppCompatActivity(), LoginFragment.OnFragmentInteractionL
         openFragmentAnimateDownToUp(SignUpFragment.newInstance())
     }
 
+
     override fun onButtonExit() {
         openFragment(LoginFragment.newInstance())
     }
+
 
     override fun openListShowpieceByAuthor(authorId: String) {
         openFragment(ShowpieceImageListFragment.newInstanceForAuthor(authorId))
     }
 
+
     override fun openAuthorDetailFragment(authorId: String) {
         openFragment(AuthorDetailFragment.newInstance(authorId))
     }
 
+
     override fun openListFragment(showpieceId: String) {
-        openFragment(CommentListFragment.newInstance(showpieceId)) //!! add showpieceId to newInstance
+        openFragment(CommentListFragment.newInstance(showpieceId))
+    }
+
+
+    override fun openMuseumAdminListFragment() {
+        openFragment(MuseumAdminListFragment.newInstance())
+    }
+
+    override fun openAdminMuseumList() {
+        openFragment(MuseumAdminListFragment.newInstance())
     }
 
 }

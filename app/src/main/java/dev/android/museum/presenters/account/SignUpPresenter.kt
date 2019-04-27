@@ -1,11 +1,10 @@
-package dev.android.museum.presenters
+package dev.android.museum.presenters.account
 
 import android.annotation.SuppressLint
 import android.util.Log
 import dev.android.museum.App.Companion.museumApiService
 import dev.android.museum.db.UserDb.Companion.addSessionObjectToDB
-import dev.android.museum.fragment.SignUpFragment
-import dev.android.museum.model.util.SessionObject
+import dev.android.museum.fragment.account.SignUpFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -23,18 +22,17 @@ class SignUpPresenter(val signUpFragment: SignUpFragment) {
             signUpFragment.alertSmallPassword()
             return false
         } else {
-            var session :SessionObject?=null
+//            var session :SessionObject?=null
             museumApiService.registration(username, password, name)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({session = it},
+                    .subscribe({addSessionObjectToDB(it!!, signUpFragment.context!!)
+                        signUpFragment.signUp()},
                             { t: Throwable? ->
                         run {
                             Log.println(Log.ERROR, "SIGNUP FRAGMENT:", t.toString())
                         }
-                    },
-                            {addSessionObjectToDB(session!!, signUpFragment.context!!)
-                                signUpFragment.signUp()})
+                    })
             return true
 
         }

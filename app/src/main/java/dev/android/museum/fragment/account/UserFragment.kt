@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.account
 
 import android.app.AlertDialog
 import android.content.Context
@@ -6,21 +6,62 @@ import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
 import android.view.*
-import android.widget.Toast
+import android.widget.TextView
+import de.hdodenhof.circleimageview.CircleImageView
 import dev.android.museum.R
-import dev.android.museum.presenters.UserPresenter
+import dev.android.museum.model.User
+import dev.android.museum.presenters.account.UserPresenter
 
 class UserFragment : Fragment() {
+
+    companion object {
+        val USER_ID = "userId"
+
+        fun newInstance(userId: String): UserFragment {
+            val fragment = UserFragment()
+            val bundle = Bundle()
+            bundle.putString(USER_ID, userId)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     private lateinit var presenter: UserPresenter
     private var listener: OnFragmentInteractionListener? = null
 
+    private lateinit var image: CircleImageView
+    private lateinit var name: TextView
+
+    private lateinit var userId: String
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (arguments != null && arguments!!.get(USER_ID) != null) {
+            userId = arguments!!.get(USER_ID) as String
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_user, container, false)
+        init(view)
         presenter = UserPresenter(this)
+        presenter.getUserInfo(userId)
         setHasOptionsMenu(true)
         return view
+    }
+
+
+    private fun init(view: View){
+        image = view.findViewById(R.id.user_photo)
+        name = view.findViewById(R.id.user_name)
+    }
+
+
+    fun displayUserInfo(userResponse: User){
+        name.text = userResponse.name
+        //добавить загрузку фото
     }
 
 
@@ -134,10 +175,5 @@ class UserFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun onButtonExit()
-    }
-
-
-    companion object {
-        fun newInstance(): UserFragment = UserFragment()
     }
 }

@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.account
 
 import android.app.AlertDialog
 import android.content.Context
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import dev.android.museum.R
-import dev.android.museum.presenters.LoginPresenter
+import dev.android.museum.presenters.account.LoginPresenter
 
 
 class LoginFragment : Fragment() {

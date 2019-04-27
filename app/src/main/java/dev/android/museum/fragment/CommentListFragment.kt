@@ -145,7 +145,4 @@ class CommentListFragment : Fragment() {
         }
     }
 
-
-
-
 }

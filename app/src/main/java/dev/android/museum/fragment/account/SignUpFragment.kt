@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.account
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import dev.android.museum.R
-import dev.android.museum.presenters.SignUpPresenter
+import dev.android.museum.presenters.account.SignUpPresenter
 
 
 class SignUpFragment : Fragment() {

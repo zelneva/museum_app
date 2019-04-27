@@ -12,11 +12,5 @@ data class Museum (
         var name: String,
 
         @SerializedName("address")
-        var address: String,
-
-        @SerializedName("lat")
-        var lat: Float,
-
-        @SerializedName("lng")
-        var lng: Float
+        var address: String
 )

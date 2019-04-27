@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.account
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.android.museum.R
-import dev.android.museum.adapter.ShowpieceRecyclerViewAdapter
 
 class FavoriteFragment : Fragment() {
 

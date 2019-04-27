@@ -1,35 +1,32 @@
-package dev.android.museum.presenters
+package dev.android.museum.presenters.account
 
 import android.annotation.SuppressLint
 import android.util.Log
 import dev.android.museum.App.Companion.museumApiService
+import dev.android.museum.App.Companion.sessionObject
+import dev.android.museum.db.UserDb.Companion.delete
 import dev.android.museum.db.UserDb.Companion.deleteAllSession
-import dev.android.museum.db.UserDb.Companion.deleteSessionObject
-import dev.android.museum.db.UserDb.Companion.loadSessionObject
-import dev.android.museum.fragment.UserFragment
+import dev.android.museum.fragment.account.UserFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class UserPresenter(var userFragment: UserFragment) {
 
-    private val sessionObject = loadSessionObject(userFragment.context!!)
-    private val sessionId = sessionObject?.sessionId!!
-    private val userId = sessionObject?.userId!!
-
     @SuppressLint("CheckResult")
     fun exitFromAccount(): Boolean {
-        museumApiService.logout(sessionId)
+        museumApiService.logout(sessionObject?.sessionId!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
 //                    deleteSessionObject(sessionObject, userFragment.context!!)
-                    deleteAllSession(userFragment.context!!)
+                    delete(sessionObject!!, userFragment.context!!)
+//                    deleteAllSession(appContext!!)
+                    userFragment.exitFromAccount()
+                    Log.d("SESS", sessionObject!!.sessionId)
                 }, { t: Throwable? ->
                     run {
                         Log.println(Log.ERROR, "USER FRAGMENT ER EXIT: ", t.toString())
                     }
-                }, {
-                    userFragment.exitFromAccount()
                 })
         return true
     }
@@ -37,7 +34,7 @@ class UserPresenter(var userFragment: UserFragment) {
 
     @SuppressLint("CheckResult")
     fun deleteAccount() {
-        museumApiService.deleteUser(sessionId)
+        museumApiService.deleteUser(sessionObject?.sessionId!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -63,11 +60,11 @@ class UserPresenter(var userFragment: UserFragment) {
             userFragment.openAlertDialog("Новый пароль и подтвержденный пароль не совпадают")
             return false
         } else {
-            museumApiService.getUserInfo(userId)
+            museumApiService.getUserInfo(sessionObject?.userId!!)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        museumApiService.updateUser(userId, it.name, it.username, newPassword, sessionId)
+                        museumApiService.updateUser(sessionObject?.userId!!, it.name, it.username, newPassword, sessionObject?.sessionId!!)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe()
@@ -84,11 +81,11 @@ class UserPresenter(var userFragment: UserFragment) {
     @SuppressLint("CheckResult")
     fun resetName(newName: String): Boolean {
         if (newName.length > 2) {
-            museumApiService.getUserInfo(userId)
+            museumApiService.getUserInfo(sessionObject?.userId!!)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        museumApiService.updateUser(userId, newName, it.username, it.password, sessionId)
+                        museumApiService.updateUser(sessionObject?.userId!!, newName, it.username, it.password, sessionObject?.sessionId!!)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe()
@@ -99,6 +96,14 @@ class UserPresenter(var userFragment: UserFragment) {
                     })
         }
         return true
+    }
+
+    @SuppressLint("CheckResult")
+    fun getUserInfo(userId: String){
+        museumApiService.getUserInfo(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe{userFragment.displayUserInfo(it)}
     }
 
 }

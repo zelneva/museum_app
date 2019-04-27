@@ -13,25 +13,25 @@ class UserDb {
             val list: ArrayList<SessionObject?> =  UserRepository(context).findAll()
             if(list.size != 0){
                 for( i in list){
-                    Log.d("SESSION",i?.userId + " " + i?.sessionId)
+                    Log.d("SESSIONS :",i?.userId + " " + i?.sessionId)
                 }
                 return list.last()
             }
             else return null
         }
 
-        //удаление данных из sqlite
-        fun deleteSessionObject(sessionObject: SessionObject, context: Context) {
-            UserRepository(context).delete(sessionObject)
-        }
-
         fun deleteAllSession(context: Context){
             UserRepository(context).deleteAll()
+        }
+
+        fun delete(session: SessionObject, context: Context){
+            UserRepository(context).delete(session)
         }
 
 
         // Положим данные SessionObject о пользователе в sqlite
         fun addSessionObjectToDB(sessionObject: SessionObject, context: Context) {
+            Log.d("ADD SESSION: ", sessionObject.userId + " "+ sessionObject.sessionId)
             createSessionObject(sessionObject, context)
         }
 

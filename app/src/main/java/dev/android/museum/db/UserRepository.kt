@@ -50,7 +50,7 @@ class UserRepository(val context: Context) {
     }
 
     fun deleteAll() = context.database.use {
-        delete(USER_TABLE_NAME)
+        delete(USER_TABLE_NAME, null, null)
     }
 
 }
