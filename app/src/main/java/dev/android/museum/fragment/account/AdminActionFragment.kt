@@ -25,15 +25,9 @@ class AdminActionFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_admin_action, container, false)
-        Log.d("ADMINACTION!!", "dd")
         init(view)
         return view
     }
@@ -43,8 +37,8 @@ class AdminActionFragment : Fragment() {
         val actionTitle = resources.getStringArray(R.array.admin_action_title)
         val adapter = ArrayAdapter<String>(context, R.layout.list_item_admin_action, actionTitle)
         listViewAction.adapter = adapter
+
         listViewAction.setOnItemClickListener { parent, view, position, id ->
-            Toast.makeText(context,actionTitle[position], Toast.LENGTH_SHORT).show()
             when(position){
                 0 -> listener!!.openMuseumAdminListFragment()
             }

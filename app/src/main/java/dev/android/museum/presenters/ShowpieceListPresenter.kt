@@ -11,9 +11,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+@SuppressLint("CheckResult")
 class ShowpieceListPresenter(val showpieceListFragment: ShowpieceListFragment) {
 
-    @SuppressLint("CheckResult")
     fun loadListShowpiece(){
         val showpieces = arrayListOf<ShowpieceLocaleData>()
 
@@ -25,20 +25,14 @@ class ShowpieceListPresenter(val showpieceListFragment: ShowpieceListFragment) {
                 .flatMap { showpiece ->
                     museumApiService.getLocaleDataShowpieceById(showpiece.id)
                             .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                }
+                            .observeOn(AndroidSchedulers.mainThread()) }
                 .subscribe({ showpieceLocaleData ->
-                    run {
                         showpieces.addAll(showpieceLocaleData)
                         showpieceListFragment.progressBar.visibility = View.VISIBLE
-                        showpieceListFragment.displayShowpieces(showpieces)
-                    }
-                },
+                        showpieceListFragment.displayShowpieces(showpieces) },
                         { t: Throwable? ->
-                            run {
                                 Log.println(Log.ERROR, "LIST SHOW ERROR: ", t.toString())
                                 showpieceListFragment.progressBar.visibility = View.GONE
-                            }
                         },
                         {
                             showpieceListFragment.progressBar.visibility = View.GONE

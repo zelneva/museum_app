@@ -8,6 +8,7 @@ import dev.android.museum.App.Companion.sessionObject
 import dev.android.museum.R
 import dev.android.museum.fragment.*
 import dev.android.museum.fragment.account.*
+import dev.android.museum.fragment.administrate.ExhibitionAdminListFragment
 import dev.android.museum.fragment.administrate.MuseumAdminDetailFragment
 import dev.android.museum.fragment.administrate.MuseumAdminListFragment
 import dev.android.museum.presenters.MainPresenter
@@ -136,4 +137,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
         openFragment(MuseumAdminListFragment.newInstance())
     }
 
+    override fun openExhibitionAdminList(museumId: String) {
+        openFragment(ExhibitionAdminListFragment.newInstance(museumId))
+    }
 }

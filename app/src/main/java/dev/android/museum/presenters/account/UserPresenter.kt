@@ -10,19 +10,16 @@ import dev.android.museum.fragment.account.UserFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+@SuppressLint("CheckResult")
 class UserPresenter(var userFragment: UserFragment) {
 
-    @SuppressLint("CheckResult")
     fun exitFromAccount(): Boolean {
         museumApiService.logout(sessionObject?.sessionId!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-//                    deleteSessionObject(sessionObject, userFragment.context!!)
                     delete(sessionObject!!, userFragment.context!!)
-//                    deleteAllSession(appContext!!)
                     userFragment.exitFromAccount()
-                    Log.d("SESS", sessionObject!!.sessionId)
                 }, { t: Throwable? ->
                     run {
                         Log.println(Log.ERROR, "USER FRAGMENT ER EXIT: ", t.toString())
@@ -32,7 +29,6 @@ class UserPresenter(var userFragment: UserFragment) {
     }
 
 
-    @SuppressLint("CheckResult")
     fun deleteAccount() {
         museumApiService.deleteUser(sessionObject?.sessionId!!)
                 .subscribeOn(Schedulers.io())
@@ -47,7 +43,6 @@ class UserPresenter(var userFragment: UserFragment) {
     }
 
 
-    @SuppressLint("CheckResult")
     fun resetPassword(oldPassword: String, newPassword: String, confirmPassword: String): Boolean {
 
         if (newPassword.length < 8) {
@@ -78,7 +73,6 @@ class UserPresenter(var userFragment: UserFragment) {
     }
 
 
-    @SuppressLint("CheckResult")
     fun resetName(newName: String): Boolean {
         if (newName.length > 2) {
             museumApiService.getUserInfo(sessionObject?.userId!!)
@@ -98,7 +92,7 @@ class UserPresenter(var userFragment: UserFragment) {
         return true
     }
 
-    @SuppressLint("CheckResult")
+
     fun getUserInfo(userId: String){
         museumApiService.getUserInfo(userId)
                 .subscribeOn(Schedulers.io())

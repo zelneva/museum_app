@@ -10,9 +10,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+@SuppressLint("CheckResult")
 class AuthorListPresenter(val authorListFragment: AuthorListFragment) {
 
-    @SuppressLint("CheckResult")
     fun loadListAuthor() {
         val authors = arrayListOf<AuthorLocaleData>()
 
@@ -26,17 +26,13 @@ class AuthorListPresenter(val authorListFragment: AuthorListFragment) {
                             .observeOn(AndroidSchedulers.mainThread())
                 }
                 .subscribe({ authorLocaleData ->
-                    run {
                         authors.addAll(authorLocaleData)
                         authorListFragment.progressBar.visibility = View.VISIBLE
                         authorListFragment.displayAuthors(authors)
-                    }
                 },
                         { t: Throwable? ->
-                            run {
                                 Log.println(Log.ERROR, "LIST AUTHOR ERROR: ", t.toString())
                                 authorListFragment.progressBar.visibility = View.GONE
-                            }
                         },
                         {
                             authorListFragment.progressBar.visibility = View.GONE

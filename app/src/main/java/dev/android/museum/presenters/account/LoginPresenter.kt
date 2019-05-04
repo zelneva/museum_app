@@ -11,9 +11,10 @@ import dev.android.museum.model.util.SessionObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+@SuppressLint("CheckResult")
 class LoginPresenter(var loginFragment: LoginFragment) {
 
-    @SuppressLint("CheckResult")
+
     fun authorize(username: String, password: String) {
         museumApiService.login(LoginObject(username, password))
                 .subscribeOn(Schedulers.io())
@@ -32,7 +33,6 @@ class LoginPresenter(var loginFragment: LoginFragment) {
 
 
     //если роль пользователя - "admin", то открываем AdminFragment, иначе UserFragment
-    @SuppressLint("CheckResult")
     fun isAdmin(sessionObject: SessionObject) {
         museumApiService.getUserInfo(sessionObject.userId)
                 .subscribeOn(Schedulers.io())

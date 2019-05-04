@@ -9,9 +9,10 @@ import dev.android.museum.fragment.administrate.MuseumAdminListFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+
+@SuppressLint("CheckResult")
 class MuseumAdminListPresenter(val fragment: MuseumAdminListFragment) {
 
-    @SuppressLint("CheckResult")
     fun loadMuseumList() {
         museumApiService.getAllMuseum()
                 .subscribeOn(Schedulers.io())
@@ -29,7 +30,6 @@ class MuseumAdminListPresenter(val fragment: MuseumAdminListFragment) {
     }
 
 
-    @SuppressLint("CheckResult")
     fun createMuseum(name: String, address: String): Boolean {
         if (name.isNotEmpty() && address.isNotEmpty()) {
             museumApiService.createMuseum(name, address, sessionObject!!.sessionId)

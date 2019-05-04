@@ -19,10 +19,18 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingStart="0dp">
+
             <TextView
-                android:id="@+id/exhibition_title"
-                android:layout_width="match_parent"
+                android:id="@+id/admin_exhibition_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="200"
                 android:paddingStart="8dp"
                 android:text="Произведения Да Винчи"
                 android:paddingBottom="5dp"
@@ -30,34 +38,63 @@
                 android:textSize="17sp"
                 android:paddingTop="10dp"/>
 
+            <ImageButton
+                android:id="@+id/admin_edit_exhibition_btn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/edit"/>
+
+            <ImageButton
+                android:id="@+id/admin_delete_exhibition_btn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/clear"/>
+
+
+        </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="8dp"
+                android:paddingTop="5dp"
                 android:paddingStart="8dp">
 
                 <TextView
-                    android:id="@+id/exhibition_start_day"
+                    android:id="@+id/admin_exhibition_start_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="14 марта 2019"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="  -  "
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
 
                 <TextView
-                    android:id="@+id/exhibition_finish_day"
+                    android:id="@+id/admin_exhibition_finish_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="15 марта 2019"
                     android:layout_weight="1"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=">>"
+                    android:textSize="13sp"
+                    android:paddingRight="10dp"/>
+
             </LinearLayout>
         </LinearLayout>
 

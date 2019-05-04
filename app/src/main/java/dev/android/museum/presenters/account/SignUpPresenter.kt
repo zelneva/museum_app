@@ -22,20 +22,14 @@ class SignUpPresenter(val signUpFragment: SignUpFragment) {
             signUpFragment.alertSmallPassword()
             return false
         } else {
-//            var session :SessionObject?=null
             museumApiService.registration(username, password, name)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({addSessionObjectToDB(it!!, signUpFragment.context!!)
                         signUpFragment.signUp()},
-                            { t: Throwable? ->
-                        run {
-                            Log.println(Log.ERROR, "SIGNUP FRAGMENT:", t.toString())
-                        }
-                    })
+                            { t: Throwable? -> Log.println(Log.ERROR, "SIGNUP FRAGMENT:", t.toString()) }
+                    )
             return true
-
         }
     }
-
 }

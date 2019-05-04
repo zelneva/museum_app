@@ -7,9 +7,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+@SuppressLint("CheckResult")
 class AuthorDetailPresenter(val fragment: AuthorDetailFragment) {
 
-    @SuppressLint("CheckResult")
     fun loadInfoAuthorDetail(authorId: String, lang: String = "ru") {
         museumApiService.getLocaleDataAuthor(authorId)
                 .subscribeOn(Schedulers.io())
@@ -20,7 +20,6 @@ class AuthorDetailPresenter(val fragment: AuthorDetailFragment) {
     }
 
 
-    @SuppressLint("CheckResult")
     fun loadAuthorConstantData(authorId: String){
         museumApiService.getAuthorById(authorId)
                 .subscribeOn(Schedulers.io())

@@ -1,21 +1,19 @@
 package dev.android.museum.fragment.administrate
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import dev.android.museum.R
-import dev.android.museum.fragment.ShowpieceDetailFragment
 import dev.android.museum.model.Museum
-import dev.android.museum.presenters.ShowpieceDetailPresenter
 import dev.android.museum.presenters.administrate.MuseumAdminDetailPresenter
-import kotlinx.android.synthetic.main.fragment_admin_museum_detail.view.*
-import org.w3c.dom.Text
 
 class MuseumAdminDetailFragment: Fragment() {
 
@@ -76,16 +74,22 @@ class MuseumAdminDetailFragment: Fragment() {
     }
 
 
-    private val exhibitionListener = View.OnClickListener {  }
+    private val exhibitionListener = View.OnClickListener {
+        listener?.openExhibitionAdminList(museumId)
+    }
 
 
     private val editListener = View.OnClickListener {
         val builder = AlertDialog.Builder(activity)
         val museumView = activity!!.layoutInflater.inflate(R.layout.dialog_museum, null)
         val newTitle = museumView.findViewById<TextInputLayout>(R.id.new_museum_title)
+        val oldTitle = museumView.findViewById<EditText>(R.id.name_mus_dialog)
         val newAddress = museumView.findViewById<TextInputLayout>(R.id.new_museum_address)
-        newTitle.editText?.text = title.editableText
-        newAddress.editText?.text = address.editableText
+        val oldAddress = museumView.findViewById<EditText>(R.id.address_dialog)
+
+        oldTitle.setText(title.text)
+        oldAddress.setText(address.text)
+
         builder.setView(museumView)
         builder.setTitle("Изменение информации о музее")
                 .setCancelable(false)
@@ -99,7 +103,6 @@ class MuseumAdminDetailFragment: Fragment() {
                 museumAlert.cancel()
             }
         }
-        presenter.loadInfoMuseum(museumId)
     }
 
 
@@ -115,6 +118,9 @@ class MuseumAdminDetailFragment: Fragment() {
             presenter.deleteMuseum(museumId)
             alert.cancel()
         }
+    }
+
+    fun openMuseumList(){
         listener?.openAdminMuseumList()
     }
 
@@ -133,8 +139,24 @@ class MuseumAdminDetailFragment: Fragment() {
 
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+
 
     interface OnFragmentInteractionListener {
         fun openAdminMuseumList()
+        fun openExhibitionAdminList(museumId: String)
     }
 }

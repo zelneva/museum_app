@@ -11,6 +11,7 @@ import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
 import dev.android.museum.fragment.ShowpieceImageListFragment
 import dev.android.museum.model.Exhibition
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ExhibitionRecyclerViewAdapter() : RecyclerView.Adapter<ExhibitionRecyclerViewAdapter.ViewHolder>() {
@@ -38,8 +39,8 @@ class ExhibitionRecyclerViewAdapter() : RecyclerView.Adapter<ExhibitionRecyclerV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = exhibitions[position].name
-        holder.startDate.text = exhibitions[position].startsAt.toString()
-        holder.finishDate.text = exhibitions[position].endsAt.toString()
+        holder.startDate.text = SimpleDateFormat("dd/MM/yyyy").format(Date(exhibitions[position].startsAt))
+        holder.finishDate.text = SimpleDateFormat("dd/MM/yyyy").format(Date(exhibitions[position].endsAt))
 
         holder.itemView.setOnClickListener {
             val showpieceFragment = ShowpieceImageListFragment.newInstance(exhibitions[position].id)

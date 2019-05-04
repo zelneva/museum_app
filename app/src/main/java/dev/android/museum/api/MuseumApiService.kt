@@ -62,22 +62,26 @@ interface MuseumApiService {
 
     @POST("exhibition")
     @FormUrlEncoded
-    fun createExhibition(@Field("name") name: String,
-                         @Field("startsAt") startsAt: Date,
-                         @Field("endsAt") endsAt: Date,
-                         @Field("museum.id") museumId: String): Observable<Unit>
+    fun createExhibition(@Field("title") name: String,
+                         @Field("startsAt") startsAt: String,
+                         @Field("endsAt") endsAt: String,
+                         @Field("museumId") museumId: String,
+                         @Field("session") session: String): Observable<Unit>
 
 
     @DELETE("exhibition/{id}")
-    fun deleteExhibitionById(@Path("id") id: String): Observable<Unit>
+    fun deleteExhibitionById(@Path("id") id: String,
+                             @Query("session") session: String): Observable<Unit>
 
 
+    @FormUrlEncoded
     @PUT("exhibition/{id}")
     fun updateExhibition(@Path("id") id: String,
-                         @Query("name") name: String?,
-                         @Query("startsAt") startsAt: Date?,
-                         @Query("endsAt") endsAt: Date?,
-                         @Query("museum.id") museumId: String?): Observable<Unit>
+                         @Field("title") name: String,
+                         @Field("startsAt") startsAt: String,
+                         @Field("endsAt") endsAt: String,
+                         @Field("museumId") museumId: String,
+                         @Field("session") session: String): Observable<Unit>
 
 
     /*
@@ -153,8 +157,8 @@ interface MuseumApiService {
 
 
     @POST("author")
-    fun createAuthor(@Field("bornAt") bornAt: Date,
-                     @Field("diedAt") diedAt: Date?): Observable<Unit>
+    fun createAuthor(@Field("bornAt") bornAt: String,
+                     @Field("diedAt") diedAt: String?): Observable<Unit>
 
 
     @DELETE("author/{id}")
@@ -162,8 +166,8 @@ interface MuseumApiService {
 
 
     @PUT("author/{id}")
-    fun updateAuthor(@Field("bornAt") bornAt: Date,
-                     @Field("diedAt") diedAt: Date?): Observable<Unit>
+    fun updateAuthor(@Field("bornAt") bornAt: String,
+                     @Field("diedAt") diedAt: String?): Observable<Unit>
 
 
     @GET("locale/author")
