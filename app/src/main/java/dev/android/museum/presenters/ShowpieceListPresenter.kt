@@ -27,15 +27,14 @@ class ShowpieceListPresenter(val showpieceListFragment: ShowpieceListFragment) {
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread()) }
                 .subscribe({ showpieceLocaleData ->
-                        showpieces.addAll(showpieceLocaleData)
+                        showpieces.addAll(showpieceLocaleData.filter { it.language == "ru" })
                         showpieceListFragment.progressBar.visibility = View.VISIBLE
                         showpieceListFragment.displayShowpieces(showpieces) },
                         { t: Throwable? ->
                                 Log.println(Log.ERROR, "LIST SHOW ERROR: ", t.toString())
                                 showpieceListFragment.progressBar.visibility = View.GONE
                         },
-                        {
-                            showpieceListFragment.progressBar.visibility = View.GONE
+                        { showpieceListFragment.progressBar.visibility = View.GONE
                         })
 
     }

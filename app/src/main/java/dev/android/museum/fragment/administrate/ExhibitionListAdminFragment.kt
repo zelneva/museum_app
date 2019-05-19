@@ -22,13 +22,13 @@ import dev.android.museum.presenters.administrate.ExhibitionAdminListPresenter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ExhibitionAdminListFragment : Fragment() {
+class ExhibitionListAdminFragment : Fragment() {
 
     companion object {
         private val MUSEUM_ID = "museumId"
 
-        fun newInstance(museumId: String): ExhibitionAdminListFragment {
-            val fragment = ExhibitionAdminListFragment()
+        fun newInstance(museumId: String): ExhibitionListAdminFragment {
+            val fragment = ExhibitionListAdminFragment()
             val bundle = Bundle()
             bundle.putString(MUSEUM_ID, museumId)
             fragment.arguments = bundle
@@ -48,7 +48,7 @@ class ExhibitionAdminListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null && arguments!!.get(MUSEUM_ID) != null) {
-            museumId = arguments!!.get(ExhibitionAdminListFragment.MUSEUM_ID) as String
+            museumId = arguments!!.get(ExhibitionListAdminFragment.MUSEUM_ID) as String
         }
     }
 

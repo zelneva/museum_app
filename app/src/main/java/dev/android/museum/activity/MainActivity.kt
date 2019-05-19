@@ -8,15 +8,14 @@ import dev.android.museum.App.Companion.sessionObject
 import dev.android.museum.R
 import dev.android.museum.fragment.*
 import dev.android.museum.fragment.account.*
-import dev.android.museum.fragment.administrate.ExhibitionAdminListFragment
-import dev.android.museum.fragment.administrate.MuseumAdminDetailFragment
-import dev.android.museum.fragment.administrate.MuseumAdminListFragment
+import dev.android.museum.fragment.administrate.*
 import dev.android.museum.presenters.MainPresenter
 
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener,
         UserFragment.OnFragmentInteractionListener, AdminActionFragment.OnFragmentInteractionListener, AuthorDetailFragment.OnFragmentInteractionListener,
-        ShowpieceDetailFragment.OnFragmentInteractionListener, MuseumAdminDetailFragment.OnFragmentInteractionListener {
+        ShowpieceDetailFragment.OnFragmentInteractionListener, MuseumDetailAdminFragment.OnFragmentInteractionListener,
+        ShowpieceDetailAdminFragment.OnFragmentInteractionListener, ShowpieceListAdminFragment.OnFragmentInteractionListener{
 
     private lateinit var presenter: MainPresenter
 
@@ -124,20 +123,37 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
     }
 
 
-    override fun openListFragment(showpieceId: String) {
+    override fun openCommentFragment(showpieceId: String) {
         openFragment(CommentListFragment.newInstance(showpieceId))
     }
 
 
     override fun openMuseumAdminListFragment() {
-        openFragment(MuseumAdminListFragment.newInstance())
+        openFragment(MuseumListAdminFragment.newInstance())
     }
 
     override fun openAdminMuseumList() {
-        openFragment(MuseumAdminListFragment.newInstance())
+        openFragment(MuseumListAdminFragment.newInstance())
     }
 
     override fun openExhibitionAdminList(museumId: String) {
-        openFragment(ExhibitionAdminListFragment.newInstance(museumId))
+        openFragment(ExhibitionListAdminFragment.newInstance(museumId))
     }
+
+    override fun openShowpieceList(exhibitionId: String) {
+        openFragment(ShowpieceListAdminFragment.newInstance(exhibitionId))
+    }
+
+    override fun openShowpieceSelector(exhibitionId: String) {
+        openFragment(ShowpieceSelectorFragment.newInstance(exhibitionId))
+    }
+
+    override fun openAuthorListAdminFragment() {
+        openFragment(AuthorListAdminFragment.newInstance())
+    }
+
+    override fun openShowpiecesListAdminFragment() {
+        openFragment(ShowpieceListAdminFragment.newInstance())
+    }
+
 }

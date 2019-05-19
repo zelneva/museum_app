@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +17,10 @@ import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.model.Museum
 import dev.android.museum.presenters.administrate.MuseumAdminListPresenter
 
-class MuseumAdminListFragment : Fragment() {
+class MuseumListAdminFragment : Fragment() {
 
     companion object {
-        fun newInstance(): MuseumAdminListFragment = MuseumAdminListFragment()
+        fun newInstance(): MuseumListAdminFragment = MuseumListAdminFragment()
     }
 
     private lateinit var presenter: MuseumAdminListPresenter

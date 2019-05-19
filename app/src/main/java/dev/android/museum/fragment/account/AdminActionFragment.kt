@@ -41,6 +41,8 @@ class AdminActionFragment : Fragment() {
         listViewAction.setOnItemClickListener { parent, view, position, id ->
             when(position){
                 0 -> listener!!.openMuseumAdminListFragment()
+                1 -> listener!!.openShowpiecesListAdminFragment()
+                2 -> listener!!.openAuthorListAdminFragment()
             }
         }
     }
@@ -63,6 +65,8 @@ class AdminActionFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun openMuseumAdminListFragment()
+        fun openShowpiecesListAdminFragment()
+        fun openAuthorListAdminFragment()
     }
 
 }

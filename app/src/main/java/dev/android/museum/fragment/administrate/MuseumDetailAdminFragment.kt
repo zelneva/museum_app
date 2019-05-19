@@ -15,13 +15,13 @@ import dev.android.museum.R
 import dev.android.museum.model.Museum
 import dev.android.museum.presenters.administrate.MuseumAdminDetailPresenter
 
-class MuseumAdminDetailFragment: Fragment() {
+class MuseumDetailAdminFragment: Fragment() {
 
     companion object {
         val MUSEUM_ID = "museumId"
 
-        fun newInstance(museumId: String): MuseumAdminDetailFragment {
-            val fragment = MuseumAdminDetailFragment()
+        fun newInstance(museumId: String): MuseumDetailAdminFragment {
+            val fragment = MuseumDetailAdminFragment()
             val bundle = Bundle()
             bundle.putString(MUSEUM_ID, museumId)
             fragment.arguments = bundle

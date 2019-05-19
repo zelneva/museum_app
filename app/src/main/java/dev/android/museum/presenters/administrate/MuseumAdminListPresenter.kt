@@ -5,13 +5,13 @@ import android.util.Log
 import android.view.View
 import dev.android.museum.App.Companion.museumApiService
 import dev.android.museum.App.Companion.sessionObject
-import dev.android.museum.fragment.administrate.MuseumAdminListFragment
+import dev.android.museum.fragment.administrate.MuseumListAdminFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
 @SuppressLint("CheckResult")
-class MuseumAdminListPresenter(val fragment: MuseumAdminListFragment) {
+class MuseumAdminListPresenter(val fragment: MuseumListAdminFragment) {
 
     fun loadMuseumList() {
         museumApiService.getAllMuseum()

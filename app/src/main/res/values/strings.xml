@@ -50,8 +50,11 @@
 
     <string-array name="admin_action_title">
         <item>Управление музеями</item>
-        <item>Управление выставками</item>
         <item>Управление экспонатами</item>
+        <item>Управление авторами</item>
     </string-array>
+
+    <string name="action_mode_clear">Clear</string>
+    <string name="action_mode_select">Select</string>
 
 </resources>

@@ -1,8 +1,11 @@
 package dev.android.museum.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+@Parcelize
 data class Exhibition (
 
         @SerializedName("id")
@@ -19,4 +22,4 @@ data class Exhibition (
 
         @SerializedName("museum")
         var museum: Museum
-)
+): Parcelable

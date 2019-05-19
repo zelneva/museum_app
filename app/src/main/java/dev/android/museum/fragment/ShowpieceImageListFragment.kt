@@ -53,9 +53,9 @@ class ShowpieceImageListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             if (arguments!!.get(EXHIBITION_ID) != null) {
-                exhibitionId = arguments!!.get(EXHIBITION_ID).toString()
+                exhibitionId = arguments!!.get(EXHIBITION_ID) as String
             } else if (arguments!!.get(AUTHOR_ID) != null) {
-                authorId = arguments!!.get(AUTHOR_ID).toString()
+                authorId = arguments!!.get(AUTHOR_ID) as String
             }
         }
     }

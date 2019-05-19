@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import dev.android.museum.R
+import dev.android.museum.activity.MainActivity
+import dev.android.museum.fragment.administrate.ShowpieceListAdminFragment
 import dev.android.museum.model.Exhibition
 import dev.android.museum.presenters.administrate.ExhibitionAdminListPresenter
 import java.text.SimpleDateFormat
@@ -49,7 +51,12 @@ class ExhibitionAdminRVAdapter() : RecyclerView.Adapter<ExhibitionAdminRVAdapter
         }
 
         holder.itemView.setOnClickListener {
+            val showpieceFragment = ShowpieceListAdminFragment.newInstance(exhibitions[position].id)
+            val activity: MainActivity = context as MainActivity
 
+            val ft = activity.supportFragmentManager.beginTransaction()
+            ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+            ft.replace(R.id.main_container, showpieceFragment).addToBackStack(null).commit()
         }
     }
 

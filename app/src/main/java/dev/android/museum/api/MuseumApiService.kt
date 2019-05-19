@@ -4,6 +4,7 @@ import dev.android.museum.model.*
 import dev.android.museum.model.util.LoginObject
 import dev.android.museum.model.util.SessionObject
 import io.reactivex.Observable
+import okhttp3.MultipartBody
 import retrofit2.http.*
 import java.util.*
 
@@ -95,23 +96,35 @@ interface MuseumApiService {
     @GET("showpiece/{id}")
     fun getShowpieceById(@Path("id") id: String): Observable<Showpiece>
 
-
+    @Multipart
     @POST("showpiece")
     @FormUrlEncoded
-    fun createShowpiece(@Field("exhibition.id") exhibitionId: String,
-                        @Field("author.id") authorId: String,
-                        @Field("date") date: String,
-                        @Field("genre") genre: String,
-                        @Field("srcPhoto") srcPhoto: String): Observable<Unit>
+    fun createShowpiece(@Part("srcPhoto") image: MultipartBody.Part,
+                        @Field("year") year: String,
+                        @Field("authorName") authorId: String,
+                        @Field("titleRus") titleRus: String,
+                        @Field("descriptionRus") descRus: String,
+                        @Field("titleEng") titleEng: String,
+                        @Field("descriptionEng") descEng: String,
+                        @Field("titleGer") titleGer: String,
+                        @Field("descriptionGer") descriptionGer: String,
+                        @Field("session") sessionId: String
+    ): Observable<Unit>
 
 
+    @FormUrlEncoded
     @PUT("showpiece/{id}")
     fun updateShowpiece(@Path("id") id: String,
-                        @Field("exhibition.id") exhibitionId: String,
-                        @Field("author.id") authorId: String,
-                        @Field("date") date: String,
-                        @Field("genre") genre: String,
-                        @Field("srcPhoto") srcPhoto: String): Observable<Unit>
+                        @Part("srcPhoto") image: MultipartBody.Part?,
+                        @Field("year") year: String,
+                        @Field("authorName") authorId: String,
+                        @Field("titleRus") titleRus: String,
+                        @Field("descriptionRus") descRus: String,
+                        @Field("titleEng") titleEng: String,
+                        @Field("descriptionEng") descEng: String,
+                        @Field("titleGer") titleGer: String,
+                        @Field("descriptionGer") descriptionGer: String,
+                        @Field("session") sessionId: String): Observable<Unit>
 
 
     @GET("showpiece/exhibition/{exhibitionId}")
@@ -122,27 +135,37 @@ interface MuseumApiService {
     fun getListShowpieceByAuthorId(@Path("authorId") authorId: String): Observable<List<Showpiece>>
 
 
+    @FormUrlEncoded
+    @PUT("showpiece/exhibition/{showpieceId}")
+    fun updateExhibitionForShowpiece(@Path("showpieceId") id: String, exhibitionId: String, sessionId: String): Observable<Unit>
+
+
     @GET("locale/showpiece")
     fun getLocaleDataShowpieceById(@Query("id") id: String): Observable<ArrayList<ShowpieceLocaleData>>
-
-
-    @POST("locale/showpiece")
-    fun createLocaleDataShowpiece(@Field("showpiece.id") showpieceId: String,
-                                  @Field("language") language: String,
-                                  @Field("name") name: String,
-                                  @Field("description") description: String): Observable<Unit>
 
 
     @DELETE("locale/showpiece/{id}")
     fun deleteLocaleDataShowpiece(@Path("id") id: String): Observable<Unit>
 
 
+    @FormUrlEncoded
     @PUT("locale/showpiece/{id}")
     fun updateLocaleDataShowpiece(@Path("id") id: String,
                                   @Field("showpiece.id") showpieceId: String,
                                   @Field("language") language: String,
                                   @Field("name") name: String,
                                   @Field("description") description: String): Observable<Unit>
+
+
+    @FormUrlEncoded
+    @PUT("locale/showpiece")
+    fun addShowpieceToExhibition(@Field("list") list: Array<String?>,
+                                 @Field("exhibitionId") exhibitionId: String,
+                                 @Field("session") session: String): Observable<Boolean>
+
+
+
+
 
     /*
     *  Author
@@ -155,42 +178,45 @@ interface MuseumApiService {
     @GET("author/{id}")
     fun getAuthorById(@Path("id") id: String): Observable<Author>
 
-
+    @FormUrlEncoded
     @POST("author")
-    fun createAuthor(@Field("bornAt") bornAt: String,
-                     @Field("diedAt") diedAt: String?): Observable<Unit>
+    fun createAuthor(@Part("srcPhoto") image: MultipartBody.Part,
+                     @Field("bornAt") year: String,
+                     @Field("deadAt") authorId: String,
+                     @Field("titleRus") titleRus: String,
+                     @Field("descriptionRus") descRus: String,
+                     @Field("titleEng") titleEng: String,
+                     @Field("descriptionEng") descEng: String,
+                     @Field("titleGer") titleGer: String,
+                     @Field("descriptionGer") descriptionGer: String,
+                     @Field("session") sessionId: String
+    ): Observable<Unit>
 
 
     @DELETE("author/{id}")
-    fun deleteAuthor(@Path("id") id: String): Observable<Unit>
+    fun deleteAuthor(@Path("id") id: String, session: String): Observable<Unit>
 
-
+    @FormUrlEncoded
     @PUT("author/{id}")
-    fun updateAuthor(@Field("bornAt") bornAt: String,
-                     @Field("diedAt") diedAt: String?): Observable<Unit>
+    fun updateAuthor(@Path("id") id: String,
+                     @Part("srcPhoto") image: MultipartBody.Part,
+                     @Field("bornAt") year: String,
+                     @Field("deadAt") authorId: String,
+                     @Field("titleRus") titleRus: String,
+                     @Field("descriptionRus") descRus: String,
+                     @Field("titleEng") titleEng: String,
+                     @Field("descriptionEng") descEng: String,
+                     @Field("titleGer") titleGer: String,
+                     @Field("descriptionGer") descriptionGer: String,
+                     @Field("session") sessionId: String): Observable<Unit>
 
 
     @GET("locale/author")
     fun getLocaleDataAuthor(@Query("id") id: String): Observable<ArrayList<AuthorLocaleData>>
 
 
-    @POST("locale/author")
-    fun createLocaleDataAuthor(@Field("name") name: String,
-                               @Field("language") language: String,
-                               @Field("description") description: String,
-                               @Field("author.id") authorId: String): Observable<Unit>
-
-
     @DELETE("locale/author/{id}")
-    fun deleteLocaleDataAuthor(@Path("id") id: String): Observable<Unit>
-
-
-    @PUT("locale/author/{id}")
-    fun updateLocaleDataAuthor(@Path("id") id: String,
-                               @Field("name") name: String,
-                               @Field("language") language: String,
-                               @Field("description") description: String,
-                               @Field("author.id") authorId: String): Observable<Unit>
+    fun deleteLocaleDataAuthor(@Path("id") id: String, session: String): Observable<Unit>
 
 
     /*
@@ -202,7 +228,6 @@ interface MuseumApiService {
     fun registration(@Field("username") login: String,
                      @Field("password") password: String,
                      @Field("name") name: String): Observable<SessionObject>
-
 
     @POST("user/login")
     fun login(@Body loginObject: LoginObject): Observable<SessionObject>
@@ -261,7 +286,7 @@ interface MuseumApiService {
     fun deleteComment(@Path("id") id: String,
                       @Query("session") sessionId: String): Observable<Unit>
 
-
+    @FormUrlEncoded
     @PUT("comment/{id}")
     fun updateComment(@Path("id") id: String,
                       @Field("text") text: String,

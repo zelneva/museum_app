@@ -5,12 +5,12 @@ import android.util.Log
 import android.view.View
 import dev.android.museum.App.Companion.museumApiService
 import dev.android.museum.App.Companion.sessionObject
-import dev.android.museum.fragment.administrate.ExhibitionAdminListFragment
+import dev.android.museum.fragment.administrate.ExhibitionListAdminFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @SuppressLint("CheckResult")
-class ExhibitionAdminListPresenter(val fragment: ExhibitionAdminListFragment) {
+class ExhibitionAdminListPresenter(val fragment: ExhibitionListAdminFragment) {
 
     fun loadListExhibition(museumId: String) {
         museumApiService.getExhibitionsByMuseumId(museumId)

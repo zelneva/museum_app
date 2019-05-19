@@ -26,7 +26,7 @@ class AuthorListPresenter(val authorListFragment: AuthorListFragment) {
                             .observeOn(AndroidSchedulers.mainThread())
                 }
                 .subscribe({ authorLocaleData ->
-                        authors.addAll(authorLocaleData)
+                        authors.addAll(authorLocaleData.filter { it.language == "ru" })
                         authorListFragment.progressBar.visibility = View.VISIBLE
                         authorListFragment.displayAuthors(authors)
                 },

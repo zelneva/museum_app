@@ -100,7 +100,7 @@ class ShowpieceDetailFragment : Fragment() {
             description.maxLines = 5
         }
 
-        seeComment.setOnClickListener(clickListnerComment)
+        seeComment.setOnClickListener(clickListenerComment)
         seeAuthor.setOnClickListener(clickListenerAuthor)
         btnFavorite.setOnCheckedChangeListener(changeListener)
         btnRussian.setOnClickListener(clickListenerLanguage)
@@ -144,8 +144,8 @@ class ShowpieceDetailFragment : Fragment() {
         }
     }
 
-    private val clickListnerComment = View.OnClickListener {
-        listener?.openListFragment(showpieceId)
+    private val clickListenerComment = View.OnClickListener {
+        listener?.openCommentFragment(showpieceId)
     }
 
 
@@ -206,9 +206,7 @@ class ShowpieceDetailFragment : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun openListFragment(showpieceId: String)
+        fun openCommentFragment(showpieceId: String)
         fun openAuthorDetailFragment(authorId: String)
     }
-
-
 }

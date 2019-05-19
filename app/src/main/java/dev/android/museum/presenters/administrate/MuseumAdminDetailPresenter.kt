@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.util.Log
 import dev.android.museum.App.Companion.museumApiService
 import dev.android.museum.App.Companion.sessionObject
-import dev.android.museum.fragment.administrate.MuseumAdminDetailFragment
+import dev.android.museum.fragment.administrate.MuseumDetailAdminFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @SuppressLint("CheckResult")
-class MuseumAdminDetailPresenter(val fragment: MuseumAdminDetailFragment) {
+class MuseumAdminDetailPresenter(val fragment: MuseumDetailAdminFragment) {
 
 
     fun loadInfoMuseum(museumId: String) {

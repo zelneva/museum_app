@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import dev.android.museum.R
 import android.view.inputmethod.InputMethodManager
+import dev.android.museum.App.Companion.sessionObject
 import dev.android.museum.adapter.CommentRecyclerViewAdapter
 import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.model.Comment
@@ -69,7 +70,13 @@ class CommentListFragment : Fragment() {
 
 
     private fun init(view: View) {
-        fab = view.findViewById(R.id.fab)
+        if (sessionObject?.userId != null){
+            fab = view.findViewById(R.id.fab)
+        }else {
+            fab = view.findViewById(R.id.fab)
+            fab.hide()
+        }
+
         sendLayout = view.findViewById(R.id.send)
         editTextComment = view.findViewById(R.id.edit_text_comment)
         btnSend = view.findViewById(R.id.btn_send)
@@ -88,8 +95,8 @@ class CommentListFragment : Fragment() {
         if(commentResponse != null && commentResponse.size != 0){
             adapter = CommentRecyclerViewAdapter(commentResponse, context!!)
             recyclerView.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
-        adapter.notifyDataSetChanged()
     }
 
 

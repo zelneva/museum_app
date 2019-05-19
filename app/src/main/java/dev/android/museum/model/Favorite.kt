@@ -8,8 +8,8 @@ data class Favorite (
         @SerializedName("id")
         var id: UUID,
 
-//        @SerializedName("user")
-//        var user: User,
+        @SerializedName("user")
+        var user: User,
 
         @SerializedName("showpiece")
         var showpiece: Showpiece

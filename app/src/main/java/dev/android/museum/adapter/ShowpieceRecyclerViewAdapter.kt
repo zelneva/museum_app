@@ -16,7 +16,6 @@ import dev.android.museum.model.ShowpieceLocaleData
 class ShowpieceRecyclerViewAdapter(): RecyclerView.Adapter<ShowpieceRecyclerViewAdapter.ViewHolder>(){
 
     private var showpieces = arrayListOf<ShowpieceLocaleData>()
-
     lateinit var context: Context
 
 

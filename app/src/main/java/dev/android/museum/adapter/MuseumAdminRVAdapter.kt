@@ -9,8 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
-import dev.android.museum.fragment.ExhibitionListFragment
-import dev.android.museum.fragment.administrate.MuseumAdminDetailFragment
+import dev.android.museum.fragment.administrate.MuseumDetailAdminFragment
 import dev.android.museum.model.Museum
 
 class MuseumAdminRVAdapter() : RecyclerView.Adapter<MuseumAdminRVAdapter.ViewHolder>() {
@@ -48,7 +47,7 @@ class MuseumAdminRVAdapter() : RecyclerView.Adapter<MuseumAdminRVAdapter.ViewHol
 
             val ft = activity.supportFragmentManager.beginTransaction()
             ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-            ft.replace(R.id.main_container, MuseumAdminDetailFragment.newInstance(museums[position].id.toString()))
+            ft.replace(R.id.main_container, MuseumDetailAdminFragment.newInstance(museums[position].id.toString()))
                     .addToBackStack(null)
                     .commit()
         }
