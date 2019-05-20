@@ -11,7 +11,7 @@ import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
 import dev.android.museum.fragment.administrate.ShowpieceListAdminFragment
 import dev.android.museum.model.Exhibition
-import dev.android.museum.presenters.administrate.ExhibitionAdminListPresenter
+import dev.android.museum.presenters.common.ExhibitionListPresenter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,9 +19,10 @@ class ExhibitionAdminRVAdapter() : RecyclerView.Adapter<ExhibitionAdminRVAdapter
 
     private var exhibitions = listOf<Exhibition>()
     private lateinit var context: Context
-    private lateinit var presenter: ExhibitionAdminListPresenter
+    private lateinit var presenter: ExhibitionListPresenter
 
-    constructor(exhibitions: List<Exhibition>, context: Context, presenter: ExhibitionAdminListPresenter): this() {
+
+    constructor(exhibitions: List<Exhibition>, context: Context, presenter: ExhibitionListPresenter): this() {
         this.exhibitions = exhibitions
         this.context = context
         this.presenter = presenter

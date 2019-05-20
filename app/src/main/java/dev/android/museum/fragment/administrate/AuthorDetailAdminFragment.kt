@@ -16,15 +16,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import dev.android.museum.R
-import dev.android.museum.fragment.AuthorDetailFragment
+import dev.android.museum.fragment.common.AuthorDetailFragment
+import dev.android.museum.fragment.abstractFragment.IAuthorDetailFragment
+import dev.android.museum.model.Author
 import dev.android.museum.model.AuthorLocaleData
-import dev.android.museum.presenters.administrate.AuthorDetailAdminPresenter
+import dev.android.museum.presenters.common.AuthorDetailPresenter
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-class AuthorDetailAdminFragment : Fragment() {
+class AuthorDetailAdminFragment : Fragment(), IAuthorDetailFragment {
 
     companion object {
         val AUTHOR_ID = "authorId"
@@ -60,7 +62,7 @@ class AuthorDetailAdminFragment : Fragment() {
     private var descriptionGer = ""
 
     private lateinit var authorId: String
-    private lateinit var presenter: AuthorDetailAdminPresenter
+    private lateinit var presenter: AuthorDetailPresenter
     private lateinit var authorLD: AuthorLocaleData
 
     private var file: File? = null
@@ -81,8 +83,9 @@ class AuthorDetailAdminFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_admin_author_detail, container, false)
         init(view)
-        presenter = AuthorDetailAdminPresenter(this)
-        presenter.loadAuthor(authorId)
+        presenter = AuthorDetailPresenter(this)
+        presenter.loadInfoAuthorDetail(authorId)
+        presenter.loadAuthorConstantData(authorId)
         return view
     }
 
@@ -124,22 +127,18 @@ class AuthorDetailAdminFragment : Fragment() {
 
     private val clickListenerLanguage = View.OnClickListener { view ->
         when (view) {
-            btnRussian -> presenter.loadAuthor(authorId, "ru")
-            btnEnglish -> presenter.loadAuthor(authorId, "en")
-            btnGerman -> presenter.loadAuthor(authorId, "ge")
+            btnRussian -> presenter.loadInfoAuthorDetail(authorId, "ru")
+            btnEnglish -> presenter.loadInfoAuthorDetail(authorId, "en")
+            btnGerman -> presenter.loadInfoAuthorDetail(authorId, "ge")
         }
     }
 
 
-    fun displayAuthorDetailInfo(authorLocaleDataResponse: AuthorLocaleData) {
+    override fun displayDetailInfo(authorLocaleDataResponse: AuthorLocaleData) {
         authorLD = authorLocaleDataResponse
         description.text = authorLocaleDataResponse.description
         name.text = authorLocaleDataResponse.name
-        if (authorLocaleDataResponse.author.diedAt.toString() != "") {
-            year.text = "${authorLocaleDataResponse.author.bornAt} - ${authorLocaleDataResponse.author.diedAt}"
-        } else {
-            year.text = authorLocaleDataResponse.author.bornAt.toString()
-        }
+
         when (authorLocaleDataResponse.language) {
             "ru" -> {
                 titleDescription.text = resources.getText(R.string.description_ru)
@@ -159,6 +158,13 @@ class AuthorDetailAdminFragment : Fragment() {
         }
     }
 
+    override fun displayDate(author: Author) {
+        if (author.diedAt.toString() != "") {
+            year.text = "${author.bornAt} - ${author.diedAt}"
+        } else {
+            year.text = author.bornAt.toString()
+        }
+    }
 
     private val editAuthor = View.OnClickListener {
         val builder = AlertDialog.Builder(activity)

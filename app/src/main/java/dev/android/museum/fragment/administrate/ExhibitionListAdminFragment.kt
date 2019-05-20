@@ -17,12 +17,14 @@ import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.ExhibitionAdminRVAdapter
 import dev.android.museum.adapter.SampleRecycler
+import dev.android.museum.fragment.abstractFragment.IExhibitionListFragment
 import dev.android.museum.model.Exhibition
-import dev.android.museum.presenters.administrate.ExhibitionAdminListPresenter
+import dev.android.museum.presenters.common.ExhibitionListPresenter
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
-class ExhibitionListAdminFragment : Fragment() {
+class ExhibitionListAdminFragment : Fragment(), IExhibitionListFragment {
 
     companion object {
         private val MUSEUM_ID = "museumId"
@@ -37,11 +39,11 @@ class ExhibitionListAdminFragment : Fragment() {
     }
 
     private lateinit var museumId: String
-    private lateinit var presenter: ExhibitionAdminListPresenter
+    private lateinit var presenter: ExhibitionListPresenter
 
     private lateinit var rv: RecyclerView
     private lateinit var adapter: ExhibitionAdminRVAdapter
-    lateinit var progressBar: ProgressBar
+    override lateinit var progressBar: ProgressBar
     private lateinit var fab: FloatingActionButton
 
 
@@ -59,7 +61,7 @@ class ExhibitionListAdminFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_admin_exhibition_list, container, false)
         progressBar = view.findViewById(R.id.progress_bar)
         setupView(view)
-        presenter = ExhibitionAdminListPresenter(this)
+        presenter = ExhibitionListPresenter(this)
         presenter.loadListExhibition(museumId)
         return view
     }
@@ -75,9 +77,9 @@ class ExhibitionListAdminFragment : Fragment() {
     }
 
 
-    fun displayListExhibition(exhibitions: ArrayList<Exhibition>?) {
-        if (exhibitions != null) {
-            adapter = ExhibitionAdminRVAdapter(exhibitions, this.context!!, presenter)
+    override fun displayListExhbition(list: ArrayList<Exhibition>) {
+        if (list.size != 0) {
+            adapter = ExhibitionAdminRVAdapter(list, this.context!!, presenter)
             rv.adapter = adapter
         }
         adapter.notifyDataSetChanged()
@@ -157,7 +159,7 @@ class ExhibitionListAdminFragment : Fragment() {
     }
 
 
-    fun alertEditExhibition(oldExhibition: Exhibition) {
+    override fun editExhbition(oldExhibition: Exhibition) {
         val builder = AlertDialog.Builder(activity)
         val exhView = activity!!.layoutInflater.inflate(R.layout.dialog_exhibition, null)
         val title = exhView.findViewById<TextInputLayout>(R.id.new_exhibition_title)

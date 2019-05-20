@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,10 +11,11 @@ import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.ExhibitionRecyclerViewAdapter
 import dev.android.museum.adapter.SampleRecycler
+import dev.android.museum.fragment.abstractFragment.IExhibitionListFragment
 import dev.android.museum.model.Exhibition
-import dev.android.museum.presenters.ExhibitionListPresenter
+import dev.android.museum.presenters.common.ExhibitionListPresenter
 
-class ExhibitionListFragment : Fragment() {
+class ExhibitionListFragment : Fragment(), IExhibitionListFragment {
 
     companion object {
         val MUSEUM_ID = "museumId"
@@ -32,7 +33,7 @@ class ExhibitionListFragment : Fragment() {
     private lateinit var presenter: ExhibitionListPresenter
     private lateinit var rv: RecyclerView
     private lateinit var adapter: ExhibitionRecyclerViewAdapter
-    lateinit var progressBar: ProgressBar
+    override lateinit var progressBar: ProgressBar
     private lateinit var museumId: String
 
 
@@ -50,14 +51,14 @@ class ExhibitionListFragment : Fragment() {
         progressBar = view.findViewById(R.id.progress_bar)
         setupView(view)
         presenter = ExhibitionListPresenter(this)
-        presenter.loadExhibitionListByMuseum(museumId)
+        presenter.loadListExhibition(museumId)
         return view
     }
 
 
-    fun displayListExhibition(exhibitionResponce: ArrayList<Exhibition>?) {
-        if (exhibitionResponce != null) {
-            adapter = ExhibitionRecyclerViewAdapter(exhibitionResponce, this.context!!)
+    override fun displayListExhbition(list: ArrayList<Exhibition>) {
+        if (list.size != 0) {
+            adapter = ExhibitionRecyclerViewAdapter(list, this.context!!)
             rv.adapter = adapter
         }
         adapter.notifyDataSetChanged()
@@ -68,6 +69,9 @@ class ExhibitionListFragment : Fragment() {
         rv = view.findViewById(R.id.exhibition_list_rv)
         rv.adapter = SampleRecycler()
         rv.layoutManager = LinearLayoutManager(this.context)
+    }
+
+    override fun editExhbition(exhibition: Exhibition) {
     }
 }
 

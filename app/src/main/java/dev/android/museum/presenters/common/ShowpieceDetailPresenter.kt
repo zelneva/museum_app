@@ -1,21 +1,20 @@
-package dev.android.museum.presenters.administrate
+package dev.android.museum.presenters.common
 
 import android.annotation.SuppressLint
 import dev.android.museum.App
 import dev.android.museum.App.Companion.museumApiService
 import dev.android.museum.App.Companion.sessionObject
-import dev.android.museum.fragment.administrate.ShowpieceDetailAdminFragment
+import dev.android.museum.fragment.abstractFragment.IShowpieceDetailFragment
 import dev.android.museum.model.AuthorLocaleData
 import dev.android.museum.model.ShowpieceLocaleData
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MultipartBody
-import java.text.SimpleDateFormat
-import java.util.*
+
 
 @SuppressLint("CheckResult")
-class ShowpieceAdminDetailPresenter(var fragment: ShowpieceDetailAdminFragment) {
+class ShowpieceDetailPresenter(val fragment: IShowpieceDetailFragment) {
 
     fun loadInfoShowpieceDetail(showpieceId: String, lang: String = "ru") {
         museumApiService.getLocaleDataShowpieceById(showpieceId)
@@ -23,7 +22,7 @@ class ShowpieceAdminDetailPresenter(var fragment: ShowpieceDetailAdminFragment) 
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { Observable.fromIterable(it) }
                 .filter { it.language == lang }
-                .subscribe { fragment.displayShowpieceDetailInfo(it) }
+                .subscribe { fragment.displayDetailInfo(it) }
     }
 
 
@@ -36,6 +35,30 @@ class ShowpieceAdminDetailPresenter(var fragment: ShowpieceDetailAdminFragment) 
                 .subscribe { fragment.displayAuthorName(it) }
 
     }
+
+
+    fun addFavorite(showpieceId: String): Boolean {
+        if (sessionObject != null) {
+            museumApiService.createFavorite(showpieceId, sessionObject?.sessionId!!)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+            return true
+        } else {
+            fragment.alertNullUser()
+            return false
+        }
+    }
+
+
+    fun deleteFavorite(showpieceId: String) {
+        if (sessionObject?.sessionId != null) {
+            museumApiService.deleteFavorite(showpieceId, sessionObject?.sessionId!!)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+        }
+
+    }
+
 
 
     @SuppressLint("SimpleDateFormat")
@@ -80,6 +103,5 @@ class ShowpieceAdminDetailPresenter(var fragment: ShowpieceDetailAdminFragment) 
                 .subscribe()
         return true
     }
-
 
 }

@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import dev.android.museum.R
 import dev.android.museum.model.Museum
-import dev.android.museum.presenters.administrate.MuseumAdminDetailPresenter
+import dev.android.museum.presenters.common.MuseumDetailPresenter
 
 class MuseumDetailAdminFragment: Fragment() {
 
@@ -31,7 +31,7 @@ class MuseumDetailAdminFragment: Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var museumId: String
-    private lateinit var presenter: MuseumAdminDetailPresenter
+    private lateinit var presenter: MuseumDetailPresenter
 
     private lateinit var image: ImageView
     private lateinit var title: TextView
@@ -54,7 +54,7 @@ class MuseumDetailAdminFragment: Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_admin_museum_detail, container, false)
         init(view)
-        presenter = MuseumAdminDetailPresenter(this)
+        presenter = MuseumDetailPresenter(this)
         presenter.loadInfoMuseum(museumId)
         return view
     }
@@ -125,7 +125,7 @@ class MuseumDetailAdminFragment: Fragment() {
     }
 
 
-    fun displayInfo(museumResponse: Museum){
+    fun displayDetailInfo(museumResponse: Museum){
         //        Picasso.get()
 //                .load(museumResponse.srcPhoto)
 //                .into(image)

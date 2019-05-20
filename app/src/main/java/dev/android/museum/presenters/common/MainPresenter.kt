@@ -1,4 +1,4 @@
-package dev.android.museum.presenters
+package dev.android.museum.presenters.common
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -11,16 +11,17 @@ import io.reactivex.schedulers.Schedulers
 @SuppressLint("CheckResult")
 class MainPresenter(val activity: MainActivity) {
 
-    fun isAdmin(sessionObject: SessionObject):Boolean {
-        var flag = true
+    fun isAdmin(sessionObject: SessionObject) {
         museumApiService.getUserInfo(sessionObject.userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ user ->
-                    flag = user.role == "admin"
+                    if (user.role == "admin") {
+                        activity.openAdminFragment()
+                    } else activity.openUserFragment()
                 }, { t: Throwable? ->
-                        Log.println(Log.ERROR, "LOGIN FRAGMENT ERRO: ", t.toString())
+                    Log.println(Log.ERROR, "LOGIN FRAGMENT ERRO: ", t.toString())
                 })
-        return flag
+
     }
 }

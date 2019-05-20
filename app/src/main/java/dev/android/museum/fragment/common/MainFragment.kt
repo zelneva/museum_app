@@ -1,7 +1,5 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
-import android.content.Context
-import android.net.Uri
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.view.ViewGroup

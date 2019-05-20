@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
 import android.content.Context
 import android.os.Bundle
@@ -11,12 +11,13 @@ import android.view.animation.BounceInterpolator
 import android.view.animation.ScaleAnimation
 import android.widget.*
 import dev.android.museum.R
+import dev.android.museum.fragment.abstractFragment.IShowpieceDetailFragment
 import dev.android.museum.model.AuthorLocaleData
 import dev.android.museum.model.ShowpieceLocaleData
-import dev.android.museum.presenters.ShowpieceDetailPresenter
+import dev.android.museum.presenters.common.ShowpieceDetailPresenter
 
 
-class ShowpieceDetailFragment : Fragment() {
+class ShowpieceDetailFragment : Fragment(), IShowpieceDetailFragment {
 
     companion object {
         val SHOWPIECE_ID = "showpieceId"
@@ -149,7 +150,7 @@ class ShowpieceDetailFragment : Fragment() {
     }
 
 
-    fun displayShowpieceDetailInfo(showpiece: ShowpieceLocaleData) {
+    override fun displayDetailInfo(showpiece: ShowpieceLocaleData) {
         title.text = showpiece.name
         description.text = showpiece.description
         yearCreate.text = showpiece.showpiece.date.toString()
@@ -171,11 +172,11 @@ class ShowpieceDetailFragment : Fragment() {
         }
     }
 
-    fun displayAuthorName(author: AuthorLocaleData) {
+    override fun displayAuthorName(author: AuthorLocaleData) {
         authorName.text = author.name
     }
 
-    fun alertNullUser() {
+    override fun alertNullUser() {
         Toast.makeText(context, "Войдите, чтобы добавить в 'Избранное'", Toast.LENGTH_SHORT).show()
     }
 
@@ -209,4 +210,8 @@ class ShowpieceDetailFragment : Fragment() {
         fun openCommentFragment(showpieceId: String)
         fun openAuthorDetailFragment(authorId: String)
     }
+
+    override fun loadAuthor(list: ArrayList<AuthorLocaleData>) {}
+
+    override fun openShowpieceList(exhbitionId: String) {}
 }

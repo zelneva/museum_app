@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
 import android.content.Context
 import android.os.Bundle
@@ -10,11 +10,12 @@ import android.widget.Button
 import android.widget.TableRow
 import android.widget.TextView
 import dev.android.museum.R
+import dev.android.museum.fragment.abstractFragment.IAuthorDetailFragment
 import dev.android.museum.model.Author
 import dev.android.museum.model.AuthorLocaleData
-import dev.android.museum.presenters.AuthorDetailPresenter
+import dev.android.museum.presenters.common.AuthorDetailPresenter
 
-class AuthorDetailFragment : Fragment() {
+class AuthorDetailFragment : Fragment(), IAuthorDetailFragment {
 
 
     companion object {
@@ -99,7 +100,7 @@ class AuthorDetailFragment : Fragment() {
     }
 
 
-    fun displayAuthorDetailInfo(authorLocaleDataResponse: AuthorLocaleData) {
+    override fun displayDetailInfo(authorLocaleDataResponse: AuthorLocaleData) {
         description.text = authorLocaleDataResponse.description
         name.text = authorLocaleDataResponse.name
         when (authorLocaleDataResponse.language) {
@@ -119,7 +120,7 @@ class AuthorDetailFragment : Fragment() {
     }
 
 
-    fun displayDate(authorResponse: Author) {
+    override fun displayDate(authorResponse: Author) {
         if (authorResponse.diedAt.toString() != "") {
             year.text = "${authorResponse.bornAt} - ${authorResponse.diedAt}"
         } else {

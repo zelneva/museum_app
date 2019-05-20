@@ -14,16 +14,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import dev.android.museum.R
+import dev.android.museum.fragment.abstractFragment.IShowpieceDetailFragment
 import dev.android.museum.model.AuthorLocaleData
 import dev.android.museum.model.ShowpieceLocaleData
-import dev.android.museum.presenters.administrate.ShowpieceAdminDetailPresenter
+import dev.android.museum.presenters.common.ShowpieceDetailPresenter
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
 
-class ShowpieceDetailAdminFragment : Fragment() {
+class ShowpieceDetailAdminFragment : Fragment(), IShowpieceDetailFragment {
 
     private val RESULT_LOAD_IMAGE = 1
 
@@ -57,7 +58,7 @@ class ShowpieceDetailAdminFragment : Fragment() {
     private lateinit var edit: TextView
     private lateinit var delete: TextView
 
-    lateinit var presenter: ShowpieceAdminDetailPresenter
+    lateinit var presenter: ShowpieceDetailPresenter
 
     private lateinit var authorId: String
     private lateinit var showpieceId: String
@@ -90,7 +91,7 @@ class ShowpieceDetailAdminFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_admin_showpiece_detail, container, false)
         init(view)
-        presenter = ShowpieceAdminDetailPresenter(this)
+        presenter = ShowpieceDetailPresenter(this)
         presenter.loadInfoShowpieceDetail(showpieceId)
         presenter.loadAuthor()
         return view
@@ -158,7 +159,7 @@ class ShowpieceDetailAdminFragment : Fragment() {
     }
 
 
-    fun displayShowpieceDetailInfo(showpiece: ShowpieceLocaleData) {
+    override fun displayDetailInfo(showpiece: ShowpieceLocaleData) {
         showpieceLD = showpiece
         title.text = showpiece.name
         description.text = showpiece.description
@@ -205,12 +206,12 @@ class ShowpieceDetailAdminFragment : Fragment() {
     }
 
 
-    fun openShowpieceList(exhibitionId: String) {
+    override fun openShowpieceList(exhibitionId: String) {
         listener?.openShowpieceList(exhibitionId)
     }
 
 
-    fun displayAuthorName(author: AuthorLocaleData) {
+    override fun displayAuthorName(author: AuthorLocaleData) {
         authorName.text = author.name
     }
 
@@ -351,7 +352,7 @@ class ShowpieceDetailAdminFragment : Fragment() {
     }
 
 
-    fun loadAuthor(author: ArrayList<AuthorLocaleData>) {
+    override fun loadAuthor(author: ArrayList<AuthorLocaleData>) {
         auhtorList = author.toList()
                 .filter { it.language == "ru" }
                 .map { it.name }
@@ -377,5 +378,8 @@ class ShowpieceDetailAdminFragment : Fragment() {
     interface OnFragmentInteractionListener {
         //        fun openCommentAdminFragment(showpieceId: String)
         fun openShowpieceList(exhibitionId: String)
+    }
+
+    override fun alertNullUser() {
     }
 }

@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
-import dev.android.museum.fragment.AuthorDetailFragment
+import dev.android.museum.fragment.common.AuthorDetailFragment
 import dev.android.museum.model.AuthorLocaleData
 
 class AuthorRecyclerViewAdapter() : RecyclerView.Adapter<AuthorRecyclerViewAdapter.ViewHolder>() {

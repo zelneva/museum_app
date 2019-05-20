@@ -19,16 +19,17 @@ import android.widget.*
 import dev.android.museum.R
 import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.adapter.ShowpieceAdminRVAdapter
+import dev.android.museum.fragment.abstractFragment.IShowpieceListFragment
 import dev.android.museum.model.AuthorLocaleData
 import dev.android.museum.model.ShowpieceLocaleData
-import dev.android.museum.presenters.administrate.ShowpieceAdminListPresenter
+import dev.android.museum.presenters.common.ShowpieceListPresenter
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
 
-class ShowpieceListAdminFragment : Fragment() {
+class ShowpieceListAdminFragment : Fragment(), IShowpieceListFragment {
 
     private val RESULT_LOAD_IMAGE = 1
 
@@ -58,10 +59,10 @@ class ShowpieceListAdminFragment : Fragment() {
     }
 
 
-    private lateinit var presenter: ShowpieceAdminListPresenter
+    private lateinit var presenter: ShowpieceListPresenter
     private lateinit var rv: RecyclerView
     private lateinit var adapter: ShowpieceAdminRVAdapter
-    lateinit var progressBar: ProgressBar
+    override lateinit var progressBar: ProgressBar
     lateinit var fab: FloatingActionButton
     private var exhibitionId: String? = null
     private var authorId: String? = null
@@ -97,10 +98,10 @@ class ShowpieceListAdminFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_admin_showpiece_list, container, false)
         setupView(view)
-        presenter = ShowpieceAdminListPresenter(this)
+        presenter = ShowpieceListPresenter(this)
 
         if (exhibitionId != null) {
-            presenter.loadListShowpieceByExhibition(exhibitionId!!)
+            presenter.loadShowpicesListByExhbition(exhibitionId!!)
         } else if (authorId != null) {
             presenter.loadListShowpieceByAuthor(authorId!!)
         } else {
@@ -122,16 +123,16 @@ class ShowpieceListAdminFragment : Fragment() {
     }
 
 
-    fun displayListShowpiece(showpieceResponse: ArrayList<ShowpieceLocaleData>?) {
-        if (showpieceResponse != null) {
-            adapter = ShowpieceAdminRVAdapter(showpieceResponse, this.context!!)
+    override fun displayList(list: ArrayList<ShowpieceLocaleData>) {
+        if (list.size != 0) {
+            adapter = ShowpieceAdminRVAdapter(list, this.context!!)
             rv.adapter = adapter
             adapter.notifyDataSetChanged()
         }
     }
 
 
-    fun loadAuthor(author: ArrayList<AuthorLocaleData>) {
+    override fun loadAuthor(author: ArrayList<AuthorLocaleData>) {
         auhtorList = author.toList()
                 .filter { it.language == "ru" }
                 .map { it.name }
@@ -290,14 +291,5 @@ class ShowpieceListAdminFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun openShowpieceSelector(exhibitionId: String)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (exhibitionId != null) {
-            presenter.loadListShowpieceByExhibition(exhibitionId!!)
-        } else if (authorId != null) {
-            presenter.loadListShowpieceByAuthor(authorId!!)
-        }
     }
 }

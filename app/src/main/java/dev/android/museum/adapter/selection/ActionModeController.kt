@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.selection.SelectionTracker
 import dev.android.museum.R
-import dev.android.museum.presenters.administrate.ShowpieceSelectorPresenter
+import dev.android.museum.presenters.common.ShowpieceSelectorPresenter
 
 class ActionModeController(private val tracker: SelectionTracker<*>,
                            val presneter: ShowpieceSelectorPresenter,

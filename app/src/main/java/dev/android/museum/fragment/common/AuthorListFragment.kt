@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,11 +11,12 @@ import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.AuthorRecyclerViewAdapter
 import dev.android.museum.adapter.SampleRecycler
+import dev.android.museum.fragment.abstractFragment.IAuthorListFragment
 import dev.android.museum.model.AuthorLocaleData
-import dev.android.museum.presenters.AuthorListPresenter
+import dev.android.museum.presenters.common.AuthorListPresenter
 
 
-class AuthorListFragment : Fragment() {
+class AuthorListFragment : Fragment(), IAuthorListFragment {
 
     companion object {
         fun newInstance(): AuthorListFragment = AuthorListFragment()
@@ -24,7 +25,7 @@ class AuthorListFragment : Fragment() {
     private lateinit var presenter: AuthorListPresenter
     private lateinit var rv: RecyclerView
     private lateinit var adapter: AuthorRecyclerViewAdapter
-    lateinit var progressBar: ProgressBar
+    override lateinit var progressBar: ProgressBar
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +38,8 @@ class AuthorListFragment : Fragment() {
         return view
     }
 
-    fun displayAuthors(authorsResponce: ArrayList<AuthorLocaleData>?) {
-        if (authorsResponce != null && authorsResponce.size != 0) {
+    override fun displayList(authorsResponce: ArrayList<AuthorLocaleData>) {
+        if (authorsResponce.size != 0) {
             adapter = AuthorRecyclerViewAdapter(authorsResponce, this.context!!)
             rv.adapter = adapter
         }

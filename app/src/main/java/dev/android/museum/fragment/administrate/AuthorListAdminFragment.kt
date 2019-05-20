@@ -19,16 +19,16 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import dev.android.museum.R
 import dev.android.museum.adapter.AuthorRVAdapter
-import dev.android.museum.adapter.AuthorRecyclerViewAdapter
 import dev.android.museum.adapter.SampleRecycler
+import dev.android.museum.fragment.abstractFragment.IAuthorListFragment
 import dev.android.museum.model.AuthorLocaleData
-import dev.android.museum.presenters.administrate.AuthorListAdminPresenter
+import dev.android.museum.presenters.common.AuthorListPresenter
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-class AuthorListAdminFragment : Fragment() {
+class AuthorListAdminFragment : Fragment(), IAuthorListFragment {
 
 
     companion object {
@@ -36,10 +36,10 @@ class AuthorListAdminFragment : Fragment() {
     }
 
     private val RESULT_LOAD_IMAGE = 1
-    private lateinit var presenter: AuthorListAdminPresenter
+    private lateinit var presenter: AuthorListPresenter
     private lateinit var rv: RecyclerView
     private lateinit var adapter: AuthorRVAdapter
-    lateinit var progressBar: ProgressBar
+    override lateinit var progressBar: ProgressBar
     private lateinit var fab: FloatingActionButton
 
     private var titleRus = ""
@@ -60,8 +60,8 @@ class AuthorListAdminFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_admin_author_list, container, false)
         progressBar = view.findViewById(R.id.progress_bar)
         setupView(view)
-        presenter = AuthorListAdminPresenter(this)
-        presenter.loadAuthorList()
+        presenter = AuthorListPresenter(this)
+        presenter.loadListAuthor()
         return view
     }
 
@@ -179,7 +179,7 @@ class AuthorListAdminFragment : Fragment() {
     }
 
 
-    fun displayListAuthor(authorResponce: ArrayList<AuthorLocaleData>) {
+    override fun displayList(authorResponce: ArrayList<AuthorLocaleData>) {
         adapter = AuthorRVAdapter(authorResponce, context!!)
         rv.adapter = adapter
         adapter.notifyDataSetChanged()

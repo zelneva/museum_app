@@ -1,4 +1,4 @@
-package dev.android.museum.presenters.administrate
+package dev.android.museum.presenters.common
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @SuppressLint("CheckResult")
-class MuseumAdminDetailPresenter(val fragment: MuseumDetailAdminFragment) {
+class MuseumDetailPresenter(val fragment: MuseumDetailAdminFragment) {
 
 
     fun loadInfoMuseum(museumId: String) {
@@ -17,7 +17,7 @@ class MuseumAdminDetailPresenter(val fragment: MuseumDetailAdminFragment) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { fragment.displayInfo(it) },
+                        { fragment.displayDetailInfo(it) },
                         { t: Throwable? ->
                             Log.println(Log.ERROR, "DET ADMIN MUS ERROR: ", t.toString())
                         })

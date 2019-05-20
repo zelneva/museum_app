@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,11 +11,12 @@ import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.MuseumRecyclerViewAdapter
 import dev.android.museum.adapter.SampleRecycler
+import dev.android.museum.fragment.abstractFragment.IMuseumListFragment
 import dev.android.museum.model.Museum
-import dev.android.museum.presenters.MuseumListPresenter
+import dev.android.museum.presenters.common.MuseumListPresenter
 
 
-class MuseumListFragment : Fragment() {
+class MuseumListFragment : Fragment(), IMuseumListFragment {
 
     companion object {
         fun newInstance(): MuseumListFragment = MuseumListFragment()
@@ -24,8 +25,7 @@ class MuseumListFragment : Fragment() {
     private lateinit var presenter: MuseumListPresenter
     private lateinit var rv: RecyclerView
     private lateinit var adapter: MuseumRecyclerViewAdapter
-    lateinit var progressBar: ProgressBar
-
+    override lateinit var progressBar: ProgressBar
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -40,9 +40,9 @@ class MuseumListFragment : Fragment() {
     }
 
 
-    fun displayListMuseum(museumsResponce: ArrayList<Museum>?) {
-        if (museumsResponce != null) {
-            adapter = MuseumRecyclerViewAdapter(museumsResponce, this.context!!)
+    override fun displayList(list: ArrayList<Museum>) {
+        if (list.size != 0) {
+            adapter = MuseumRecyclerViewAdapter(list, this.context!!)
             rv.adapter = adapter
         }
         adapter.notifyDataSetChanged()

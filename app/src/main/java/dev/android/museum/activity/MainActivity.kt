@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import dev.android.museum.App.Companion.sessionObject
 import dev.android.museum.R
-import dev.android.museum.fragment.*
 import dev.android.museum.fragment.account.*
 import dev.android.museum.fragment.administrate.*
-import dev.android.museum.presenters.MainPresenter
+import dev.android.museum.fragment.common.*
+import dev.android.museum.presenters.common.MainPresenter
 
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener,
@@ -49,14 +50,14 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
             }
 
             R.id.navigation_user -> {
-                if (sessionObject == null && sessionObject?.sessionId == null) {
+                if (sessionObject == null
+                        || sessionObject?.sessionId == null
+                        || sessionObject?.userId == null) {
+                    Log.d("!!LOGIN!!", sessionObject?.sessionId.toString())
                     openFragment(LoginFragment.newInstance())
                 } else {
-                    if (presenter.isAdmin(sessionObject!!)) {
-                        openFragment(AdminFragment.newInstance(sessionObject?.userId!!))
-                    } else {
-                        openFragment(UserFragment.newInstance(sessionObject?.userId!!))
-                    }
+                    presenter.isAdmin(sessionObject!!)
+                    Log.d("!!!ADMIN!", sessionObject?.sessionId.toString())
                 }
                 return@OnNavigationItemSelectedListener true
             }

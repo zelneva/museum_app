@@ -33,7 +33,7 @@ class AdminActionFragment : Fragment() {
     }
 
     private fun init(view: View) {
-        listViewAction = view.findViewById(R.id.list_view_admin)
+        listViewAction = view.findViewById<ListView>(R.id.list_view_admin)
         val actionTitle = resources.getStringArray(R.array.admin_action_title)
         val adapter = ArrayAdapter<String>(context, R.layout.list_item_admin_action, actionTitle)
         listViewAction.adapter = adapter

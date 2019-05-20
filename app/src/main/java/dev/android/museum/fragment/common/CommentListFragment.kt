@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
 import android.content.Context
 import android.os.Bundle
@@ -19,7 +19,7 @@ import dev.android.museum.App.Companion.sessionObject
 import dev.android.museum.adapter.CommentRecyclerViewAdapter
 import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.model.Comment
-import dev.android.museum.presenters.CommentPresenter
+import dev.android.museum.presenters.common.CommentPresenter
 
 
 class CommentListFragment : Fragment() {

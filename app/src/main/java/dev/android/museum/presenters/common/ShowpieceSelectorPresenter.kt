@@ -1,4 +1,4 @@
-package dev.android.museum.presenters.administrate
+package dev.android.museum.presenters.common
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -7,7 +7,6 @@ import dev.android.museum.App.Companion.museumApiService
 import dev.android.museum.App.Companion.sessionObject
 import dev.android.museum.fragment.administrate.ShowpieceSelectorFragment
 import dev.android.museum.model.ShowpieceLocaleData
-import dev.android.museum.model.util.ShowpieceLocaleDataObject
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

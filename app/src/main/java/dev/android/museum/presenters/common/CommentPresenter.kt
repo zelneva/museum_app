@@ -1,9 +1,9 @@
-package dev.android.museum.presenters
+package dev.android.museum.presenters.common
 
 import android.annotation.SuppressLint
 import dev.android.museum.App.Companion.museumApiService
 import dev.android.museum.App.Companion.sessionObject
-import dev.android.museum.fragment.CommentListFragment
+import dev.android.museum.fragment.common.CommentListFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

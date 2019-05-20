@@ -1,6 +1,4 @@
-@file:Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,10 +11,12 @@ import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.adapter.ShowpieceRecyclerViewAdapter
+import dev.android.museum.fragment.abstractFragment.IShowpieceListFragment
+import dev.android.museum.model.AuthorLocaleData
 import dev.android.museum.model.ShowpieceLocaleData
-import dev.android.museum.presenters.ShowpieceImageListPresent
+import dev.android.museum.presenters.common.ShowpieceListPresenter
 
-class ShowpieceImageListFragment : Fragment() {
+class ShowpieceImageListFragment : Fragment(), IShowpieceListFragment {
 
     companion object {
         val EXHIBITION_ID = "exhibitionId"
@@ -41,10 +41,10 @@ class ShowpieceImageListFragment : Fragment() {
     }
 
 
-    private lateinit var presenter: ShowpieceImageListPresent
+    private lateinit var presenter: ShowpieceListPresenter
     private lateinit var rv: RecyclerView
     private lateinit var adapter: ShowpieceRecyclerViewAdapter
-    lateinit var progressBar: ProgressBar
+    override lateinit var progressBar: ProgressBar
     private var exhibitionId: String? = null
     private var authorId: String? = null
 
@@ -66,11 +66,11 @@ class ShowpieceImageListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_showpiece_list, container, false)
         progressBar = view.findViewById(R.id.progress_bar)
         setupView(view)
-        presenter = ShowpieceImageListPresent(this)
+        presenter = ShowpieceListPresenter(this)
         if (exhibitionId != null) {
-            presenter.loadListShowpieceImage(exhibitionId!!)
+            presenter.loadShowpicesListByExhbition(exhibitionId!!)
         } else if (authorId != null) {
-            presenter.loadListShowpieceImageForAuthor(authorId!!)
+            presenter.loadListShowpieceByAuthor(authorId!!)
         }
 
         return view
@@ -84,11 +84,15 @@ class ShowpieceImageListFragment : Fragment() {
     }
 
 
-    fun displayListShowpiece(showpieceResponse: ArrayList<ShowpieceLocaleData>?) {
-        if (showpieceResponse != null) {
-            adapter = ShowpieceRecyclerViewAdapter(showpieceResponse, this.context!!)
+    override fun displayList(list: ArrayList<ShowpieceLocaleData>) {
+        if (list.size != 0) {
+            adapter = ShowpieceRecyclerViewAdapter(list, this.context!!)
             rv.adapter = adapter
         }
         adapter.notifyDataSetChanged()
+    }
+
+
+    override fun loadAuthor(list: ArrayList<AuthorLocaleData>) {
     }
 }

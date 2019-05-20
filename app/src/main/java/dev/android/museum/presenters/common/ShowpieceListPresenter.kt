@@ -1,12 +1,11 @@
-package dev.android.museum.presenters.administrate
+package dev.android.museum.presenters.common
 
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import dev.android.museum.App
 import dev.android.museum.App.Companion.museumApiService
-import dev.android.museum.App.Companion.sessionObject
-import dev.android.museum.fragment.administrate.ShowpieceListAdminFragment
+import dev.android.museum.fragment.abstractFragment.IShowpieceListFragment
 import dev.android.museum.model.AuthorLocaleData
 import dev.android.museum.model.ShowpieceLocaleData
 import io.reactivex.Observable
@@ -15,9 +14,36 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.MultipartBody
 
 @SuppressLint("CheckResult")
-class ShowpieceAdminListPresenter(val fragment: ShowpieceListAdminFragment) {
+class ShowpieceListPresenter(val fragment: IShowpieceListFragment) {
 
-    fun loadListShowpieceByExhibition(exhibitionId: String) {
+    fun loadListShowpiece(){
+        val showpieces = arrayListOf<ShowpieceLocaleData>()
+
+        museumApiService.getAllShowpiece()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap { showpieceList ->
+                    Observable.fromIterable(showpieceList) }
+                .flatMap { showpiece ->
+                    museumApiService.getLocaleDataShowpieceById(showpiece.id)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread()) }
+                .subscribe({ showpieceLocaleData ->
+                        showpieces.addAll(showpieceLocaleData.filter { it.language == "ru" })
+                        fragment.progressBar.visibility = View.VISIBLE
+                        fragment.displayList(showpieces) },
+                        { t: Throwable? ->
+                                Log.println(Log.ERROR, "LIST SHOW ERROR: ", t.toString())
+                                fragment.progressBar.visibility = View.GONE
+                        },
+                        { fragment.progressBar.visibility = View.GONE
+                        })
+
+    }
+
+
+    fun loadShowpicesListByExhbition(exhibitionId: String) {
+
         museumApiService.getListShowpieceByExhibitionId(exhibitionId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -29,11 +55,10 @@ class ShowpieceAdminListPresenter(val fragment: ShowpieceListAdminFragment) {
                 }
                 .subscribe({ showpieceLocaleData ->
                     fragment.progressBar.visibility = View.VISIBLE
-                    fragment.displayListShowpiece(showpieceLocaleData.filter { it.language == "ru" }
-                            as ArrayList<ShowpieceLocaleData>)
+                    fragment.displayList(showpieceLocaleData.filter{ it.language == "ru" } as ArrayList<ShowpieceLocaleData>)
                 },
                         { t: Throwable? ->
-                            Log.println(Log.ERROR, "LIST SHOW ADMIN BY EXH:", t.toString())
+                            Log.println(Log.ERROR, "LIST SHOW IMAGE ERROR: ", t.toString())
                             fragment.progressBar.visibility = View.GONE
                         },
                         {
@@ -43,7 +68,7 @@ class ShowpieceAdminListPresenter(val fragment: ShowpieceListAdminFragment) {
     }
 
 
-    fun loadListShowpieceByAuthor(authorId: String) {
+    fun loadListShowpieceByAuthor(authorId: String){
         museumApiService.getListShowpieceByAuthorId(authorId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -55,46 +80,15 @@ class ShowpieceAdminListPresenter(val fragment: ShowpieceListAdminFragment) {
                 }
                 .subscribe({ showpieceLocaleData ->
                     fragment.progressBar.visibility = View.VISIBLE
-                    fragment.displayListShowpiece(showpieceLocaleData.filter { it.language == "ru" }
-                            as ArrayList<ShowpieceLocaleData>)
+                    fragment.displayList(showpieceLocaleData)
                 },
                         { t: Throwable? ->
-                            Log.println(Log.ERROR, "LIST SHOW ADM BY AUTHOR", t.toString())
+                            Log.println(Log.ERROR, "LIST SHOW IMAGE ERROR: ", t.toString())
                             fragment.progressBar.visibility = View.GONE
                         },
                         {
                             fragment.progressBar.visibility = View.GONE
                         })
-    }
-
-
-    fun loadListShowpiece() {
-        val showpieces = arrayListOf<ShowpieceLocaleData>()
-
-        museumApiService.getAllShowpiece()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap { showpieceList ->
-                    Observable.fromIterable(showpieceList)
-                }
-                .flatMap { showpiece ->
-                    museumApiService.getLocaleDataShowpieceById(showpiece.id)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                }
-                .subscribe({ showpieceLocaleData ->
-                    showpieces.addAll(showpieceLocaleData.filter { it.language == "ru" })
-                    fragment.progressBar.visibility = View.VISIBLE
-                    fragment.displayListShowpiece(showpieces)
-                },
-                        { t: Throwable? ->
-                            Log.println(Log.ERROR, "LIST SHOW ERROR: ", t.toString())
-                            fragment.progressBar.visibility = View.GONE
-                        },
-                        {
-                            fragment.progressBar.visibility = View.GONE
-                        })
-
     }
 
 
@@ -125,13 +119,11 @@ class ShowpieceAdminListPresenter(val fragment: ShowpieceListAdminFragment) {
         return if (year.length <= 4) {
             museumApiService.createShowpiece(srcPhoto, year, authorName,
                     titleRus, descRus, titleEng, descEng,
-                    titleGer, descGer, sessionObject!!.sessionId)
+                    titleGer, descGer, App.sessionObject!!.sessionId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe()
             true
         } else false
     }
-
-
 }

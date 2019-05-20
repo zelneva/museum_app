@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import dev.android.museum.R
 import dev.android.museum.activity.MainActivity
-import dev.android.museum.fragment.ExhibitionListFragment
+import dev.android.museum.fragment.common.ExhibitionListFragment
 import dev.android.museum.model.Museum
 
 class MuseumRecyclerViewAdapter() : RecyclerView.Adapter<MuseumRecyclerViewAdapter.ViewHolder>() {

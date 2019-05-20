@@ -1,11 +1,10 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextClock
 import android.widget.TextView
 import dev.android.museum.R
 

@@ -14,19 +14,20 @@ import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.MuseumAdminRVAdapter
 import dev.android.museum.adapter.SampleRecycler
+import dev.android.museum.fragment.abstractFragment.IMuseumListFragment
 import dev.android.museum.model.Museum
-import dev.android.museum.presenters.administrate.MuseumAdminListPresenter
+import dev.android.museum.presenters.common.MuseumListPresenter
 
-class MuseumListAdminFragment : Fragment() {
+class MuseumListAdminFragment : Fragment(), IMuseumListFragment {
 
     companion object {
         fun newInstance(): MuseumListAdminFragment = MuseumListAdminFragment()
     }
 
-    private lateinit var presenter: MuseumAdminListPresenter
+    private lateinit var presenter: MuseumListPresenter
     private lateinit var rv: RecyclerView
     private lateinit var adapter: MuseumAdminRVAdapter
-    lateinit var progressBar: ProgressBar
+    override lateinit var progressBar: ProgressBar
     private lateinit var fab: FloatingActionButton
 
 
@@ -36,23 +37,18 @@ class MuseumListAdminFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_admin_museum_list, container, false)
         progressBar = view.findViewById(R.id.progress_bar)
         setupView(view)
-        presenter = MuseumAdminListPresenter(this)
+        presenter = MuseumListPresenter(this)
         presenter.loadMuseumList()
         return view
     }
 
 
-    fun displayListMuseum(museumsResponce: ArrayList<Museum>?) {
-        if (museumsResponce != null) {
+    override fun displayList(museumsResponce: ArrayList<Museum>) {
+        if (museumsResponce.size != 0) {
             adapter = MuseumAdminRVAdapter(museumsResponce, this.context!!)
             rv.adapter = adapter
         }
         adapter.notifyDataSetChanged()
-    }
-
-
-    fun updateList(){
-        presenter.loadMuseumList()
     }
 
 

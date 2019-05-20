@@ -1,4 +1,4 @@
-package dev.android.museum.fragment
+package dev.android.museum.fragment.common
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,13 +11,15 @@ import android.widget.ProgressBar
 import dev.android.museum.R
 import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.adapter.ShowpieceRecyclerViewAdapter
+import dev.android.museum.fragment.abstractFragment.IShowpieceListFragment
+import dev.android.museum.model.AuthorLocaleData
 import dev.android.museum.model.ShowpieceLocaleData
-import dev.android.museum.presenters.ShowpieceListPresenter
+import dev.android.museum.presenters.common.ShowpieceListPresenter
 
 
-class ShowpieceListFragment : Fragment() {
+class ShowpieceListFragment : Fragment(), IShowpieceListFragment {
 
-    lateinit var progressBar: ProgressBar
+    override lateinit var progressBar: ProgressBar
     private lateinit var presenter: ShowpieceListPresenter
     private lateinit var rv: RecyclerView
     private lateinit var adapter: ShowpieceRecyclerViewAdapter
@@ -34,10 +36,12 @@ class ShowpieceListFragment : Fragment() {
     }
 
 
-    fun displayShowpieces(showpieceResponce: ArrayList<ShowpieceLocaleData>) {
-        adapter = ShowpieceRecyclerViewAdapter(showpieceResponce, this.context!!)
-        rv.adapter = adapter
-        adapter.notifyDataSetChanged()
+    override fun displayList(list: ArrayList<ShowpieceLocaleData>) {
+        if(list.size != 0) {
+            adapter = ShowpieceRecyclerViewAdapter(list, this.context!!)
+            rv.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
     }
 
 
@@ -48,6 +52,8 @@ class ShowpieceListFragment : Fragment() {
         rv.layoutManager = llm
     }
 
+    override fun loadAuthor(list: ArrayList<AuthorLocaleData>) {
+    }
 
     companion object {
         fun newInstance(): ShowpieceListFragment = ShowpieceListFragment()

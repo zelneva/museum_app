@@ -18,7 +18,7 @@ import dev.android.museum.R
 import dev.android.museum.adapter.SampleRecycler
 import dev.android.museum.adapter.selection.*
 import dev.android.museum.model.ShowpieceLocaleData
-import dev.android.museum.presenters.administrate.ShowpieceSelectorPresenter
+import dev.android.museum.presenters.common.ShowpieceSelectorPresenter
 
 
 class ShowpieceSelectorFragment() :  Fragment() {
