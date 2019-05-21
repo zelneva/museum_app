@@ -26,7 +26,6 @@ class LoginPresenter(var loginFragment: LoginFragment) {
                     loginFragment.authorize(true)
                 }, { t: Throwable? ->
                         loginFragment.authorize(false)
-                        Log.println(Log.ERROR, "LOGIN FRAGMENT AUT ER: ", t.toString())
                 })
 
     }
@@ -37,14 +36,10 @@ class LoginPresenter(var loginFragment: LoginFragment) {
         museumApiService.getUserInfo(sessionObject.userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ user ->
+                .subscribe { user ->
                     if (user.role == "admin") {
                         loginFragment.openAdminFragment()
                     } else loginFragment.openUserFragment()
-                }, { t: Throwable? ->
-                    run {
-                        Log.println(Log.ERROR, "LOGIN FRAGMENT ERRO: ", t.toString())
-                    }
-                })
+                }
     }
 }

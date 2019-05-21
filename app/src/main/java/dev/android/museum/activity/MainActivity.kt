@@ -50,19 +50,14 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
             }
 
             R.id.navigation_user -> {
-                if (sessionObject == null
-                        || sessionObject?.sessionId == null
-                        || sessionObject?.userId == null) {
-                    Log.d("!!LOGIN!!", sessionObject?.sessionId.toString())
+                if (sessionObject == null) {
                     openFragment(LoginFragment.newInstance())
                 } else {
                     presenter.isAdmin(sessionObject!!)
-                    Log.d("!!!ADMIN!", sessionObject?.sessionId.toString())
                 }
                 return@OnNavigationItemSelectedListener true
             }
         }
-
         false
     }
 

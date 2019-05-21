@@ -19,7 +19,7 @@ class UserPresenter(var userFragment: UserFragment) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     delete(sessionObject!!, userFragment.context!!)
-                    deleteAllSession(userFragment.context!!)
+                    sessionObject = null
                     userFragment.exitFromAccount()
                 }, { t: Throwable? ->
                     run {

@@ -1,6 +1,7 @@
 package dev.android.museum.db
 
 import android.content.Context
+import android.util.Log
 import dev.android.museum.database
 import dev.android.museum.model.util.SessionObject
 import org.jetbrains.anko.db.*
@@ -37,20 +38,12 @@ class UserRepository(val context: Context) {
     }
 
 
-    fun update(sessionObject: SessionObject) = context.database.use {
-        update(USER_TABLE_NAME,
-                "user_id" to sessionObject.userId,
-                "session_id" to sessionObject.sessionId)
-                .exec()
-    }
-
-
-    fun delete(sessionObject: SessionObject) = context.database.use {
+    fun deleteSession(sessionObject: SessionObject) = context.database.use {
         delete(USER_TABLE_NAME, "session_id = {session_id}", "session_id" to sessionObject.sessionId)
     }
 
-    fun deleteAll() = context.database.use {
+
+    fun deleteAllSessions() = context.database.use {
         delete(USER_TABLE_NAME)
     }
-
 }
