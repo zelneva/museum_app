@@ -30,8 +30,7 @@ class AuthorListPresenter(val fragment: IAuthorListFragment) {
                 .subscribe({ authorLocaleData ->
                         authors.addAll(authorLocaleData.filter { it.language == "ru" })
                         fragment.progressBar.visibility = View.VISIBLE
-                        fragment.displayList(authors)
-                },
+                        fragment.displayList(authors) },
                         { t: Throwable? ->
                                 Log.println(Log.ERROR, "LIST AUTHOR ERROR: ", t.toString())
                                 fragment.progressBar.visibility = View.GONE

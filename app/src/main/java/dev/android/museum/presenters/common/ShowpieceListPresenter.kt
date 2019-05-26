@@ -11,7 +11,9 @@ import dev.android.museum.model.ShowpieceLocaleData
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 @SuppressLint("CheckResult")
 class ShowpieceListPresenter(val fragment: IShowpieceListFragment) {
@@ -80,15 +82,13 @@ class ShowpieceListPresenter(val fragment: IShowpieceListFragment) {
                 }
                 .subscribe({ showpieceLocaleData ->
                     fragment.progressBar.visibility = View.VISIBLE
-                    fragment.displayList(showpieceLocaleData)
+                    fragment.displayList(showpieceLocaleData.filter{ it.language == "ru" } as ArrayList<ShowpieceLocaleData>)
                 },
                         { t: Throwable? ->
                             Log.println(Log.ERROR, "LIST SHOW IMAGE ERROR: ", t.toString())
                             fragment.progressBar.visibility = View.GONE
                         },
-                        {
-                            fragment.progressBar.visibility = View.GONE
-                        })
+                        { fragment.progressBar.visibility = View.GONE })
     }
 
 
@@ -117,9 +117,16 @@ class ShowpieceListPresenter(val fragment: IShowpieceListFragment) {
                         titleEng: String, descEng: String,
                         titleGer: String, descGer: String): Boolean {
         return if (year.length <= 4) {
-            museumApiService.createShowpiece(srcPhoto, year, authorName,
-                    titleRus, descRus, titleEng, descEng,
-                    titleGer, descGer, App.sessionObject!!.sessionId)
+            val y = RequestBody.create(MediaType.parse("text/plain"), year)
+            val a = RequestBody.create(MediaType.parse("text/plain"), authorName)
+            val tr = RequestBody.create(MediaType.parse("text/plain"), titleRus)
+            val dr = RequestBody.create(MediaType.parse("text/plain"), descRus)
+            val te = RequestBody.create(MediaType.parse("text/plain"), titleEng)
+            val de = RequestBody.create(MediaType.parse("text/plain"), descEng)
+            val tg = RequestBody.create(MediaType.parse("text/plain"), titleGer)
+            val dg = RequestBody.create(MediaType.parse("text/plain"), descGer)
+            val s = RequestBody.create(MediaType.parse("text/plain"), App.sessionObject!!.sessionId)
+            museumApiService.createShowpiece(srcPhoto,y,a,tr,dr,te,de, tg,dg,s)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe()

@@ -78,7 +78,7 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/line"
@@ -141,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="5dp"
                         android:paddingTop="10dp"
-                        android:text="Леонардо Да Винчи"
+                        android:text="Иван Иванов"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 
@@ -239,35 +239,23 @@
             <TableRow
                 android:id="@+id/see_comment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
+                android:layout_height="match_parent"
                 android:background="?android:colorBackground"
                 android:baselineAligned="false">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingEnd="8dp">
-
-                    <TextView
+                    <android.support.design.button.MaterialButton
                         android:id="@+id/see_comment_text"
-                        android:layout_width="200dp"
-                        android:layout_height="40dp"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/see_comment_ru"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="right"
-                        android:gravity="right|center"
-                        android:text="@string/show"
-                        android:textColor="@color/black" />
-                </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_comment_ru"
+                        android:textColor="@drawable/button_text_color"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless"
+                        app:backgroundTint="#00000000"
+                        app:cornerRadius="18dp"
+                        app:rippleColor="@color/colorAccent"
+                        app:strokeColor="@color/darkGrey"
+                        app:strokeWidth="1dp"/>
+
             </TableRow>
 
         </TableLayout>

@@ -51,8 +51,8 @@ class AuthorDetailAdminFragment : Fragment(), IAuthorDetailFragment {
     private lateinit var btnMore: TextView
     private lateinit var btnLess: TextView
     private lateinit var photo: ImageView
-    private lateinit var edit: TextView
-    private lateinit var delete: TextView
+    private lateinit var edit: MaterialButton
+    private lateinit var delete: MaterialButton
 
     private var titleRus = ""
     private var titleEng = ""

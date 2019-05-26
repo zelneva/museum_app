@@ -8,12 +8,18 @@
     android:paddingStart="20dp"
     android:paddingEnd="20dp">
     
-    <Button
+    <android.support.design.button.MaterialButton
         android:id="@+id/load_image_showpiece"
         android:layout_width="match_parent"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        app:backgroundTint="#00000000"
         android:layout_height="50dp"
-        android:text="Загрузить фото экспоната"
-        android:layout_marginTop="30dp"/>
+        android:text="Загрузить фото"
+        android:layout_marginTop="30dp"
+        app:cornerRadius="18dp"
+        app:rippleColor="@color/colorAccent"
+        app:strokeColor="@color/darkGrey"
+        app:strokeWidth="1dp"/>
 
 
     <android.support.design.widget.TextInputLayout

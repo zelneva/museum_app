@@ -2,6 +2,7 @@ package dev.android.museum.fragment.common
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.button.MaterialButton
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +39,7 @@ class AuthorDetailFragment : Fragment(), IAuthorDetailFragment {
     private lateinit var btnGerman: Button
     private lateinit var description: TextView
     private lateinit var titleDescription: TextView
-    private lateinit var titleShowShowpieces: TextView
+    private lateinit var titleShowShowpieces: MaterialButton
     private lateinit var name: TextView
     private lateinit var year: TextView
     private lateinit var showShowpiece: TableRow
@@ -96,7 +97,7 @@ class AuthorDetailFragment : Fragment(), IAuthorDetailFragment {
         btnRussian.setOnClickListener(clickListenerLanguage)
         btnEnglish.setOnClickListener(clickListenerLanguage)
         btnGerman.setOnClickListener(clickListenerLanguage)
-        showShowpiece.setOnClickListener(clickShowShowpiece)
+        titleShowShowpieces.setOnClickListener(clickShowShowpiece)
     }
 
 

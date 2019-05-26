@@ -11,6 +11,9 @@ import dev.android.museum.fragment.account.*
 import dev.android.museum.fragment.administrate.*
 import dev.android.museum.fragment.common.*
 import dev.android.museum.presenters.common.MainPresenter
+import android.content.Intent
+import android.support.design.widget.TextInputLayout
+import android.support.v7.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener, SignUpFragment.OnFragmentInteractionListener,
@@ -44,10 +47,10 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
                 return@OnNavigationItemSelectedListener true
             }
 
-            R.id.navigation_camera -> {
-                openFragment(NullFragment.newInstance("Здесь будет камера"))
-                return@OnNavigationItemSelectedListener true
-            }
+//            R.id.navigation_camera -> {
+//                openFragment(NullFragment.newInstance("Здесь будет камера"))
+//                return@OnNavigationItemSelectedListener true
+//            }
 
             R.id.navigation_user -> {
                 if (sessionObject == null) {
@@ -152,4 +155,22 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
         openFragment(ShowpieceListAdminFragment.newInstance())
     }
 
+    override fun openNFCActivity() {
+        val builder = AlertDialog.Builder(this)
+        val nfcView = this!!.layoutInflater.inflate(R.layout.dialog_nfc, null)
+        val input = nfcView!!.findViewById<TextInputLayout>(R.id.showpiece_id_input)
+        builder.setView(nfcView)
+        builder.setTitle("Запись на метку")
+                .setCancelable(false)
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Ok", null)
+        val showpieceAlert = builder.create()
+        showpieceAlert.show()
+        showpieceAlert.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
+            if(!input!!.editText!!.text.toString().isEmpty()) {
+                NFCActivity.str = (input.editText!!.text.toString())
+                showpieceAlert.cancel()
+            }
+        }
+    }
 }

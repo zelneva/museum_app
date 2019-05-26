@@ -9,6 +9,7 @@ import android.view.*
 import android.widget.TextView
 import de.hdodenhof.circleimageview.CircleImageView
 import dev.android.museum.R
+import dev.android.museum.model.Favorite
 import dev.android.museum.model.User
 import dev.android.museum.presenters.account.UserPresenter
 
@@ -62,6 +63,11 @@ class UserFragment : Fragment() {
     fun displayUserInfo(userResponse: User){
         name.text = userResponse.name
         //добавить загрузку фото
+    }
+
+
+    fun displayFavorite(listFavorite: List<Favorite>){
+
     }
 
 

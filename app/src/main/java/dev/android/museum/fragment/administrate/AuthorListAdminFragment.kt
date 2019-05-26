@@ -70,7 +70,7 @@ class AuthorListAdminFragment : Fragment(), IAuthorListFragment {
         fab = view.findViewById(R.id.fab)
         fab.setOnClickListener(createNewAuthor)
 
-        rv = view.findViewById(R.id.showpiece_admin_list)
+        rv = view.findViewById(R.id.author_admin_list)
         rv.adapter = SampleRecycler()
         rv.layoutManager = GridLayoutManager(this.context, 2)
     }

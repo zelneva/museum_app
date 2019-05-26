@@ -3,6 +3,7 @@ package dev.android.museum.fragment.administrate
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.support.design.button.MaterialButton
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -36,9 +37,9 @@ class MuseumDetailAdminFragment: Fragment() {
     private lateinit var image: ImageView
     private lateinit var title: TextView
     private lateinit var address: TextView
-    private lateinit var exhibitions: TextView
-    private lateinit var edit: TextView
-    private lateinit var delete: TextView
+    private lateinit var exhibitions: MaterialButton
+    private lateinit var edit: MaterialButton
+    private lateinit var delete: MaterialButton
 
 
 

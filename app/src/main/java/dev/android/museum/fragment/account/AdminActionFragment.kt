@@ -1,17 +1,18 @@
 package dev.android.museum.fragment.account
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.support.design.button.MaterialButton
+import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.Toast
 
 import dev.android.museum.R
+import dev.android.museum.activity.NFCActivity
 
 class AdminActionFragment : Fragment() {
 
@@ -19,8 +20,10 @@ class AdminActionFragment : Fragment() {
         fun newInstance() = AdminActionFragment()
     }
 
-    private lateinit var listViewAction: ListView
-
+    private lateinit var adminMuseum: MaterialButton
+    private lateinit var adminShowpiece: MaterialButton
+    private lateinit var adminAuthor: MaterialButton
+    private lateinit var adminNFC: MaterialButton
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -33,18 +36,36 @@ class AdminActionFragment : Fragment() {
     }
 
     private fun init(view: View) {
-        listViewAction = view.findViewById<ListView>(R.id.list_view_admin)
-        val actionTitle = resources.getStringArray(R.array.admin_action_title)
-        val adapter = ArrayAdapter<String>(context, R.layout.list_item_admin_action, actionTitle)
-        listViewAction.adapter = adapter
+        adminMuseum = view.findViewById(R.id.admin_museum)
+        adminShowpiece = view.findViewById(R.id.admin_showpiece)
+        adminAuthor = view.findViewById(R.id.admin_author)
+        adminNFC = view.findViewById(R.id.admin_nfc)
 
-        listViewAction.setOnItemClickListener { parent, view, position, id ->
-            when(position){
-                0 -> listener!!.openMuseumAdminListFragment()
-                1 -> listener!!.openShowpiecesListAdminFragment()
-                2 -> listener!!.openAuthorListAdminFragment()
-            }
-        }
+        adminMuseum.setOnClickListener { listener!!.openMuseumAdminListFragment() }
+        adminShowpiece.setOnClickListener { listener!!.openShowpiecesListAdminFragment() }
+        adminAuthor.setOnClickListener { listener!!.openAuthorListAdminFragment() }
+        adminNFC.setOnClickListener { listener!!.openNFCActivity() }
+    }
+
+    private val writeNfc = View.OnClickListener {
+        Toast.makeText(this.context, "!!!!!", Toast.LENGTH_SHORT).show()
+//        val builder = AlertDialog.Builder(activity)
+//        val nfcView = activity!!.layoutInflater.inflate(R.layout.dialog_nfc, null)
+//        val input = nfcView!!.findViewById<TextInputLayout>(R.id.showpiece_id_input)
+//        builder.setView(nfcView)
+//        builder.setTitle("Запись на метку")
+//                .setCancelable(false)
+//                .setNegativeButton("Cancel", null)
+//                .setPositiveButton("Ok", null)
+//        val showpieceAlert = builder.create()
+//        showpieceAlert.show()
+//        showpieceAlert.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
+//            if(input!!.editText!!.text.toString().isEmpty()) {
+//                NFCActivity.str = (input.editText!!.text.toString())
+//                showpieceAlert.cancel()
+//            }
+//        }
+
     }
 
 
@@ -67,6 +88,7 @@ class AdminActionFragment : Fragment() {
         fun openMuseumAdminListFragment()
         fun openShowpiecesListAdminFragment()
         fun openAuthorListAdminFragment()
+        fun openNFCActivity()
     }
 
 }

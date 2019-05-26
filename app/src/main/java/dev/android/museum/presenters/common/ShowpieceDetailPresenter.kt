@@ -22,7 +22,10 @@ class ShowpieceDetailPresenter(val fragment: IShowpieceDetailFragment) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { Observable.fromIterable(it) }
                 .filter { it.language == lang }
-                .subscribe { fragment.displayDetailInfo(it) }
+                .subscribe {
+                    checkFavorite(showpieceId)
+                    fragment.displayDetailInfo(it)
+                }
     }
 
 
@@ -37,11 +40,43 @@ class ShowpieceDetailPresenter(val fragment: IShowpieceDetailFragment) {
     }
 
 
+    fun findDuplicate(showpieceId: String): Boolean {
+        if (sessionObject != null) {
+
+            museumApiService.getFavorite(sessionObject?.sessionId!!)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (it.isEmpty()) {
+                            addFavorite(showpieceId)
+                        }
+                    }
+
+            museumApiService.getFavorite(sessionObject?.sessionId!!)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .flatMap { g -> Observable.fromIterable(g) }
+                    .subscribe {
+                        if (it.showpiece.id != showpieceId) {
+                            addFavorite(showpieceId)
+                        }
+                    }
+            return true
+        }
+        else {
+            fragment.alertNullUser()
+            return false
+        }
+    }
+
+
     fun addFavorite(showpieceId: String): Boolean {
         if (sessionObject != null) {
+
             museumApiService.createFavorite(showpieceId, sessionObject?.sessionId!!)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { fragment.isCheckFavorite(it.id.toString()) }
             return true
         } else {
             fragment.alertNullUser()
@@ -50,15 +85,14 @@ class ShowpieceDetailPresenter(val fragment: IShowpieceDetailFragment) {
     }
 
 
-    fun deleteFavorite(showpieceId: String) {
+    fun deleteFavorite(id: String) {
         if (sessionObject?.sessionId != null) {
-            museumApiService.deleteFavorite(showpieceId, sessionObject?.sessionId!!)
+            museumApiService.deleteFavorite(id, sessionObject?.sessionId!!)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
         }
-
     }
-
 
 
     @SuppressLint("SimpleDateFormat")
@@ -102,6 +136,26 @@ class ShowpieceDetailPresenter(val fragment: IShowpieceDetailFragment) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         return true
+    }
+
+
+    fun checkFavorite(showpieceId: String) {
+        if (sessionObject != null) {
+            museumApiService.getFavorite(sessionObject?.sessionId!!)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .flatMap { Observable.fromIterable(it) }
+                    .subscribe {
+                        if (it.showpiece.id == showpieceId) {
+                            fragment.isCheckFavorite(it.id.toString())
+                        }
+                    }
+        }
+    }
+
+
+    fun deleteShowpiece(showpieceId: String){
+        //СДЕЛАТЬ!!!
     }
 
 }

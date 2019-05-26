@@ -48,13 +48,11 @@
     <string name="museum_delete">Удалить музей</string>
     <string name="show_exhibitions">Посмотреть выставки</string>
 
-    <string-array name="admin_action_title">
-        <item>Управление музеями</item>
-        <item>Управление экспонатами</item>
-        <item>Управление авторами</item>
-    </string-array>
-
     <string name="action_mode_clear">Clear</string>
     <string name="action_mode_select">Select</string>
+    <string name="admin_museum">Управление музеями</string>
+    <string name="admin_showpieces">Управление экспонатами</string>
+    <string name="admin_authors">Управление авторами</string>
+    <string name="title_activity_nfc">NFCActivity</string>
 
 </resources>

@@ -30,7 +30,7 @@ class AuthorRVAdapter() : RecyclerView.Adapter<AuthorRVAdapter.ViewHolder>() {
 
 
     override fun getItemCount(): Int {
-        return if (authors.isEmpty()) 1 else authors.size
+         return authors.size
     }
 
 

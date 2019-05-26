@@ -50,13 +50,13 @@ class ShowpieceDetailAdminFragment : Fragment(), IShowpieceDetailFragment {
     private lateinit var title: TextView
     private lateinit var authorName: TextView
     private lateinit var yearCreate: TextView
-    private lateinit var seeCommentText: TextView
+    private lateinit var seeCommentText: MaterialButton
     private lateinit var seeComment: TableRow
     private lateinit var seeAuthor: TableRow
     private lateinit var seeMore: TextView
     private lateinit var seeLess: TextView
-    private lateinit var edit: TextView
-    private lateinit var delete: TextView
+    private lateinit var edit: MaterialButton
+    private lateinit var delete: MaterialButton
 
     lateinit var presenter: ShowpieceDetailPresenter
 
@@ -196,13 +196,19 @@ class ShowpieceDetailAdminFragment : Fragment(), IShowpieceDetailFragment {
 
     private val deleteShowpiece = View.OnClickListener {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Вы уверены, что хотите удалить экспонат из выставки?")
-                .setPositiveButton("OK") { dialog, _ ->
-                    dialog!!.cancel()
-                    presenter.deleteShowpieceFromExhibition(showpieceLD)
-                }
-        val alert = builder.create()
-        alert.show()
+        if(showpieceLD.showpiece.exhibition != null){
+            builder.setTitle("Вы уверены, что хотите удалить экспонат из выставки?")
+                    .setPositiveButton("OK") { dialog, _ ->
+                        dialog!!.cancel()
+                        presenter.deleteShowpieceFromExhibition(showpieceLD)
+                    }
+            val alert = builder.create()
+            alert.show()
+        }
+//        else{
+//            presenter
+//        }
+
     }
 
 
@@ -381,5 +387,9 @@ class ShowpieceDetailAdminFragment : Fragment(), IShowpieceDetailFragment {
     }
 
     override fun alertNullUser() {
+    }
+
+    override fun isCheckFavorite(id: String) {
+
     }
 }

@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_museum"
         android:title="Главная"/>
 
-    <item
-        android:id="@+id/navigation_camera"
-        android:icon="@drawable/ic_camera"
-        android:title="Найти"/>
+    <!--<item-->
+        <!--android:id="@+id/navigation_camera"-->
+        <!--android:icon="@drawable/ic_camera"-->
+        <!--android:title="Найти"/>-->
 
     <item
         android:id="@+id/navigation_user"

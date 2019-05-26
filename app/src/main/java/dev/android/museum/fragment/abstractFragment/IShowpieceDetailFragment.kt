@@ -10,5 +10,6 @@ interface IShowpieceDetailFragment {
     fun alertNullUser()
     fun loadAuthor(list: ArrayList<AuthorLocaleData>)
     fun openShowpieceList(exhbitionId: String)
+    fun isCheckFavorite(id: String)
 
 }

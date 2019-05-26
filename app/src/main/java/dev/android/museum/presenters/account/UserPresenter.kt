@@ -60,10 +60,12 @@ class UserPresenter(var userFragment: UserFragment) {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        museumApiService.updateUser(sessionObject?.userId!!, it.name, it.username, newPassword, sessionObject?.sessionId!!)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe()
+                        if(sessionObject != null) {
+                            museumApiService.updateUser(sessionObject?.userId!!, it.name, it.username, newPassword, sessionObject?.sessionId!!)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe()
+                        }
                     }, { t: Throwable? ->
                         run {
                             Log.println(Log.ERROR, "USER FRAGMENT PASSWORD:", t.toString())
@@ -80,10 +82,12 @@ class UserPresenter(var userFragment: UserFragment) {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        museumApiService.updateUser(sessionObject?.userId!!, newName, it.username, it.password, sessionObject?.sessionId!!)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe()
+                        if(sessionObject != null) {
+                            museumApiService.updateUser(sessionObject?.userId!!, newName, it.username, it.password, sessionObject?.sessionId!!)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe{userFragment.displayUserInfo(it)}
+                        }
                     }, { t: Throwable? ->
                         run {
                             Log.println(Log.ERROR, "USER FRAGMENT NEW NAME:", t.toString())

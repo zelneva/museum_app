@@ -2,6 +2,7 @@ package dev.android.museum.fragment.common
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.button.MaterialButton
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +43,7 @@ class ShowpieceDetailFragment : Fragment(), IShowpieceDetailFragment {
     private lateinit var authorName: TextView
     private lateinit var yearCreate: TextView
     private lateinit var btnFavorite: ToggleButton
-    private lateinit var seeCommentText: TextView
+    private lateinit var seeCommentText: MaterialButton
     private lateinit var seeComment: TableRow
     private lateinit var seeAuthor: TableRow
     private lateinit var seeMore: TextView
@@ -52,6 +53,7 @@ class ShowpieceDetailFragment : Fragment(), IShowpieceDetailFragment {
 
     private lateinit var authorId: String
     private lateinit var showpieceId: String
+    private lateinit var favoriteId: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +70,7 @@ class ShowpieceDetailFragment : Fragment(), IShowpieceDetailFragment {
         init(view)
         presenter = ShowpieceDetailPresenter(this)
         presenter.loadInfoShowpieceDetail(showpieceId)
+//        presenter.checkFavorite(showpieceId)
         return view
     }
 
@@ -101,7 +104,7 @@ class ShowpieceDetailFragment : Fragment(), IShowpieceDetailFragment {
             description.maxLines = 5
         }
 
-        seeComment.setOnClickListener(clickListenerComment)
+        seeCommentText.setOnClickListener(clickListenerComment)
         seeAuthor.setOnClickListener(clickListenerAuthor)
         btnFavorite.setOnCheckedChangeListener(changeListener)
         btnRussian.setOnClickListener(clickListenerLanguage)
@@ -111,14 +114,14 @@ class ShowpieceDetailFragment : Fragment(), IShowpieceDetailFragment {
 
     private val changeListener = CompoundButton.OnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
         if (isChecked) {
-            if (presenter.addFavorite(showpieceId)) {
+            if (presenter.findDuplicate(showpieceId)) {
                 compoundButton.startAnimation(animate())
             } else {
                 compoundButton.startAnimation(animate())
                 compoundButton.isChecked = false
             }
         } else {
-            presenter.deleteFavorite(showpieceId)
+            presenter.deleteFavorite(favoriteId)
         }
     }
 
@@ -214,4 +217,9 @@ class ShowpieceDetailFragment : Fragment(), IShowpieceDetailFragment {
     override fun loadAuthor(list: ArrayList<AuthorLocaleData>) {}
 
     override fun openShowpieceList(exhbitionId: String) {}
+
+    override fun isCheckFavorite(id: String) {
+        btnFavorite.isChecked = true
+        favoriteId = id
+    }
 }

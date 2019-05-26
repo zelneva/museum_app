@@ -10,6 +10,7 @@ class RetrofitClient {
 
     val baseURL = "http://192.168.88.235:8080/api/"
 //val baseURL = "http://10.0.2.15:8080/api/"
+//val baseURL = "http://192.168.43.192:8080/api/"
 
     fun getClient(): MuseumApiService {
         return provideMuseumApi()

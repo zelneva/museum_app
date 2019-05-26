@@ -87,7 +87,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
+
                 android:background="?android:colorBackground"
                 android:paddingTop="10dp">
 
@@ -95,7 +95,6 @@
                     android:id="@+id/author_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
                     android:text="Винсент Ван Гог"
                     android:textColor="@color/black"
                     android:textSize="20sp"
@@ -113,8 +112,8 @@
                     android:id="@+id/author_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="10dp"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="5dp"
                     android:text="1853 - 1890"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -186,35 +185,42 @@
 
             <TableRow
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
                 android:background="?android:colorBackground"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:paddingTop="10dp">
 
-                <TextView
+                <android.support.design.button.MaterialButton
                     android:id="@+id/edit_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="10dp"
-                    android:text="Редактировать информацию об авторе"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:text="Редактировать информацию"
+                    android:textColor="@drawable/button_text_color"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    app:backgroundTint="#00000000"
+                    app:cornerRadius="18dp"
+                    app:rippleColor="@color/colorAccent"
+                    app:strokeColor="@color/darkGrey"
+                    app:strokeWidth="1dp"/>
             </TableRow>
+
             <TableRow
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:background="?android:colorBackground"
-                android:baselineAligned="false">
+                android:background="@color/white">
 
-                <TextView
+                <android.support.design.button.MaterialButton
                     android:id="@+id/delete_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:paddingTop="10dp"
                     android:text="Удалить автора"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textColor="@drawable/button_text_color"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    app:backgroundTint="#00000000"
+                    app:cornerRadius="18dp"
+                    app:rippleColor="@color/colorAccent"
+                    app:strokeColor="@color/darkGrey"
+                    app:strokeWidth="1dp"/>
             </TableRow>
         </TableLayout>
     </LinearLayout>

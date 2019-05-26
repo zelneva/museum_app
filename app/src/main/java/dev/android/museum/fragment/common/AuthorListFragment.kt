@@ -38,12 +38,12 @@ class AuthorListFragment : Fragment(), IAuthorListFragment {
         return view
     }
 
-    override fun displayList(authorsResponce: ArrayList<AuthorLocaleData>) {
-        if (authorsResponce.size != 0) {
-            adapter = AuthorRecyclerViewAdapter(authorsResponce, this.context!!)
+    override fun displayList(list: ArrayList<AuthorLocaleData>) {
+        if (list.size != 0) {
+            adapter = AuthorRecyclerViewAdapter(list, this.context!!)
             rv.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
-        adapter.notifyDataSetChanged()
     }
 
 

@@ -5,6 +5,7 @@ import dev.android.museum.model.util.LoginObject
 import dev.android.museum.model.util.SessionObject
 import io.reactivex.Observable
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 import java.util.*
 
@@ -98,24 +99,23 @@ interface MuseumApiService {
 
     @Multipart
     @POST("showpiece")
-    @FormUrlEncoded
-    fun createShowpiece(@Part("srcPhoto") image: MultipartBody.Part,
-                        @Field("year") year: String,
-                        @Field("authorName") authorId: String,
-                        @Field("titleRus") titleRus: String,
-                        @Field("descriptionRus") descRus: String,
-                        @Field("titleEng") titleEng: String,
-                        @Field("descriptionEng") descEng: String,
-                        @Field("titleGer") titleGer: String,
-                        @Field("descriptionGer") descriptionGer: String,
-                        @Field("session") sessionId: String
+    fun createShowpiece(@Part srcPhoto: MultipartBody.Part,
+                        @Part("year") year: RequestBody,
+                        @Part("authorName") authorId: RequestBody,
+                        @Part("titleRus") titleRus: RequestBody,
+                        @Part("descriptionRus") descRus: RequestBody,
+                        @Part("titleEng") titleEng: RequestBody,
+                        @Part("descriptionEng") descEng: RequestBody,
+                        @Part("titleGer") titleGer: RequestBody,
+                        @Part("descriptionGer") descriptionGer: RequestBody,
+                        @Part("session") sessionId: RequestBody
     ): Observable<Unit>
 
 
     @FormUrlEncoded
     @PUT("showpiece/{id}")
     fun updateShowpiece(@Path("id") id: String,
-                        @Part("srcPhoto") image: MultipartBody.Part?,
+                        @Part("srcPhoto") image: MultipartBody.Part,
                         @Field("year") year: String,
                         @Field("authorName") authorId: String,
                         @Field("titleRus") titleRus: String,
@@ -246,7 +246,7 @@ interface MuseumApiService {
                    @Field("name") name: String,
                    @Field("username") username: String,
                    @Field("password") password: String,
-                   @Field("sessionId") sessionId: String): Observable<User>
+                   @Field("session") sessionId: String): Observable<User>
 
 
     @GET("user/{id}")
@@ -260,7 +260,7 @@ interface MuseumApiService {
     @FormUrlEncoded
     @POST("favorite")
     fun createFavorite(@Field("showpiece") showpieceId: String,
-                       @Field("session") sessionId: String): Observable<Unit>
+                       @Field("session") sessionId: String): Observable<Favorite>
 
 
     @DELETE("favorite/{id}")
@@ -268,8 +268,9 @@ interface MuseumApiService {
                        @Query("session") sessionId: String): Observable<Unit>
 
 
+
     @GET("favorite")
-    fun getFavorite(@Field("session") sessionId: String): Observable<List<Favorite>>
+    fun getFavorite(@Query("session") sessionId: String): Observable<List<Favorite>>
 
     /*
      * Comment

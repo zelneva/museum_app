@@ -142,8 +142,6 @@ class ShowpieceListAdminFragment : Fragment(), IShowpieceListFragment {
     private val doSomethingShowpiece = View.OnClickListener {
         if (exhibitionId != null) {
             addShowpieceToExhibition()
-        } else if (authorId != null) {
-// !!!!!
         } else {
             createShowpiece()
         }
@@ -154,7 +152,7 @@ class ShowpieceListAdminFragment : Fragment(), IShowpieceListFragment {
 
         val builder = AlertDialog.Builder(activity)
         val showpieceView = activity!!.layoutInflater.inflate(R.layout.dialog_showpiece, null)
-        val button = showpieceView.findViewById<Button>(R.id.load_image_showpiece)
+        val button = showpieceView.findViewById<MaterialButton>(R.id.load_image_showpiece)
         val yearInput = showpieceView.findViewById<TextInputLayout>(R.id.year_showpiece)
         val yearText = showpieceView.findViewById<EditText>(R.id.year_dialog)
         val authorSpinner = showpieceView.findViewById<Spinner>(R.id.spinner_showpiece)
@@ -260,8 +258,9 @@ class ShowpieceListAdminFragment : Fragment(), IShowpieceListFragment {
             val columnIndex = cursor.getColumnIndex(filePathColumn[0])
             val picturePath = cursor.getString(columnIndex)
             file = File(picturePath)
-            requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            body = MultipartBody.Part.createFormData("image", file?.name, requestFile);
+//            requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+//            body = MultipartBody.Part.createFormData("image", file?.name, requestFile)
+            body = MultipartBody.Part.createFormData("file", file?.getName(), RequestBody.create(MediaType.parse("image/*"), file))
             Toast.makeText(context, picturePath, Toast.LENGTH_SHORT).show()
             cursor.close()
 
